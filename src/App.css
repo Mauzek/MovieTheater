@@ -1,0 +1,36 @@
+#app {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+  text-align: center;
+  width: 100%;
+}
+
+.backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url(/**путь к изображению */);
+  background-size:cover;
+  background-position:center; 
+  filter: blur(4px); 
+  z-index: -2; 
+}
+
+.gradient {
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: -50px; 
+  background: linear-gradient(
+    to bottom,
+    rgba(25, 27, 34, 0.6) 0%,
+    rgba(25, 27, 34, 1) 95% /* Продление градиента */
+  );
+}
+

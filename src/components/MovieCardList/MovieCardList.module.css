@@ -1,0 +1,66 @@
+.cardList {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px; 
+    max-width: 1040px;
+    width: 100%;
+    animation: fadeIn 1s ease-in-out;
+  }  
+
+  @keyframes fadeIn {
+    from {
+        transform:translateY(-20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0px);
+        opacity: 1;
+    }
+}
+
+  .title {
+    font-size: 2.5em; 
+    margin: 10px 0; 
+    text-align: center; 
+    color: #ccc; 
+  }
+  
+  .moviesContainer {
+    display: flex; 
+
+    flex-wrap: wrap; 
+    width: 100%;
+    max-width: 950px;
+  }
+  
+  .button {
+    font-weight: bold;
+    background-color: transparent; 
+    color: #fff;  
+    border-radius: 8px; 
+    padding: 10px 20px; 
+    margin: 0 10px; 
+    cursor: pointer; 
+    font-size: 16px; 
+    border: 2px solid white;
+    transition: box-shadow 0.5s ease, border-color 0.5s ease;
+}
+
+.activeButton {
+    box-shadow:0 0 10px 2px rgba(255, 255, 255, 0.6); 
+    border: 2px solid white;
+    pointer-events: none; 
+}
+
+.btnContainer {
+    display: flex; 
+    justify-content: center; 
+    margin-bottom: 20px; 
+}
+
+.button:hover {
+    box-shadow: 0 0 10px 2px rgba(110, 181, 255, 0.6);
+    border: 2px solid #86e3ce; 
+}

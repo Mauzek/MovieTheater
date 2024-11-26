@@ -1,0 +1,229 @@
+.movieDetail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    border-radius: 10px;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0px);
+        opacity: 1;
+    }
+}
+
+.mainInfo {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.posterContainer {
+    flex: 0;
+    margin-right: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.poster {
+    width: 300px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.4);
+    filter: drop-shadow(0px 0px 20px rgba(0, 0, 0, 0.4));
+}
+
+.ratingContainer {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.rating {
+    display: flex;
+    flex-direction: column;
+    margin: 5px 0;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    align-items: center;
+}
+
+.rating:hover{
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.ratingText {
+    font-size: 30px;
+    font-weight: 800;
+    background: linear-gradient(165deg, #ffd25e 20.44%, #b59646 59.56%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.2em;
+    color: #000;
+    padding: 5px;
+    width: 50px;
+    border-radius: 5px;
+}
+
+.labelIMDB {
+    background-color: #F6C800;
+}
+
+.labelKP {
+    background-color: #FF5500;
+}
+
+.details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.movieTitle {
+    font-size: 2.5em;
+    margin: 0;
+    color: #ccc;
+    text-align: start;
+}
+
+.alternativeTitle {
+    font-size: 1.2em;
+    color: #999;
+    margin: 5px 0;
+    text-align: start;
+}
+
+.infoContainer {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.infoItem {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    padding: 10px;
+    box-shadow: 0 5px 2px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+    width: 32em;
+    max-width: 510px;
+    text-align: right;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+}
+
+.infoItem dt {
+    font-weight: bold;
+    color: #ccc;
+    margin-right: 10px;
+}
+
+.infoItem dd {
+    color: #fff;
+}
+
+.infoItem:nth-child(odd) {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.votes {
+    font-size: 0.9em;
+    color: #999;
+}
+
+.divider {
+    width: 100%;
+    border: none;
+    border-top: 2px solid #ccc;
+    margin: 40px 0;
+}
+
+.descriptionContainer {
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    text-align: left;
+}
+
+.descriptionTitle {
+    font-size: 1.5em;
+    color: #ccc;
+    margin-bottom: 10px;
+}
+
+.descriptionText {
+    color: #fff;
+}
+
+/* Адаптивные стили */
+@media screen and (max-width: 768px) {
+    .mainInfo {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .poster {
+        width: 200px;
+    }
+    .details{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .infoContainer{
+        display: flex;
+        justify-content: left;
+    }
+    .infoItem {
+        width: 100%;
+        text-align: left;
+    }
+
+    .movieTitle {
+        font-size: 2em;
+        text-align: center;
+    }
+
+    .alternativeTitle {
+        text-align: center;
+    }
+
+    .infoContainer {
+        align-items: center;
+    }
+
+    .descriptionContainer {
+        width: 100%;
+    }
+    
+}
