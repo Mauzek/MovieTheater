@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../MovieDetails/MovieDetails.module.css";
+import styles from "./DetailsList.module.css";
 
 interface InfoItemProps {
   label: string;

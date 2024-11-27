@@ -1,40 +1,51 @@
 import { FC } from "react";
 import { MovieData } from "../../API/api-utils";
 import styles from "./MovieDetails.module.css";
-import KinopoiskIcon from "../../assets/icons/kinopoisk-logo-icon.svg";
-import ImdbIcon from "../../assets/icons/imdb_logo.svg";
-import { InfoItem } from "../InfoItem/InfoItem.tsx";
-import { Rating } from "../Rating/Rating.tsx";
+import { RatingSection } from "../Rating/RatingSection";
+import { Trailers } from "./Trailers/Trailers";
+import { DetailsList } from "../InfoItem/DetailsList";
 
 interface MovieDetailsProps {
   movie: MovieData;
 }
 
 export const MovieDetails: FC<MovieDetailsProps> = ({ movie }) => {
+  const uniqueTrailers = movie.videos?.trailers?.filter(
+    (trailer, index, self) =>
+      self.findIndex((t) => t.url === trailer.url) === index
+  );
 
-  const getMovieTypeText = (type: string): string => {
-    const movieTypeMap: Record<string, string> = {
-      movie: "фильм",
-      "tv-series": "сериал",
-      cartoon: "мультфильм",
-      anime: "аниме",
-    };
-    return movieTypeMap[type] || "неизвестный тип";
+  const getSeasonsInfo = (): { seasonsCount: number; episodesCount: number } => {
+    if (!movie.seasonsInfo) {
+      return { seasonsCount: 0, episodesCount: 0 };
+    }
+
+    let seasonsCount = 0;
+    let episodesCount = 0;
+
+    movie.seasonsInfo.forEach((season) => {
+      if (season.number !== 0) {
+        seasonsCount++;
+        episodesCount += season.episodesCount;
+      }
+    });
+
+    return { seasonsCount, episodesCount };
   };
-  const formattedRatingKP = Math.round(movie.rating.kp * 10) / 10;
-  const formattedRatingIMDB = Math.round(movie.rating.imdb * 10) / 10;
-  const movieTypeText = getMovieTypeText(movie.type);
+
+  const { seasonsCount, episodesCount } = getSeasonsInfo();
 
   return (
     <article className={styles.movieDetail}>
       <section className={styles.mainInfo}>
         <header className={styles.posterContainer}>
           <img
-            src={movie.poster.url}
+            src={movie.poster?.url || "/path/to/default/poster.jpg"}
             alt={`${movie.name} poster`}
             className={styles.poster}
           />
         </header>
+
         <section className={styles.details}>
           <h1 className={styles.movieTitle}>{movie.name}</h1>
           {movie.alternativeName && (
@@ -45,76 +56,33 @@ export const MovieDetails: FC<MovieDetailsProps> = ({ movie }) => {
               )}
             </h2>
           )}
-          <div className={styles.infoContainer}>
-            <dl>
-              <InfoItem
-                label="Год выпуска:"
-                value={
-                  <time dateTime={movie.year.toString()}>{movie.year}</time>
-                }
-              />
-              <InfoItem label="Тип:" value={movieTypeText} />
-              <InfoItem
-                label="Жанры:"
-                value={movie.genres.map((genre) => genre.name).join(", ")}
-              />
-              <InfoItem
-                label="Страны:"
-                value={movie.countries
-                  .map((country) => country.name)
-                  .join(", ")}
-              />
-              {movie.seriesLength && (
-                <InfoItem
-                  label="Длина серии:"
-                  value={
-                    movie.seriesLength > 60
-                      ? `${Math.floor(movie.seriesLength / 60)} ч ${
-                          movie.seriesLength % 60
-                        } мин`
-                      : `${movie.seriesLength} мин`
-                  }
-                />
-              )}
-              {movie.movieLength && (
-                <InfoItem
-                  label="Длина фильма:"
-                  value={`${Math.floor(movie.movieLength / 60)} ч ${
-                    movie.movieLength % 60
-                  } мин`}
-                />
-              )}
-            </dl>
-          </div>
+          <DetailsList data={movie} />
         </section>
-        <div className={styles.ratingContainer}>
-          <Rating
-            label="KP"
-            rating={formattedRatingKP}
-            votes={movie.votes.kp}
-            icon={KinopoiskIcon}
-            link={`https://www.kinopoisk.ru/${
-              movieTypeText === "фильм" || movieTypeText === "мультфильм"
-                ? "film"
-                : "series"
-            }/${movie.id}`}
-          />
-          <Rating
-            label="IMDb"
-            rating={formattedRatingIMDB}
-            votes={movie.votes.imdb}
-            icon={ImdbIcon}
-            link={`https://www.imdb.com/title/${movie?.externalId?.imdb}`}
-          />
-        </div>
+
+        <RatingSection
+          kpRating={movie.rating.kp}
+          kpVotes={movie.votes.kp}
+          imdbRating={movie.rating.imdb}
+          imdbVotes={movie.votes.imdb}
+          movieType={movie.type}
+          movieId={movie.id}
+          imdbId={movie.externalId?.imdb}
+          seasons={seasonsCount}
+          episodes={episodesCount}
+        />
       </section>
       <hr className={styles.divider} />
       <section className={styles.descriptionContainer}>
-        <h2 className={styles.descriptionTitle}>Описание</h2>
-        <p className={styles.descriptionText}>{movie.description}</p>
+        <header>
+          <h2 className={styles.descriptionTitle}>Описание</h2>
+        </header>
+        <p className={styles.descriptionText}>
+          {movie.description || "Описание недоступно."}
+        </p>
       </section>
+      <hr className={styles.divider} />
+
+      <Trailers uniqueTrailers={uniqueTrailers} />
     </article>
   );
 };
-
-export default MovieDetails;

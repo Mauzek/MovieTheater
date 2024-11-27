@@ -1,69 +1,61 @@
-import axios from "axios";
-import {
-  KINOPOISK_API,
-  KINOPOISK_API_KEY,
-  MOVIEPLAYER_API,
-  POPULARMOVIES,
-  POPULARSERIES,
-  KINOPOISKID_API,
-} from "./config";
+import axios, { AxiosResponse } from "axios";
+import { endpoints, API_KEYS } from "./config";
 
-type ExternalId = {
-  imdb: string | null;
-};
+type ExternalId = { imdb: string | null };
+type Backdrop = { url: string };
+type Genre = { name: string };
+type Country = { name: string };
+type Votes = { kp: number; imdb: number };
+type Rating = { kp: number; imdb: number };
+type ReleaseYears = {start: number, end: number};
+type SeasonInfo = {number: number, episodesCount: number};
 
-type Backdrop = {
-  url: string;
-};
-
-type Genre = {
-  name: string;
-};
-
-type Country = {
-  name: string;
-};
-
-type Votes = {
-  kp: number;
-  imdb: number;
-};
-
-type Rating = {
-  kp: number;
-  imdb: number;
-};
+let currentKeyIndex = 0; 
+const API_KEYS_LIST = [API_KEYS.kinopoisk, API_KEYS.kinopoisk_2, API_KEYS.kinopoisk_3];
 
 export type MovieData = {
   id: number;
   name: string;
   alternativeName?: string;
-  ageRating?: number;
-  type: string;
   year: number;
+  releaseYears?: ReleaseYears[];
   description: string;
+  shortDescription?: string;
+  ageRating: number;
+  type: string;
   rating: Rating;
+  votes: Votes;
+  externalId: ExternalId;
   genres: Genre[];
   countries: Country[];
-  logo: {
-    url: string;
-    previewUrl: string;
-  };
+  seasonsInfo?: SeasonInfo[];
+  movieLength?: number;
+  seriesLength?: number;
   poster: {
     url: string;
     previewUrl: string;
   };
-  votes: Votes;
-  externalId?: ExternalId;
   backdrop?: Backdrop;
-  seriesLength?: number;
-  movieLength?: number;
+  logo?: {
+    url: string;
+    previewUrl: string;
+  };
+  premiere?: {
+    russia?: string;
+    world?: string;
+  };
+  videos?: {
+    trailers: {
+      url: string;
+      name: string;
+    }[];
+  };
 };
 
 export type MovieCardData = {
-  id: number;
+  id: string;
   title: string;
-  alternativeTitle: string;
+  alternativeTitle?: string;
   type: string;
   year: number;
   rating: number;
@@ -72,217 +64,150 @@ export type MovieCardData = {
   genres: string[];
 };
 
-type Movie = {
-  id: number;
-  name: string;
-  alternativeName: string;
-  type: string;
-  year: number;
-  rating: Rating;
-  poster: {
-    url: string;
+function transformMovieData(data: any): MovieData {
+  return {
+    id: data.id,
+    name: data.name,
+    alternativeName: data.alternativeName,
+    year: data.year,
+    releaseYears: data.releaseYears,
+    description: data.description,
+    shortDescription: data.shortDescription,
+    ageRating: data.ageRating,
+    type: data.type,
+    rating: {
+      kp: data.rating.kp,
+      imdb: data.rating.imdb,
+    },
+    votes: {
+      kp: data.votes.kp,
+      imdb: data.votes.imdb,
+    },
+    externalId: data.externalId,
+    genres: data.genres,
+    countries: data.countries,
+    seasonsInfo: data.seasonsInfo,
+    movieLength: data.movieLength,
+    seriesLength: data.seriesLength,
+    poster: {
+      url: data.poster.url,
+      previewUrl: data.poster.previewUrl,
+    },
+    backdrop: data.backdrop ? { url: data.backdrop.url } : undefined,
+    logo: data.logo
+      ? { url: data.logo.url, previewUrl: data.logo.previewUrl }
+      : undefined,
+    premiere: data.premiere
+      ? {
+          russia: data.premiere.russia,
+          world: data.premiere.world,
+        }
+      : undefined,
+    videos: data.videos ? { trailers: data.videos.trailers } : undefined,
   };
-  countries: Country[];
-  genres: Genre[];
-};
-
-async function getMovieByTitle(movieName: string): Promise<MovieData> {
-  try {
-    const response = await axios.get(`${KINOPOISK_API}${movieName}`, {
-      headers: {
-        "X-API-KEY": KINOPOISK_API_KEY,
-      },
-    });
-
-    const data = response.data.docs[0];
-
-    const movieData: MovieData = {
-      id: data.id,
-      name: data.name,
-      alternativeName: data.alternativeName,
-      ageRating: data.ageRating,
-      type: data.type,
-      year: data.year,
-      description: data.description,
-      rating: {
-        kp: data.rating.kp,
-        imdb: data.rating.imdb,
-      },
-      genres: data.genres.map((genre: { name: string }) => ({
-        name: genre.name,
-      })),
-      countries: data.countries.map((country: { name: string }) => ({
-        name: country.name,
-      })),
-      logo: {
-        url: data.logo?.url || "", // Добавлено значение по умолчанию
-        previewUrl: data.logo?.previewUrl || "", // Добавлено значение по умолчанию
-      },
-      poster: {
-        url: data.poster.url,
-        previewUrl: data.poster.previewUrl,
-      },
-      votes: {
-        kp: data.votes.kp,
-        imdb: data.votes.imdb,
-      },
-      externalId: data.externalId
-        ? {
-            imdb: data.externalId.imdb,
-          }
-        : undefined,
-      backdrop: data.backdrop ? { url: data.backdrop.url } : undefined, // Проверка на наличие backdrop
-      seriesLength: data.seriesLength,
-      movieLength: data.movieLength,
-    };
-
-    return movieData;
-  } catch (error) {
-    console.error("Ошибка при получении данных о фильме:", error);
-    throw error;
-  }
 }
 
-async function getMovieByID(movieID: number): Promise<MovieData> {
-  try {
-    const response = await axios.get(`${KINOPOISKID_API}${movieID}`, {
-      headers: {
-        "X-API-KEY": KINOPOISK_API_KEY,
-      },
-    });
-    const data = response.data;
-    const movieData: MovieData = {
-      id: data.id,
-      name: data.name,
-      alternativeName: data.alternativeName,
-      ageRating: data.ageRating,
-      type: data.type,
-      year: data.year,
-      description: data.description,
-      rating: {
-        kp: data.rating.kp,
-        imdb: data.rating.imdb,
-      },
-      genres: data.genres.map((genre: { name: string }) => ({
-        name: genre.name,
-      })),
-      countries: data.countries.map((country: { name: string }) => ({
-        name: country.name,
-      })),
-      logo: {
-        url: data.logo?.url,
-        previewUrl: data.logo?.previewUrl,
-      },
-      poster: {
-        url: data.poster.url,
-        previewUrl: data.poster.previewUrl,
-      },
-      votes: {
-        kp: data.votes.kp,
-        imdb: data.votes.imdb,
-      },
-      externalId: data.externalId ? { imdb: data.externalId.imdb } : undefined, // проверка наличия externalId
-      backdrop: data.backdrop ? { url: data.backdrop.url } : undefined,
-      seriesLength: data.seriesLength,
-      movieLength: data.movieLength,
-    };
-
-    return movieData;
-  } catch (error) {
-    console.error("Ошибка при получении данных о фильме:", error);
-    throw error;
-  }
+function transformMovieById(data: any): MovieCardData {
+  return {
+    id: data.id,
+    title: data.name || "Unknown Title",
+    alternativeTitle: data.alternativeName,
+    year: data.year,
+    rating: data.rating?.kp || 0,
+    genres: data.genres.map((genre: { name: string }) => genre.name),
+    countries: data.countries.map((country: { name: string }) => country.name),
+    posterUrl: data.poster?.url || "",
+    type: data.type || "Unknown",
+  };
 }
 
-async function getMoviePlayer(playerId: number) {
-  try {
-    const response = await axios.get(`${MOVIEPLAYER_API}${playerId}`);
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching movie player data:", error);
-    throw error;
-  }
+function transformToMovieCard(movie: any): MovieCardData {
+  return {
+    id: movie.id,
+    title: movie.title,
+    type: movie.type,
+    year: movie.year,
+    rating: movie.rating,
+    posterUrl: movie.posterUrl,
+    countries: movie.countries,
+    genres: movie.genres,
+  };
 }
-
-async function getPopularMovie(): Promise<MovieCardData[]> {
-  try {
-    const response = await axios.get(POPULARMOVIES);
-    const data = response.data;
-
-    if (!Array.isArray(data)) {
-      throw new Error("Unexpected data format");
+async function fetchWithRetries<T>(url: string): Promise<T> {
+  while (currentKeyIndex < API_KEYS_LIST.length) {
+    try {
+      const response: AxiosResponse = await axios.get(url, {
+        headers: { "X-API-KEY": API_KEYS_LIST[currentKeyIndex] },
+      });
+      return response.data; // Return data if successful
+    } catch (error: any) {
+      if (
+        error.response?.status === 403 &&
+        error.response?.data?.message.includes("Вы израсходовали ваш суточный лимит")
+      ) {
+        console.warn(`API key exhausted: ${currentKeyIndex}`);
+        currentKeyIndex++; 
+      } else {
+        console.error("Error during API call:", error);
+        throw error; 
+      }
     }
+  }
+  throw new Error("All API keys have been exhausted");
+}
 
-    const movies: MovieCardData[] = data.map((movie: MovieCardData) => ({
-      ...movie,
-    }));
-
-    return movies;
+async function getMovieByTitle(movieName: string): Promise<MovieCardData[]> {
+  try {
+    const url = endpoints.searchMovies(1, 10, movieName);
+    const data = await fetchWithRetries<{ docs: MovieCardData[] }>(url);
+    if (!data.docs || data.docs.length === 0) {
+      throw new Error("Movies not found");
+    }
+    return data.docs.map(transformMovieById);
   } catch (error) {
-    console.error("Error fetching popular movie data:", error);
+    console.error("Error fetching movies by title:", error);
     throw error;
   }
 }
 
-async function getMoviesByTitle(movieName: string): Promise<MovieCardData[]> {
+// Example: Get movie by ID
+async function getMovieByID(movieID: string): Promise<MovieData> {
   try {
-    const response = await axios.get(`${KINOPOISK_API}${movieName}`, {
-      headers: {
-        "X-API-KEY": KINOPOISK_API_KEY,
-      },
-    });
-    const data = response.data.docs;
-
-    const moviesData: MovieCardData[] = data.map(
-      (movie: Movie): MovieCardData => ({
-        id: movie.id,
-        title: movie.name,
-        alternativeTitle: movie.alternativeName,
-        type: movie.type,
-        year: movie.year,
-        rating: movie.rating.kp, 
-        posterUrl: movie.poster.url, 
-        countries: movie.countries.map((country: Country) => country.name), 
-        genres: movie.genres.map((genre: Genre) => genre.name), 
-      })
-    );
-
-    return moviesData;
+    const url = endpoints.getMovieById(movieID);
+    const data = await fetchWithRetries(url);
+    return transformMovieData(data);
   } catch (error) {
-    console.error("Error fetching movie data:", error);
+    console.error("Error fetching movie by ID:", error);
+    throw error;
+  }
+}
+
+async function getPopularMovies(): Promise<MovieCardData[]> {
+  try {
+    const response: AxiosResponse = await axios.get(
+      endpoints.getPopularMovies("film")
+    );
+    const data = response.data;
+    if (!Array.isArray(data)) {
+      throw new Error("Invalid response format");
+    }
+    return data.map(transformToMovieCard);
+  } catch (error) {
+    console.error("Error fetching popular movies:", error);
     throw error;
   }
 }
 
 async function getPopularSeries(): Promise<MovieCardData[]> {
   try {
-    const response = await axios.get(POPULARSERIES);
-    const data = response.data;
-
-    const series: MovieCardData[] = data.map((series: MovieCardData) => ({
-      id: series.id,
-      title: series.title,
-      alternativeTitle: series.alternativeTitle,
-      type: series.type,
-      year: series.year,
-      rating: series.rating,
-      posterUrl: series.posterUrl,
-      countries: series.countries,
-      genres: series.genres,
-    }));
-
-    return series;
+    const response: AxiosResponse = await axios.get(
+      endpoints.getPopularMovies("series")
+    );
+    return response.data.map(transformToMovieCard);
   } catch (error) {
-    console.error("Error fetching popular series data:", error);
+    console.error("Error fetching popular series:", error);
     throw error;
   }
 }
 
-export {
-  getMoviePlayer,
-  getMovieByTitle,
-  getMovieByID,
-  getPopularMovie,
-  getPopularSeries,
-  getMoviesByTitle,
-};
+export { getMovieByTitle, getMovieByID, getPopularMovies, getPopularSeries };

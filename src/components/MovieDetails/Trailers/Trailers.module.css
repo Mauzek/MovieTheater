@@ -1,0 +1,78 @@
+.trailerSection {
+    overflow-x: auto;
+    gap: 20px;
+    width: 100%;
+    cursor: grab;
+    position: relative;
+}
+
+.trailerContainer {
+    display: inline-block;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.trailerContainer:hover {
+    background-color: rgba(85, 85, 85, 0.7);
+}
+
+.trailerSlide:hover .trailerName {
+    color: #f30745;
+    filter: brightness(80%);
+}
+
+.trailerSlide:hover .youTubeIcon {
+    display: block;
+}
+
+.trailerSlide:hover .trailerVideo {
+    filter: brightness(60%)
+}
+
+.trailerVideo {
+    width: 300px;
+    height: 170px;
+    border-radius: 8px;
+    transition: border-radius 0.3s ease, transform 0.3s ease, filter 0.3s;
+}
+
+.trailerSlide{
+    padding-bottom:  20px;
+}
+
+.link_container{
+    position:relative;
+    display: inline-block;
+}
+
+.youTubeIcon{
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    width: 40px; 
+    height: 40px; 
+    pointer-events: none; 
+    opacity: 0.9;
+}
+
+.trailerName {
+    text-align: center;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: color 0.25s, filter 0.25s;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.noVideoText {
+    font-size: 16px;
+    color: #888;
+    text-align: center;
+    margin-top: 20px;
+}

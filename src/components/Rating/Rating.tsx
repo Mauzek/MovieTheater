@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../MovieDetails/MovieDetails.module.css";
+import styles from "./Rating.module.css";
 
 interface RatingProps {
   label: string;
@@ -16,19 +16,19 @@ export const Rating: React.FC<RatingProps> = ({
   icon,
   link,
 }) => (
-  <a
-    className={styles.rating}
-    href={link}
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    <span className={`${styles.label} ${styles[`label${label}`]}`}>
-      <img src={icon} alt={label} />
-    </span>
+    <a
+      className={styles.rating}
+      href={link}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <span className={`${styles.label} ${styles[`label${label}`]}`}>
+        <img src={icon} alt={label} />
+      </span>
 
-    <span className={styles.ratingText}>{rating}</span>
-    <div className={styles.votes}>
-      <span>{votes.toLocaleString("ru-RU")} оценок</span>
-    </div>
-  </a>
+      <span className={styles.ratingText}>{rating}</span>
+      <div className={styles.votes}>
+        <span>{votes.toLocaleString("ru-RU")} оценок</span>
+      </div>
+    </a>
 );

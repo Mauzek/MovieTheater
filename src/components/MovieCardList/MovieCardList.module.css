@@ -29,7 +29,6 @@
   
   .moviesContainer {
     display: flex; 
-
     flex-wrap: wrap; 
     width: 100%;
     max-width: 950px;

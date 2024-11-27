@@ -10,7 +10,7 @@ interface MovieCardListProps {
   isFilm: boolean;
   movieData: MovieData | null;
   setIsFilm: (value: boolean) => void;
-  cardSearch: (value: number) => void;
+  cardSearch: (value: string) => void;
 }
 
 export const MovieCardList: FC<MovieCardListProps> = ({
@@ -24,7 +24,7 @@ export const MovieCardList: FC<MovieCardListProps> = ({
   return (
     <div className={styles.cardList}>
       <h1 className={styles.title}>{title}</h1>
-      {movieData === null && (
+      {movieData === null && title !== "Результаты поиска" && (
         <div className={styles.btnContainer}>
           <button
             className={`${styles.button} ${isFilm ? styles.activeButton : ""}`}
@@ -43,9 +43,15 @@ export const MovieCardList: FC<MovieCardListProps> = ({
         </div>
       )}
       <div className={styles.moviesContainer}>
-        {movies.map((movie) => (
-          <MovieCard key={movie.id} movieCard={movie} cardSearch={cardSearch} />
-        ))}
+        {movies
+          .filter((movie) => movie.posterUrl && movie.posterUrl.trim() !== "")
+          .map((movie) => (
+            <MovieCard
+              key={movie.id}
+              movieCard={movie}
+              cardSearch={cardSearch}
+            />
+          ))}
       </div>
     </div>
   );

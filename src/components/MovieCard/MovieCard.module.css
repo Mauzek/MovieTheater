@@ -4,8 +4,30 @@
     width: 100%; 
     max-width: 170px; 
     margin: 10px;
+    cursor: pointer;
+  outline: none; /* Remove default browser focus outline */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
-   
+  
+  .movieCard:focus .imageContainer{
+    box-shadow:0 0 8px 1px rgba(255, 255, 255, 0.2); 
+    border: 1px solid #bbb;
+    transform: translateY(-10px);
+  }
+
+  .movieCard:focus .movieImage {
+    filter: brightness(40%);
+  }
+
+  .movieCard:focus .content {
+    opacity: 1;
+  }
+
+  .movieCard:focus .title  { 
+    color: #f30745;
+    filter: brightness(80%);
+  }
+  
   .imageContainer:hover  {
     box-shadow:0 0 8px 1px rgba(255, 255, 255, 0.2); 
     border: 1px solid #bbb;
