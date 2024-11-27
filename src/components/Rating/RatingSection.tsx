@@ -12,8 +12,8 @@ interface RatingSectionProps {
   movieType: string;
   movieId: number;
   imdbId?: string | null;
-  seasons?: number;
-  episodes?: number;
+  seasons?: number | null;
+  episodes?: number | null;
 }
 
 export const RatingSection: FC<RatingSectionProps> = ({
@@ -29,6 +29,7 @@ export const RatingSection: FC<RatingSectionProps> = ({
 }) => {
   const formattedKpRating = Math.round(kpRating * 10) / 10;
   const formattedImdbRating = Math.round(imdbRating * 10) / 10;
+  const shouldShowSeasons = seasons !== 0 && episodes !== 0;
 
   return (
     <div className={styles.ratingContainer}>
@@ -48,10 +49,12 @@ export const RatingSection: FC<RatingSectionProps> = ({
         icon={ImdbIcon}
         link={`https://www.imdb.com/title/${imdbId}`}
       />
-      {seasons && episodes && (
-        <article>
-          <h2>Сезонов: {seasons}</h2>
-          <h3>Всего эпизовод: {episodes}</h3>
+      {shouldShowSeasons && (
+        <article className={styles.seasonStats}>
+          <h4 className={styles.seasonStatsTitle}>Сезонов: {seasons}</h4>
+          <p className={styles.seasonStatsSubtitle}>
+            Всего эпизодов: {episodes}
+          </p>
         </article>
       )}
     </div>

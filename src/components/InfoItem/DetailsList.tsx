@@ -38,7 +38,7 @@ export const DetailsList: FC<DetailsListProps> = ({ data }) => {
   const getReleaseYearDisplay = (): string => {
     if (data.releaseYears && data.releaseYears.length > 0) {
       const { start, end } = data.releaseYears[0];
-      return start !== end ? `${start} - ${end}` : `${start}`;
+      return start !== end ? `${start} - ${end > 0 ? end : "..."}` : `${start}`;
     }
     return `${data.year}`;
   };

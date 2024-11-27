@@ -22,7 +22,7 @@ export const Rating: React.FC<RatingProps> = ({
       target="_blank"
       rel="noopener noreferrer"
     >
-      <span className={`${styles.label} ${styles[`label${label}`]}`}>
+      <span className={`${styles[`label${label}`]}`}>
         <img src={icon} alt={label} />
       </span>
 

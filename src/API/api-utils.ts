@@ -139,7 +139,7 @@ async function fetchWithRetries<T>(url: string): Promise<T> {
       const response: AxiosResponse = await axios.get(url, {
         headers: { "X-API-KEY": API_KEYS_LIST[currentKeyIndex] },
       });
-      return response.data; // Return data if successful
+      return response.data; 
     } catch (error: any) {
       if (
         error.response?.status === 403 &&

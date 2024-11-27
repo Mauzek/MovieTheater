@@ -51,22 +51,26 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-
+    max-width: 530px;
 }
 
 .movieTitle {
-    font-size: 2.5em;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: calc((100vw - 530px) / (1080 - 530) * (27 - 16) + 12px);
     margin: 0;
     color: #ccc;
     text-align: start;
-}
-
+    transition: font-size 0.2s ease-in-out;
+  }
+  
 .alternativeTitle {
-    font-size: 1.2em;
+    font-size: calc((100vw - 480px) / (1080 - 530) * (14 - 10) + 6px);
     color: #999;
     margin: 5px 0;
     text-align: start;
-}
+    transition: font-size 0.2s ease-in-out;
+  }
 
 .divider {
     width: 100%;

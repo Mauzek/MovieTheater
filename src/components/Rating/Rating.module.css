@@ -1,4 +1,7 @@
 .ratingContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin-top: 10px;
     text-align: center;
 }
@@ -13,11 +16,12 @@
     align-items: center;
     width: 100%;
     max-width: 130px;
-    transition: background-color 0.25s;
+    transition: background-color 0.25s, box-shadow 0.25s;
 }
 
 .rating:hover {
     background-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .ratingText {
@@ -39,5 +43,39 @@
 }
 
 .labelKP {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
     background-color: #FF5500;
 }
+
+.seasonStats {
+    width: 100%;
+    max-width: 130px;
+    padding: 10px;
+    border-radius: 12px;
+    text-align: center;
+    transition: background-color 0.25s, box-shadow 0.25s;
+  }
+  
+  .seasonStats:hover{
+    background-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .seasonStatsTitle {
+    margin: 0;
+    font-weight: 700;
+    color: #fff;
+    background-image: linear-gradient(to right, #f9d423 0%, #ff4e50 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .seasonStatsSubtitle {
+    margin: 0;
+    font-size: 0.9em;
+    color: #999;
+  }

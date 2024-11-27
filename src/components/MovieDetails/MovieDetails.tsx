@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { MovieData } from "../../API/api-utils";
 import styles from "./MovieDetails.module.css";
+import NotFound from '../../assets/images/notFound.gif';
 import { RatingSection } from "../Rating/RatingSection";
 import { Trailers } from "./Trailers/Trailers";
 import { DetailsList } from "../InfoItem/DetailsList";
@@ -40,7 +41,7 @@ export const MovieDetails: FC<MovieDetailsProps> = ({ movie }) => {
       <section className={styles.mainInfo}>
         <header className={styles.posterContainer}>
           <img
-            src={movie.poster?.url || "/path/to/default/poster.jpg"}
+            src={movie.poster?.url || NotFound}
             alt={`${movie.name} poster`}
             className={styles.poster}
           />
