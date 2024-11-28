@@ -2,41 +2,46 @@ import { FC } from "react";
 import { MovieCard } from "../MovieCard/MovieCard";
 import { MovieCardData } from "../../API/api-utils";
 import styles from "./MovieCardList.module.css";
-import { MovieData } from "../../API/api-utils";
+import { useNavigate } from "react-router-dom";
 
 interface MovieCardListProps {
   movies: MovieCardData[];
   title: string;
-  isFilm: boolean;
-  movieData: MovieData | null;
-  setIsFilm: (value: boolean) => void;
-  cardSearch: (value: string) => void;
+  type?: "movie" | "series" | "search";
+  changeCategory?: (value: boolean) => void;
 }
 
-export const MovieCardList: FC<MovieCardListProps> = ({
-  movies,
-  title,
-  cardSearch,
-  setIsFilm,
-  isFilm,
-  movieData,
-}) => {
+export const MovieCardList: FC<MovieCardListProps> = ({ movies, title, type, changeCategory }) => {
+  const navigate = useNavigate();
+
+  const handleFilmClick = () => {
+    if (changeCategory) {
+      changeCategory(true);
+    }
+    navigate('/popular/movies');
+  };
+
+  const handleSeriesClick = () => {
+    if (changeCategory) {
+      changeCategory(false);
+    }
+    navigate('/popular/series');
+  };
+
   return (
     <div className={styles.cardList}>
       <h1 className={styles.title}>{title}</h1>
-      {movieData === null && title !== "Результаты поиска" && (
+      {type !== "search" && (
         <div className={styles.btnContainer}>
           <button
-            className={`${styles.button} ${isFilm ? styles.activeButton : ""}`}
-            onClick={() => setIsFilm(true)}
-            disabled={isFilm}
+            className={`${styles.button} ${type === "movie" ? styles.activeButton : ""}`}
+            onClick={handleFilmClick}
           >
             ФИЛЬМЫ
           </button>
           <button
-            className={`${styles.button} ${!isFilm ? styles.activeButton : ""}`}
-            onClick={() => setIsFilm(false)}
-            disabled={!isFilm}
+            className={`${styles.button} ${type === "series" ? styles.activeButton : ""}`}
+            onClick={handleSeriesClick}
           >
             СЕРИАЛЫ
           </button>
@@ -46,11 +51,7 @@ export const MovieCardList: FC<MovieCardListProps> = ({
         {movies
           .filter((movie) => movie.posterUrl && movie.posterUrl.trim() !== "")
           .map((movie) => (
-            <MovieCard
-              key={movie.id}
-              movieCard={movie}
-              cardSearch={cardSearch}
-            />
+            <MovieCard key={movie.id} movieCard={movie} />
           ))}
       </div>
     </div>

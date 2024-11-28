@@ -1,29 +1,38 @@
 import { FC } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./MovieCard.module.css";
 import { MovieCardData } from "../../API/api-utils";
 import notFound from "../../assets/images/notFound.png";
 
 interface MovieCardProps {
   movieCard: MovieCardData;
-  cardSearch: (value: string) => void;
 }
 
-export const MovieCard: FC<MovieCardProps> = ({ movieCard, cardSearch }) => {
+
+
+export const MovieCard: FC<MovieCardProps> = ({ movieCard }) => {
+  const navigate = useNavigate();
   const limitedCountries = movieCard.countries.slice(0, 1).join(", ");
   const formattedGenres = movieCard.genres.slice(0, 2).join(", ");
   const formattedRating = Math.round(movieCard.rating * 10) / 10;
 
+
+  const handleClick = () => {
+    const type = movieCard.type === 'Film' ? 'movies': 'series'; 
+    navigate(`/${type}/${movieCard.id}`);
+  };
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
-      cardSearch(movieCard.id);
+      handleClick();
     }
   };
 
   return (
     <article
       className={styles.movieCard}
-      onClick={() => cardSearch(movieCard.id)}
+      onClick={handleClick}
       tabIndex={0}
       onKeyDown={handleKeyDown}
       aria-label={`Карточка фильма ${movieCard.title}`}
@@ -35,8 +44,8 @@ export const MovieCard: FC<MovieCardProps> = ({ movieCard, cardSearch }) => {
           alt={`${movieCard.title} постер`}
           className={styles.movieImage}
           onError={(e) => {
-            e.currentTarget.onerror = null; // Prevent infinite loop
-            e.currentTarget.src = notFound; // Fallback placeholder
+            e.currentTarget.onerror = null; 
+            e.currentTarget.src = notFound; 
           }}
         />
         <div className={styles.content}>

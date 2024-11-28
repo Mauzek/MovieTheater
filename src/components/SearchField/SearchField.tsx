@@ -17,17 +17,12 @@ export const SearchField: FC<SearchFieldProps> = ({ onSearch, goHome }) => {
 
   const handleSearch = () => {
     if (inputValue.trim() === "") return;
-
-    if (onSearch) {
-      onSearch(inputValue);
-    }
+    onSearch(inputValue);
     setInputValue("");
   };
 
   const handleGoHome = () => {
-    if (goHome) {
-      goHome();
-    }
+    goHome();
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
