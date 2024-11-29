@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import React, { useEffect, useState, useRef } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { MovieDetails } from "../../../components/MovieDetails/MovieDetails";
 import { getMovieByID, MovieData } from "../../../API/api-utils";
 import { Preloader } from "../../../components/Preloader/Preloader";
@@ -10,20 +10,21 @@ const Movie: React.FC = () => {
   const [movieData, setMovieData] = useState<MovieData | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const fetchedRef = useRef(false); 
 
   useEffect(() => {
+    if (!name || fetchedRef.current) return; 
+
     const fetchMovieData = async () => {
-      if (!name) return;
       setLoading(true);
       setError(null);
       try {
         const movie: MovieData = await getMovieByID(name);
-        setMovieData(movie);
-        const isSeries =
-          (movie.seriesLength && movie.seriesLength > 0) ||
-          (movie.seasonsInfo && movie.seasonsInfo.length > 0);
+        setMovieData(movie); 
+        const isSeries = movie.seriesLength && movie.seriesLength > 0 || (movie.seasonsInfo && movie.seasonsInfo.length > 0);
         const routeType = isSeries ? "series" : "movies";
         navigate(`/${routeType}/${movie.id}`, { replace: true });
+        fetchedRef.current = true;
       } catch (error) {
         setError("Не удалось загрузить данные о фильме.");
         console.error(error);
@@ -32,8 +33,8 @@ const Movie: React.FC = () => {
       }
     };
 
-    fetchMovieData();
-  }, [name, navigate]);
+    fetchMovieData(); 
+  }, [name, navigate]); 
 
   return (
     <div>

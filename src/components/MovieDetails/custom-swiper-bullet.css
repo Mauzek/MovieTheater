@@ -2,3 +2,48 @@
     background-color: white;
 }
 
+.swiper-slide {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom:  20px;
+}
+
+
+.swiper-button-next,
+.swiper-button-prev {
+    color: #fff !important;
+    border-radius: 50%; 
+    padding: 25px; 
+    margin-top: -50px ;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+/* Эффект при наведении */
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+    background-color: rgba(0, 0, 0, 0.8); 
+
+}
+
+.swiper-button-next:after,
+.swiper-button-prev:after {
+    font-size: 30px; /* Увеличим размер стрелок */
+    font-weight: bold; /* Сделаем стрелки более жирными */
+}
+
+/* Кнопки для маленьких экранов */
+@media (max-width: 768px) {
+    .swiper-button-next,
+    .swiper-button-prev {
+       display: none;
+    }
+}
+
+
+
+

@@ -13,7 +13,7 @@ const App: React.FC = () => {
         <Route path="movies/:name" element={<Movie />} />
         <Route path="series/:name" element={<Movie />} />
         <Route path="popular" element={<Popular />}>
-          <Route path="movies" element={<Popular />} />
+          <Route path="movies"  element={<Popular />} />
           <Route path="series" element={<Popular />} />
         </Route>
         <Route path="search/:name" element={<Search />} />

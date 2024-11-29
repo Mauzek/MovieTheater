@@ -2,14 +2,13 @@ import { FC, useState, ChangeEvent, KeyboardEvent } from "react";
 import styles from "./SearchField.module.css";
 import SearchIcon from "../../assets/icons/search-icon.svg";
 import HomeIcon from "../../assets/icons/home-icon.svg";
+import BackArrowIcon from "../../assets/icons/arrow_back.svg";
+import { useNavigate, useLocation } from "react-router-dom";
 
-interface SearchFieldProps {
-  onSearch: (value: string) => void;
-  goHome: () => void;
-}
-
-export const SearchField: FC<SearchFieldProps> = ({ onSearch, goHome }) => {
+export const SearchField: FC = () => {
   const [inputValue, setInputValue] = useState("");
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -17,12 +16,16 @@ export const SearchField: FC<SearchFieldProps> = ({ onSearch, goHome }) => {
 
   const handleSearch = () => {
     if (inputValue.trim() === "") return;
-    onSearch(inputValue);
+    navigate(`/search/${inputValue}`);
     setInputValue("");
   };
 
   const handleGoHome = () => {
-    goHome();
+    navigate("/popular/movies");
+  };
+
+  const handleGoBack = () => {
+    navigate(-1);
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -31,11 +34,21 @@ export const SearchField: FC<SearchFieldProps> = ({ onSearch, goHome }) => {
     }
   };
 
+  const isOnPopularPage = location.pathname.startsWith("/popular/");
+
   return (
     <div className={styles.searchContainer}>
-      <button className={styles.clickButton} onClick={handleGoHome}>
+      <button
+        className={`${styles.clickButton} ${styles.backButton}`}
+        onClick={handleGoBack}
+        style={{ display: isOnPopularPage ? "none" : "block" }}
+      >
+        <img src={BackArrowIcon} alt="Назад" />
+      </button>
+      <button className={`${styles.clickButton} ${styles.homeButton}`} onClick={handleGoHome}>
         <img src={HomeIcon} alt="Домой" />
       </button>
+
       <input
         type="text"
         className={styles.searchInput}
@@ -44,7 +57,7 @@ export const SearchField: FC<SearchFieldProps> = ({ onSearch, goHome }) => {
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}
       />
-      <button className={styles.clickButton} onClick={handleSearch}>
+      <button className={`${styles.clickButton} ${styles.searchButton}`} onClick={handleSearch}>
         <img src={SearchIcon} alt="Поиск" />
       </button>
     </div>

@@ -8,19 +8,22 @@ interface MovieCardProps {
   movieCard: MovieCardData;
 }
 
-
-
 export const MovieCard: FC<MovieCardProps> = ({ movieCard }) => {
   const navigate = useNavigate();
   const limitedCountries = movieCard.countries.slice(0, 1).join(", ");
   const formattedGenres = movieCard.genres.slice(0, 2).join(", ");
   const formattedRating = Math.round(movieCard.rating * 10) / 10;
 
-
   const handleClick = () => {
-    const type = movieCard.type === 'Film' ? 'movies': 'series'; 
+    const type = movieCard.type === "Film" ? "movies" : "series";
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
     navigate(`/${type}/${movieCard.id}`);
   };
+  
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
     if (e.key === "Enter" || e.key === " ") {
@@ -44,8 +47,8 @@ export const MovieCard: FC<MovieCardProps> = ({ movieCard }) => {
           alt={`${movieCard.title} постер`}
           className={styles.movieImage}
           onError={(e) => {
-            e.currentTarget.onerror = null; 
-            e.currentTarget.src = notFound; 
+            e.currentTarget.onerror = null;
+            e.currentTarget.src = notFound;
           }}
         />
         <div className={styles.content}>

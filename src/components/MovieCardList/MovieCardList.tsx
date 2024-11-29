@@ -1,8 +1,8 @@
 import { FC } from "react";
+import { useNavigate } from "react-router-dom";
 import { MovieCard } from "../MovieCard/MovieCard";
 import { MovieCardData } from "../../API/api-utils";
 import styles from "./MovieCardList.module.css";
-import { useNavigate } from "react-router-dom";
 
 interface MovieCardListProps {
   movies: MovieCardData[];

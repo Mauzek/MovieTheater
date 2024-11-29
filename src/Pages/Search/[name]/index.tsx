@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import { getMovieByTitle, MovieCardData } from "../../../API/api-utils";
 import { Preloader } from "../../../components/Preloader/Preloader";
@@ -9,10 +9,10 @@ const Search: React.FC = () => {
   const [searchResults, setSearchResults] = useState<MovieCardData[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-
   useEffect(() => {
+    if (!name) return;
+
     const fetchSearchResults = async () => {
-      if (!name) return;
       setLoading(true);
       setError(null);
       try {
@@ -30,18 +30,20 @@ const Search: React.FC = () => {
     };
 
     fetchSearchResults();
-  }, [name]);
+  }, [name]); 
+
+  const memoizedSearchResults = useMemo(() => searchResults, [searchResults]);
 
   return (
-    <div>
+    <>
       {loading && <Preloader />}
       {error && <div className="error">{error}</div>}
       <MovieCardList
         title="Результаты поиска"
         type="search"
-        movies={searchResults}
+        movies={memoizedSearchResults} 
       />
-    </div>
+    </>
   );
 };
 

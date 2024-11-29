@@ -4,17 +4,26 @@
     width: 100%;
     cursor: grab;
     position: relative;
+    -webkit-overflow-scrolling: touch; 
 }
 
 .trailerContainer {
     display: inline-block;
     border-radius: 8px;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    padding-bottom: 20px;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .trailerContainer:hover {
     background-color: rgba(85, 85, 85, 0.7);
+    transform: translateY(-5px); /* Эффект подъема при наведении */
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2); /* Увеличенная тень при наведении */
+}
+
+.trailerSlide {
+    width: 100%;
+    padding-bottom: 20px;
 }
 
 .trailerSlide:hover .trailerName {
@@ -27,34 +36,30 @@
 }
 
 .trailerSlide:hover .trailerVideo {
-    filter: brightness(60%)
+    filter: brightness(60%);
 }
 
 .trailerVideo {
     width: 300px;
     height: 170px;
     border-radius: 8px;
-    transition: border-radius 0.3s ease, transform 0.3s ease, filter 0.3s;
+    transition: border-radius 0.3s ease, transform 0.3s ease, filter 0.3s ease;
 }
 
-.trailerSlide{
-    padding-bottom:  20px;
-}
-
-.link_container{
-    position:relative;
+.link_container {
+    position: relative;
     display: inline-block;
 }
 
-.youTubeIcon{
+.youTubeIcon {
     display: none;
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); 
-    width: 40px; 
-    height: 40px; 
-    pointer-events: none; 
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    pointer-events: none;
     opacity: 0.9;
 }
 
@@ -65,9 +70,10 @@
     font-weight: bold;
     border-radius: 8px;
     transition: color 0.25s, filter 0.25s;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    white-space: nowrap;             
+    overflow: hidden;               
+    text-overflow: ellipsis;        
+    width: 80%;                     
 }
 
 .noVideoText {

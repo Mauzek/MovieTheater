@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useMemo } from "react";
 import { MovieData } from "../../API/api-utils";
 import styles from "./MovieDetails.module.css";
 import NotFound from '../../assets/images/notFound.gif';
@@ -11,10 +11,12 @@ interface MovieDetailsProps {
 }
 
 export const MovieDetails: FC<MovieDetailsProps> = ({ movie }) => {
-  const uniqueTrailers = movie.videos?.trailers?.filter(
-    (trailer, index, self) =>
-      self.findIndex((t) => t.url === trailer.url) === index
-  );
+  const uniqueTrailers = useMemo(() => {
+    return movie.videos?.trailers?.filter(
+      (trailer, index, self) =>
+        self.findIndex((t) => t.url === trailer.url) === index
+    );
+  }, [movie.videos]);
 
   const getSeasonsInfo = (): { seasonsCount: number; episodesCount: number } => {
     if (!movie.seasonsInfo) {
@@ -37,6 +39,18 @@ export const MovieDetails: FC<MovieDetailsProps> = ({ movie }) => {
   const { seasonsCount, episodesCount } = getSeasonsInfo();
 
   return (
+    <>
+    {movie.backdrop && (
+            <>
+              <div
+                className={styles.backdrop}
+                style={{
+                  backgroundImage: `url(${movie.backdrop.url})`,
+                }}
+              />
+              <div className={styles.gradient} />
+            </>
+          )}
     <article className={styles.movieDetail}>
       <section className={styles.mainInfo}>
         <header className={styles.posterContainer}>
@@ -85,5 +99,6 @@ export const MovieDetails: FC<MovieDetailsProps> = ({ movie }) => {
 
       <Trailers uniqueTrailers={uniqueTrailers} />
     </article>
+    </>   
   );
 };

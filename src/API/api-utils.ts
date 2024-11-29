@@ -134,6 +134,7 @@ function transformToMovieCard(movie: any): MovieCardData {
     genres: movie.genres,
   };
 }
+
 async function fetchWithRetries<T>(url: string): Promise<T> {
   while (currentKeyIndex < API_KEYS_LIST.length) {
     try {
