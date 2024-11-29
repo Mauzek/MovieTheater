@@ -37,7 +37,7 @@ export const SearchField: FC = () => {
   const isOnPopularPage = location.pathname.startsWith("/popular/");
 
   return (
-    <div className={styles.searchContainer}>
+    <header className={styles.searchContainer}>
       <button
         className={`${styles.clickButton} ${styles.backButton}`}
         onClick={handleGoBack}
@@ -60,6 +60,6 @@ export const SearchField: FC = () => {
       <button className={`${styles.clickButton} ${styles.searchButton}`} onClick={handleSearch}>
         <img src={SearchIcon} alt="Поиск" />
       </button>
-    </div>
+    </header>
   );
 };

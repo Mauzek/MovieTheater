@@ -29,7 +29,7 @@ export const MovieCardList: FC<MovieCardListProps> = ({ movies, title, type, cha
   };
 
   return (
-    <div className={styles.cardList}>
+    <section className={styles.cardList}>
       <h1 className={styles.title}>{title}</h1>
       {type !== "search" && (
         <div className={styles.btnContainer}>
@@ -54,6 +54,6 @@ export const MovieCardList: FC<MovieCardListProps> = ({ movies, title, type, cha
             <MovieCard key={movie.id} movieCard={movie} />
           ))}
       </div>
-    </div>
+    </section>
   );
 };

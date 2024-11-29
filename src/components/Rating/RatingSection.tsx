@@ -32,7 +32,7 @@ export const RatingSection: FC<RatingSectionProps> = ({
   const shouldShowSeasons = seasons !== 0 && episodes !== 0;
 
   return (
-    <div className={styles.ratingContainer}>
+    <section className={styles.ratingContainer}>
       <Rating
         label="KP"
         rating={formattedKpRating}
@@ -57,6 +57,6 @@ export const RatingSection: FC<RatingSectionProps> = ({
           </p>
         </article>
       )}
-    </div>
+    </section>
   );
 };

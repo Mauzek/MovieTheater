@@ -7,6 +7,7 @@
   cursor: pointer;
   outline: none;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  animation: fadeInSlideDown 0.5s ease forwards;
 }
 
 .movieCard:focus .imageContainer {
@@ -21,11 +22,18 @@
 
 .movieCard:focus .content {
   opacity: 1;
+  animation: fadeInSlideUp 0.5s ease forwards;
 }
 
 .movieCard:focus .title {
   color: #f30745;
   filter: brightness(80%);
+}
+
+.movieCard:hover .imageContainer {
+  box-shadow: 0 0 8px 1px rgba(255, 255, 255, 0.2);
+  border: 1px solid #bbb;
+  transform: translateY(-10px);
 }
 
 .movieCard:hover .title {
@@ -35,6 +43,7 @@
 
 .movieCard:hover .content{
   opacity: 1;
+  animation: fadeInSlideUp 0.5s ease forwards;
 }
 
 .movieCard:hover .movieImage {
@@ -85,12 +94,7 @@
   text-align: center;
   transition: filter 0.3s, color 0.3s;
   cursor: pointer;
-}
 
-.movieCard:hover .imageContainer {
-  box-shadow: 0 0 8px 1px rgba(255, 255, 255, 0.2);
-  border: 1px solid #bbb;
-  transform: translateY(-10px);
 }
 
 .hoverInfo {
@@ -102,6 +106,8 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  animation: fadeInSlideUp 0.5s ease ;
+  animation-delay: 0.3s;
 }
 
 .rating {
@@ -137,12 +143,10 @@
 @media (max-width: 600px) {
   .movieCard {
     max-width: 100%;
-    /* Ширина карточки 100% на маленьких экранах */
   }
 
   .title {
     font-size: 1em;
-    /* Увеличиваем размер заголовка на маленьких экранах */
   }
 
   .rating,
@@ -150,6 +154,27 @@
   .genres,
   .countries {
     font-size: 0.8em;
-    /* Уменьшаем размер текста для лучшего отображения */
+  }
+}
+
+@keyframes fadeInSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInSlideDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

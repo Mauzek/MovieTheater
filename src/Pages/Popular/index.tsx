@@ -1,49 +1,48 @@
 import React, { useEffect, useState } from "react";
-import {
-  getPopularMovies,
-  getPopularSeries,
-  MovieCardData,
-} from "../../API/api-utils";
+import { getPopularMovies, getPopularSeries, MovieCardData } from "../../API/api-utils";
 import { Preloader } from "../../components/Preloader/Preloader";
 import { MovieCardList } from "../../components/MovieCardList/MovieCardList";
 
-const Popular: React.FC = () => {
-  const [popularMovies, setPopularMovies] = useState<MovieCardData[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
+interface PopularProps {
+  film: boolean; 
+}
+
+const Popular: React.FC<PopularProps> = ({ film }) => {
+  const [movies, setMovies] = useState<MovieCardData[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [isFilm, setIsFilm] = useState<boolean>(true);
 
   useEffect(() => {
-    const fetchPopularMovies = async () => {
+    const fetchPopular = async () => {
       setLoading(true);
       setError(null);
+
       try {
-        const popular = isFilm
-          ? await getPopularMovies()
-          : await getPopularSeries();
-        setPopularMovies(popular);
+        const popular = film ? await getPopularMovies() : await getPopularSeries();
+        setMovies(popular);
       } catch (error) {
-        setError("Не удалось загрузить популярные фильмы.");
+        setError("Не удалось загрузить популярные данные.");
         console.error(error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchPopularMovies();
-  }, [isFilm]);
+    fetchPopular();
+  }, [film]);
 
   return (
-    <div>
+    <main>
       {loading && <Preloader />}
       {error && <div className="error">{error}</div>}
-      <MovieCardList
-        title="Популярные"
-        type={isFilm ? "movie" : "series"}
-        changeCategory={setIsFilm}
-        movies={popularMovies}
-      />
-    </div>
+      {!loading && !error && (
+        <MovieCardList
+          title="Популярные"
+          type={film ? "movie" : "series"}
+          movies={movies}
+        />
+      )}
+    </main>
   );
 };
 

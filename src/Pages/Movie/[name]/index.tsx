@@ -37,11 +37,11 @@ const Movie: React.FC = () => {
   }, [name, navigate]); 
 
   return (
-    <div>
+    <main>
       {loading && <Preloader />}
       {error && <div className="error">{error}</div>}
       {movieData && <MovieDetails movie={movieData} />}
-    </div>
+    </main>
   );
 };
 

@@ -7,7 +7,7 @@ export const Layout: FC = () => {
 
   return (
     <>
-      <SearchField  />
+      <SearchField />
       <Outlet />
     </>
   );
