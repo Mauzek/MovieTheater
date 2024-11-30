@@ -16,7 +16,6 @@ export const MovieCard: FC<MovieCardProps> = ({ movieCard }) => {
 
   const handleClick = () => {
     const type = movieCard.type === "Film" ? "movies" : "series";
-
     window.scrollTo({
       top: 0,
       behavior: "smooth",

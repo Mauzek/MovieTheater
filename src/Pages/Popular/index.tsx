@@ -1,16 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { getPopularMovies, getPopularSeries, MovieCardData } from "../../API/api-utils";
+import { FC, useEffect, useState } from "react";
+import {
+  getPopularMovies,
+  getPopularSeries,
+  MovieCardData,
+} from "../../API/api-utils";
 import { Preloader } from "../../components/Preloader/Preloader";
 import { MovieCardList } from "../../components/MovieCardList/MovieCardList";
+import styles from "./Popular.module.css";
+import { useNavigate } from "react-router-dom";
 
 interface PopularProps {
-  film: boolean; 
+  film: boolean;
 }
 
-const Popular: React.FC<PopularProps> = ({ film }) => {
+const Popular: FC<PopularProps> = ({ film }) => {
   const [movies, setMovies] = useState<MovieCardData[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPopular = async () => {
@@ -18,7 +25,9 @@ const Popular: React.FC<PopularProps> = ({ film }) => {
       setError(null);
 
       try {
-        const popular = film ? await getPopularMovies() : await getPopularSeries();
+        const popular = film
+          ? await getPopularMovies()
+          : await getPopularSeries();
         setMovies(popular);
       } catch (error) {
         setError("Не удалось загрузить популярные данные.");
@@ -31,17 +40,34 @@ const Popular: React.FC<PopularProps> = ({ film }) => {
     fetchPopular();
   }, [film]);
 
+  const handleFilmClick = () => {
+    navigate("/popular/movies");
+  };
+
+  const handleSeriesClick = () => {
+    navigate("/popular/series");
+  };
+
   return (
     <main>
+      <h1 className={styles.title}>Популярные</h1>
+      <nav className={styles.btnContainer}>
+        <button
+          className={`${styles.button} ${film ? styles.activeButton : ""}`}
+          onClick={handleFilmClick}
+        >
+          ФИЛЬМЫ
+        </button>
+        <button
+          className={`${styles.button} ${!film ? styles.activeButton : ""}`}
+          onClick={handleSeriesClick}
+        >
+          СЕРИАЛЫ
+        </button>
+      </nav>
       {loading && <Preloader />}
       {error && <div className="error">{error}</div>}
-      {!loading && !error && (
-        <MovieCardList
-          title="Популярные"
-          type={film ? "movie" : "series"}
-          movies={movies}
-        />
-      )}
+      {!loading && !error && <MovieCardList movies={movies} />}
     </main>
   );
 };

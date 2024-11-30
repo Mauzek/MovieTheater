@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { getMovieByTitle, MovieCardData } from "../../../API/api-utils";
 import { Preloader } from "../../../components/Preloader/Preloader";
 import { MovieCardList } from "../../../components/MovieCardList/MovieCardList";
+import styles from "./Search.module.css";
 
 const Search: React.FC = () => {
   const { name } = useParams<{ name: string }>();
@@ -30,20 +31,17 @@ const Search: React.FC = () => {
     };
 
     fetchSearchResults();
-  }, [name]); 
+  }, [name]);
 
   const memoizedSearchResults = useMemo(() => searchResults, [searchResults]);
 
   return (
-    <>
+    <main>
+      <h1 className={styles.title}>Результаты поиска</h1>
       {loading && <Preloader />}
       {error && <div className="error">{error}</div>}
-      <MovieCardList
-        title="Результаты поиска"
-        type="search"
-        movies={memoizedSearchResults} 
-      />
-    </>
+      <MovieCardList movies={memoizedSearchResults} />
+    </main>
   );
 };
 

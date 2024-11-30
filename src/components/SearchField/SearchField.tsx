@@ -21,10 +21,18 @@ export const SearchField: FC = () => {
   };
 
   const handleGoHome = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
     navigate("/popular/movies");
   };
 
   const handleGoBack = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
     navigate(-1);
   };
 
@@ -37,7 +45,7 @@ export const SearchField: FC = () => {
   const isOnPopularPage = location.pathname.startsWith("/popular/");
 
   return (
-    <header className={styles.searchContainer}>
+    <header className={`${styles.searchContainer}`}>
       <button
         className={`${styles.clickButton} ${styles.backButton}`}
         onClick={handleGoBack}
@@ -45,19 +53,25 @@ export const SearchField: FC = () => {
       >
         <img src={BackArrowIcon} alt="Назад" />
       </button>
-      <button className={`${styles.clickButton} ${styles.homeButton}`} onClick={handleGoHome}>
+      <button
+        className={`${styles.clickButton} ${styles.homeButton}`}
+        onClick={handleGoHome}
+      >
         <img src={HomeIcon} alt="Домой" />
       </button>
 
       <input
         type="text"
-        className={styles.searchInput}
+        className={`${styles.searchInput}`}
         placeholder="Введите название фильма..."
         value={inputValue}
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}
       />
-      <button className={`${styles.clickButton} ${styles.searchButton}`} onClick={handleSearch}>
+      <button
+        className={`${styles.clickButton} ${styles.searchButton}`}
+        onClick={handleSearch}
+      >
         <img src={SearchIcon} alt="Поиск" />
       </button>
     </header>
