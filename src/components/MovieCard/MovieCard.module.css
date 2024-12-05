@@ -10,44 +10,28 @@
   animation: fadeInSlideDown 0.5s ease forwards;
 }
 
-.movieCard:focus .imageContainer {
-  box-shadow: 0 0 8px 1px rgba(255, 255, 255, 0.2);
-  border: 1px solid #bbb;
-  transform: translateY(-10px);
-}
-
-.movieCard:focus .movieImage {
-  filter: brightness(40%);
-}
-
-.movieCard:focus .content {
-  opacity: 1;
-  animation: fadeInSlideUp 0.5s ease forwards;
-}
-
-.movieCard:focus .title {
-  color: #f30745;
-  filter: brightness(80%);
-}
-
+.movieCard:focus .imageContainer,
 .movieCard:hover .imageContainer {
   box-shadow: 0 0 8px 1px rgba(255, 255, 255, 0.2);
   border: 1px solid #bbb;
   transform: translateY(-10px);
 }
 
-.movieCard:hover .title {
-  color: #f30745;
-  filter: brightness(80%);
+.movieCard:focus .movieImage,
+.movieCard:hover .movieImage {
+  filter: brightness(40%);
 }
 
-.movieCard:hover .content{
+.movieCard:focus .content,
+.movieCard:hover .content {
   opacity: 1;
   animation: fadeInSlideUp 0.5s ease forwards;
 }
 
-.movieCard:hover .movieImage {
-  filter: brightness(40%);
+.movieCard:focus .title,
+.movieCard:hover .title {
+  color: #f30745;
+  filter: brightness(80%);
 }
 
 .imageContainer {
@@ -94,7 +78,6 @@
   text-align: center;
   transition: filter 0.3s, color 0.3s;
   cursor: pointer;
-
 }
 
 .hoverInfo {
@@ -106,7 +89,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  animation: fadeInSlideUp 0.5s ease ;
+  animation: fadeInSlideUp 0.5s ease;
   animation-delay: 0.3s;
 }
 
@@ -139,13 +122,38 @@
   text-overflow: ellipsis;
 }
 
+/* Мобильные устройства (до 600px) */
 @media (max-width: 600px) {
   .movieCard {
     max-width: 100%;
+    margin: 5px;
   }
 
   .title {
-    font-size: 1em;
+    font-size: 0.8em;
+  }
+
+  .rating,
+  .year,
+  .genres,
+  .countries {
+    font-size: 0.7em;
+  }
+
+  .imageContainer {
+    padding-top: 150%;
+  }
+}
+
+/* Планшеты (601px - 1024px) */
+@media (max-width: 1024px) and (min-width: 601px) {
+  .movieCard {
+    max-width: 150px;
+    margin: 8px;
+  }
+
+  .title {
+    font-size: 0.9em;
   }
 
   .rating,
@@ -154,8 +162,87 @@
   .countries {
     font-size: 0.8em;
   }
+
+  .imageContainer {
+    padding-top: 140%;
+  }
 }
 
+/* Стандартные десктопы (1025px - 1920px) */
+@media (min-width: 1025px) and (max-width: 1920px) {
+  .movieCard {
+    max-width: 200px;
+    margin: 10px;
+  }
+
+  .title {
+    font-size: 1em;
+  }
+
+  .rating {
+    font-size: 1.8em;
+  }
+
+  .year,
+  .genres,
+  .countries {
+    font-size: 0.9em;
+  }
+}
+
+/* 2K экраны (1921px - 2560px) */
+@media (min-width: 1921px) and (max-width: 2560px) {
+  .movieCard {
+    max-width: 250px;
+    margin: 15px;
+  }
+
+  .title {
+    font-size: 1.2em;
+  }
+
+  .rating {
+    font-size: 2.5em;
+  }
+
+  .year,
+  .genres,
+  .countries {
+    font-size: 1em;
+  }
+
+  .imageContainer {
+    padding-top: 140%;
+  }
+}
+
+/* 4K экраны (2561px и выше) */
+@media (min-width: 2560px) {
+  .movieCard {
+    max-width: 300px;
+    margin: 20px;
+  }
+
+  .title {
+    font-size: 1.4em;
+  }
+
+  .rating {
+    font-size: 3em;
+  }
+
+  .year,
+  .genres,
+  .countries {
+    font-size: 1.2em;
+  }
+
+  .imageContainer {
+    padding-top: 135%;
+  }
+}
+
+/* Анимации */
 @keyframes fadeInSlideUp {
   0% {
     opacity: 0;

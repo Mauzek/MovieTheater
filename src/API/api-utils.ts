@@ -1,17 +1,39 @@
 import axios, { AxiosResponse } from "axios";
 import { endpoints, API_KEYS } from "./config";
 
+let currentKeyIndex = 0;
+const API_KEYS_LIST = [
+  API_KEYS.kinopoisk,
+  API_KEYS.kinopoisk_2,
+  API_KEYS.kinopoisk_3,
+];
+
 type ExternalId = { imdb: string | null };
 type Backdrop = { url: string };
 type Genre = { name: string };
 type Country = { name: string };
 type Votes = { kp: number; imdb: number };
 type Rating = { kp: number; imdb: number };
-type ReleaseYears = {start: number, end: number};
-type SeasonInfo = {number: number, episodesCount: number};
-
-let currentKeyIndex = 0; 
-const API_KEYS_LIST = [API_KEYS.kinopoisk, API_KEYS.kinopoisk_2, API_KEYS.kinopoisk_3];
+type ReleaseYears = { start: number; end: number };
+type SeasonInfo = { number: number; episodesCount: number };
+export type Person = {
+  id: number;
+  name: string;
+  photo: string;
+  profession: string;
+  description: string;
+};
+type SimilarAndSequelsMovie = {
+  id: number;
+  name: string;
+  alternativeName?: string;
+  rating: Rating;
+  type: string;
+  year: number
+  poster: {
+    url: string;
+  };
+};
 
 
 export type MovieData = {
@@ -51,7 +73,12 @@ export type MovieData = {
       name: string;
     }[];
   };
+  persons?: Person[];
+  sequelsAndPrequels?: SimilarAndSequelsMovie[],
+  similarMovies?: SimilarAndSequelsMovie[],
 };
+
+
 
 export type MovieCardData = {
   id: string;
@@ -105,6 +132,16 @@ function transformMovieData(data: any): MovieData {
         }
       : undefined,
     videos: data.videos ? { trailers: data.videos.trailers } : undefined,
+    persons: data.persons
+      .filter(
+        (person: Person) =>
+          person.profession === "актеры" &&
+          person.description !== "дополнительные голоса" &&
+          person.description !== null
+      )
+      .slice(0, 12),
+      sequelsAndPrequels: data.sequelsAndPrequels,
+      similarMovies: data.similarMovies,
   };
 }
 
@@ -141,24 +178,26 @@ async function fetchWithRetries<T>(url: string): Promise<T> {
       const response: AxiosResponse = await axios.get(url, {
         headers: { "X-API-KEY": API_KEYS_LIST[currentKeyIndex] },
       });
-      return response.data; 
+      return response.data;
     } catch (error: any) {
       if (
         error.response?.status === 403 &&
-        error.response?.data?.message.includes("Вы израсходовали ваш суточный лимит")
+        error.response?.data?.message.includes(
+          "Вы израсходовали ваш суточный лимит"
+        )
       ) {
         console.warn(`API key exhausted: ${currentKeyIndex}`);
-        currentKeyIndex++; 
+        currentKeyIndex++;
       } else {
         console.error("Error during API call:", error);
-        throw error; 
+        throw error;
       }
     }
   }
   throw new Error("All API keys have been exhausted");
 }
 
-async function getMovieByTitle(movieName: string): Promise<MovieCardData[]> {
+const getMovieByTitle = async (movieName: string): Promise<MovieCardData[]> => {
   try {
     const url = endpoints.searchMovies(1, 10, movieName);
     const data = await fetchWithRetries<{ docs: MovieCardData[] }>(url);
@@ -170,10 +209,9 @@ async function getMovieByTitle(movieName: string): Promise<MovieCardData[]> {
     console.error("Error fetching movies by title:", error);
     throw error;
   }
-}
+};
 
-// Example: Get movie by ID
-async function getMovieByID(movieID: string): Promise<MovieData> {
+const getMovieByID = async (movieID: string): Promise<MovieData> => {
   try {
     const url = endpoints.getMovieById(movieID);
     const data = await fetchWithRetries(url);
@@ -182,9 +220,9 @@ async function getMovieByID(movieID: string): Promise<MovieData> {
     console.error("Error fetching movie by ID:", error);
     throw error;
   }
-}
+};
 
-async function getPopularMovies(): Promise<MovieCardData[]> {
+const getPopularMovies = async (): Promise<MovieCardData[]> => {
   try {
     const response: AxiosResponse = await axios.get(
       endpoints.getPopularMovies("film")
@@ -198,9 +236,9 @@ async function getPopularMovies(): Promise<MovieCardData[]> {
     console.error("Error fetching popular movies:", error);
     throw error;
   }
-}
+};
 
-async function getPopularSeries(): Promise<MovieCardData[]> {
+const getPopularSeries = async (): Promise<MovieCardData[]> => {
   try {
     const response: AxiosResponse = await axios.get(
       endpoints.getPopularMovies("series")
@@ -210,6 +248,6 @@ async function getPopularSeries(): Promise<MovieCardData[]> {
     console.error("Error fetching popular series:", error);
     throw error;
   }
-}
+};
 
 export { getMovieByTitle, getMovieByID, getPopularMovies, getPopularSeries };

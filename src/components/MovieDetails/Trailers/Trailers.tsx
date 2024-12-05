@@ -31,7 +31,7 @@ export const Trailers: FC<TrailersProps> = ({ uniqueTrailers }) => {
           slidesPerView={3}
           spaceBetween={20}
           navigation={false}
-          mousewheel={true}
+          mousewheel={uniqueTrailers.length > 3}
           pagination={{ clickable: true }}
           modules={[Pagination, Navigation, Mousewheel]}
           breakpoints={{

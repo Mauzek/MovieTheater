@@ -1,0 +1,9 @@
+.moviePlayerWrapper {
+    width: 100%;
+    margin-top: 2%;
+  }
+  
+  .kinobox_player {
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+  }
+  

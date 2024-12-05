@@ -50,21 +50,28 @@ const Popular: FC<PopularProps> = ({ film }) => {
 
   return (
     <main>
-      <h1 className={styles.title}>Популярные</h1>
-      <nav className={styles.btnContainer}>
-        <button
-          className={`${styles.button} ${film ? styles.activeButton : ""}`}
-          onClick={handleFilmClick}
+      <div className={styles.pageHeaderContainer}>
+        <h1 className={styles.title}>Популярные</h1>
+        <nav
+          className={`${styles.btnContainer} ${
+            !film ? styles.seriesActive : ""
+          }`}
         >
-          ФИЛЬМЫ
-        </button>
-        <button
-          className={`${styles.button} ${!film ? styles.activeButton : ""}`}
-          onClick={handleSeriesClick}
-        >
-          СЕРИАЛЫ
-        </button>
-      </nav>
+          <button
+            className={`${styles.button} ${film ? styles.activeButton : ""}`}
+            onClick={handleFilmClick}
+          >
+            ФИЛЬМЫ
+          </button>
+          <button
+            className={`${styles.button} ${!film ? styles.activeButton : ""} ${styles.seriesActive}`}
+            onClick={handleSeriesClick}
+          >
+            СЕРИАЛЫ
+          </button>
+        </nav>
+      </div>
+
       {loading && <Preloader />}
       {error && <div className="error">{error}</div>}
       {!loading && !error && <MovieCardList movies={movies} />}

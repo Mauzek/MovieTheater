@@ -1,8 +1,8 @@
 import { FC } from "react";
 import styles from "./Rating.module.css";
-import KinopoiskIcon from "../../assets/icons/kinopoisk-logo-icon.svg";
-import ImdbIcon from "../../assets/icons/imdb_logo.svg";
-import { Rating } from "../Rating/Rating";
+import KinopoiskIcon from "../../../assets/icons/kinopoisk-logo-icon.svg";
+import ImdbIcon from "../../../assets/icons/imdb_logo.svg";
+import { Rating } from "./Rating";
 
 interface RatingSectionProps {
   kpRating: number;

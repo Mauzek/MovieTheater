@@ -16,7 +16,8 @@
     max-width: 400px;
     font-size: 22px;
     max-height: 70px;
-    border: 3px solid #ffd23f;
+    /* border: 3px solid #ffd23f; */
+    border: 3px solid #9292f5;
     border-radius: 10px;
     background: linear-gradient(135deg, rgba(0, 0, 0, 0.2), rgba(255, 255, 255, 0));
     color: #fff;
@@ -70,13 +71,16 @@
 }
 
 .backButton {
-    border-color: #6d118f;
+    /* border-color: #6d118f; */
+    border-color: #ff4067 ;
 }
 
 .homeButton {
-    border-color: #ee4266;
+    /* border-color: #ee4266; */
+    border-color: #bd2fd1  ;
 }
 
 .searchButton {
-    border-color: #3bceac;
+    /* border-color: #3bceac; */
+    border-color: #00cdaf  ;
 }

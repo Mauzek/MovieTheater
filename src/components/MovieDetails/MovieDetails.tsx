@@ -2,9 +2,11 @@ import { FC, useMemo } from "react";
 import { MovieData } from "../../API/api-utils";
 import styles from "./MovieDetails.module.css";
 import NotFound from "../../assets/images/notFound.gif";
-import { RatingSection } from "../Rating/RatingSection";
+import { RatingSection } from "./Rating/RatingSection";
 import { Trailers } from "./Trailers/Trailers";
-import { DetailsList } from "../InfoItem/DetailsList";
+import { DetailsList } from "./InfoItem/DetailsList";
+import { MoviePlayer } from "../MoviePlayer/MoviePlayer";
+import { ActorsSection } from "./Actors/ActorsSection";
 
 interface MovieDetailsProps {
   movie: MovieData;
@@ -39,6 +41,8 @@ export const MovieDetails: FC<MovieDetailsProps> = ({ movie }) => {
   const { seasonsCount, episodesCount } = getSeasonsInfo;
 
   const backdropUrl = movie.backdrop?.url || movie.poster.url;
+
+  console.log(movie.similarMovies)
 
   return (
     <>
@@ -98,6 +102,10 @@ export const MovieDetails: FC<MovieDetailsProps> = ({ movie }) => {
         <hr className={styles.divider} />
 
         <Trailers uniqueTrailers={uniqueTrailers} />
+        <MoviePlayer kinopoiskId={movie.id} />
+        <hr className={styles.divider} />
+
+        {movie.persons && <ActorsSection actors={movie.persons} />}
       </article>
     </>
   );
