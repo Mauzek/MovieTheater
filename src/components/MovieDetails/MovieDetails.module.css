@@ -160,9 +160,14 @@
     bottom: -50px; 
     background: linear-gradient(
       to bottom,
+      rgba(12, 16, 27, 0.6) 0%,
+      rgba(12, 16, 27, 1)95% 
+    );
+    /* background: linear-gradient(
+      to bottom,
       rgba(25, 27, 34, 0.6) 0%,
       rgba(25, 27, 34, 1) 95% 
-    );
+    ); */
   }
 
 @media screen and (max-width: 768px) {

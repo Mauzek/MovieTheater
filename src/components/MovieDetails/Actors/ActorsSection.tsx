@@ -34,7 +34,6 @@ export const ActorsSection: FC<ActorsSectionProps> = ({ actors }) => {
       >
         <Collapse
           accordion
-          defaultActiveKey={["1"]}
           expandIconPosition="end"
           style={{ width: "100%", fontWeight: 600 }}
         >

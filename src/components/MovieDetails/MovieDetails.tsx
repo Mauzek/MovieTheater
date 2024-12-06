@@ -1,4 +1,4 @@
-import { FC, useMemo } from "react";
+import { FC, useEffect, useMemo } from "react";
 import { MovieData } from "../../API/api-utils";
 import styles from "./MovieDetails.module.css";
 import NotFound from "../../assets/images/notFound.gif";
@@ -7,6 +7,7 @@ import { Trailers } from "./Trailers/Trailers";
 import { DetailsList } from "./InfoItem/DetailsList";
 import { MoviePlayer } from "../MoviePlayer/MoviePlayer";
 import { ActorsSection } from "./Actors/ActorsSection";
+import { SequelsAndPrequelsSection } from "./SequelsAndPrequels/SequelsAndPrequelsSection";
 
 interface MovieDetailsProps {
   movie: MovieData;
@@ -42,7 +43,7 @@ export const MovieDetails: FC<MovieDetailsProps> = ({ movie }) => {
 
   const backdropUrl = movie.backdrop?.url || movie.poster.url;
 
-  console.log(movie.similarMovies)
+ useEffect(()=>  {console.log(movie.sequelsAndPrequels); console.log(movie.id)})
 
   return (
     <>
@@ -102,6 +103,12 @@ export const MovieDetails: FC<MovieDetailsProps> = ({ movie }) => {
         <hr className={styles.divider} />
 
         <Trailers uniqueTrailers={uniqueTrailers} />
+        <hr className={styles.divider} style={{ margin: "0px 0 32px " }} />
+
+        {movie.sequelsAndPrequels && movie.sequelsAndPrequels.length > 0 && (
+          <SequelsAndPrequelsSection movies={movie.sequelsAndPrequels} />
+        )}
+
         <MoviePlayer kinopoiskId={movie.id} />
         <hr className={styles.divider} />
 

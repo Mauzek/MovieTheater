@@ -10,8 +10,8 @@ const App: React.FC = () => {
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route path="/" element={<Navigate to="/popular/movies" />} />
-        <Route path="movies/:name" element={<Movie />} />
-        <Route path="series/:name" element={<Movie />} />
+        <Route path="movies/:id" element={<Movie />} />
+        <Route path="series/:id" element={<Movie />} />
         <Route path="popular">
           <Route path="movies"  element={<Popular film={true} />} />
           <Route path="series" element={<Popular film={false}/>} />

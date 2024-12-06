@@ -23,7 +23,7 @@ export type Person = {
   profession: string;
   description: string;
 };
-type SimilarAndSequelsMovie = {
+export type SimilarAndSequelsMovie = {
   id: number;
   name: string;
   alternativeName?: string;

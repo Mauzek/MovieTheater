@@ -13,27 +13,37 @@
 .swiper-button-next,
 .swiper-button-prev {
     color: #fff !important;
-    border-radius: 50%; 
-    padding: 25px; 
-    margin-top: -50px ;
+    width: 42px;
+    height: 42px;
+    padding: 10px;
+    border-radius: 100%;
     transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
+    position: absolute;
+    top: 40%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    margin-left:10px;
+    margin-right:10px;
 }
 
-/* Эффект при наведении */
+.swiper-button-disabled{
+    display: none;
+}
+
 .swiper-button-next:hover,
 .swiper-button-prev:hover {
     background-color: rgba(0, 0, 0, 0.8); 
+}
 
+.swiper-button-next:after{
+    left: 45%;
 }
 
 .swiper-button-next:after,
 .swiper-button-prev:after {
-    font-size: 30px; /* Увеличим размер стрелок */
-    font-weight: bold; /* Сделаем стрелки более жирными */
+    position: absolute;
+    font-size: 14px; 
+    color: #fff;
+    font-weight: bold; 
 }
 
 /* Кнопки для маленьких экранов */

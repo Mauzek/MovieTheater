@@ -1,7 +1,7 @@
 import { FC } from "react";
 import styles from "./Trailers.module.css";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Mousewheel, Navigation, Pagination } from "swiper/modules";
+import { Mousewheel, Navigation, Pagination, Autoplay } from "swiper/modules";
 import YouTubeIcon from "../../../assets/icons/youtube.svg";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -28,12 +28,16 @@ export const Trailers: FC<TrailersProps> = ({ uniqueTrailers }) => {
     <section className={styles.trailerSection}>
       {uniqueTrailers && uniqueTrailers.length > 0 ? (
         <Swiper
-          slidesPerView={3}
-          spaceBetween={20}
-          navigation={false}
-          mousewheel={uniqueTrailers.length > 3}
-          pagination={{ clickable: true }}
-          modules={[Pagination, Navigation, Mousewheel]}
+        autoplay={{ delay: 0, disableOnInteraction: false }}
+        loop={true}
+        speed={1500}
+        freeMode={true}
+        slidesPerView={3}
+        spaceBetween={20}
+        navigation={false}
+        mousewheel={uniqueTrailers.length > 3}
+        pagination={{ clickable: true }}
+        modules={[Pagination, Navigation, Mousewheel, Autoplay]}
           breakpoints={{
             0: { slidesPerView: 1, spaceBetween: 20, navigation: true },
             640: { slidesPerView: 2, spaceBetween: 20, navigation: true },
