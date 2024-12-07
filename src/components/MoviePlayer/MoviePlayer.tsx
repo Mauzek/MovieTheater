@@ -5,7 +5,7 @@ interface MoviePlayerProps {
   kinopoiskId: number;
 }
 
-export const MoviePlayer: React.FC<MoviePlayerProps> = ({ kinopoiskId }) => {
+export const MoviePlayer: React.FC<MoviePlayerProps> = ({ kinopoiskId}) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -18,7 +18,13 @@ export const MoviePlayer: React.FC<MoviePlayerProps> = ({ kinopoiskId }) => {
       if (containerRef.current && (window as any).kbox) {
         (window as any).kbox(containerRef.current, {
           search: { kinopoisk: kinopoiskId },
-          menu: { enabled: true },       
+          menu: { enable: true, default: "menu_button" },  
+          params: {
+            all: {
+              episode: 1,
+              season: 1,
+            }
+          }     
         });
       }
     };
@@ -34,6 +40,7 @@ export const MoviePlayer: React.FC<MoviePlayerProps> = ({ kinopoiskId }) => {
 
   return (
     <div className={styles.moviePlayerWrapper}>
+      <h3 className={styles.MoviePlayerTitle}>Смотреть онлайн</h3>
       <div
         ref={containerRef}
         className={`kinobox_player ${styles.kinobox_player}` }

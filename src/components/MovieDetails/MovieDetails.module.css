@@ -4,7 +4,7 @@
     align-items: center;
     justify-content: center;
     padding: 20px;
-    width: 100%;
+    width: 110%;
     max-width: 1080px;
     margin: 0 auto;
     border-radius: 10px;
@@ -163,11 +163,6 @@
       rgba(12, 16, 27, 0.6) 0%,
       rgba(12, 16, 27, 1)95% 
     );
-    /* background: linear-gradient(
-      to bottom,
-      rgba(25, 27, 34, 0.6) 0%,
-      rgba(25, 27, 34, 1) 95% 
-    ); */
   }
 
 @media screen and (max-width: 768px) {

@@ -25,14 +25,11 @@
 .btnContainer::before {
   content: '';
   top: -2px;
-
   position: absolute;
   width: 48%;
   height: calc(100%);
   background: rgba(239, 71, 111, 0.2);
   border: 2px solid #ef476f ;
-  /* background: rgba(255, 210, 63, 0.2);
-  border: 2px solid #ffd23f; */
   border-radius: 30px;
   transition: transform 0.3s ease;
   transform: translateX(-1.2%);

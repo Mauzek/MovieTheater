@@ -36,3 +36,46 @@ h1 {
   font-size: 3.2em;
   line-height: 1.1;
 }
+
+.ant-collapse-header{
+  background-color: #0c101b;
+  border-radius: 10%;
+}
+
+.ant-collapse-header-text{
+  font-size: 20px;
+  color: #ccc;
+  transition: color 0.3s ease,  background-color 0.2s ease;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.ant-collapse-expand-icon span svg{
+  fill: #ccc;
+  font-size: 20px;
+  transition: fill 0.3s ease;
+}
+
+
+.ant-collapse-expand-icon{
+  align-self: center;
+}
+
+.ant-collapse-header:hover .ant-collapse-header-text{
+  color: #f30745;
+  filter: brightness(80%);
+  background-color: rgba(255, 255, 255, 0.1);
+}
+.ant-collapse-header:hover .ant-collapse-expand-icon span svg{
+  fill: #f30745;
+  filter: brightness(80%);
+
+}
+
+.ant-collapse-header:hover .ant-collapse-arrow{
+  color: #000;
+  fill: #000;
+}
+
+
+

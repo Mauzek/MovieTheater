@@ -1,4 +1,4 @@
-import { FC, useEffect, useMemo } from "react";
+import { FC, useMemo } from "react";
 import { MovieData } from "../../API/api-utils";
 import styles from "./MovieDetails.module.css";
 import NotFound from "../../assets/images/notFound.gif";
@@ -43,7 +43,23 @@ export const MovieDetails: FC<MovieDetailsProps> = ({ movie }) => {
 
   const backdropUrl = movie.backdrop?.url || movie.poster.url;
 
- useEffect(()=>  {console.log(movie.sequelsAndPrequels); console.log(movie.id)})
+  const moviesWithCurrent = useMemo(() => {
+    if (!movie.sequelsAndPrequels) return [];
+    return [
+      {
+        id: movie.id,
+        name: movie.name,
+        alternativeName: movie.alternativeName,
+        rating: movie.rating,
+        type: movie.type,
+        year: movie.year,
+        poster: movie.poster,
+      },
+      ...movie.sequelsAndPrequels,
+    ];
+  }, [movie]);
+
+  console.log(movie.similarMovies);
 
   return (
     <>
@@ -105,14 +121,19 @@ export const MovieDetails: FC<MovieDetailsProps> = ({ movie }) => {
         <Trailers uniqueTrailers={uniqueTrailers} />
         <hr className={styles.divider} style={{ margin: "0px 0 32px " }} />
 
-        {movie.sequelsAndPrequels && movie.sequelsAndPrequels.length > 0 && (
-          <SequelsAndPrequelsSection movies={movie.sequelsAndPrequels} />
+        {moviesWithCurrent.length > 1 && (
+          <>
+            <SequelsAndPrequelsSection movies={moviesWithCurrent} />
+            <hr className={styles.divider} />
+          </>
         )}
 
-        <MoviePlayer kinopoiskId={movie.id} />
+        <MoviePlayer kinopoiskId={movie.id}/>
         <hr className={styles.divider} />
 
-        {movie.persons && <ActorsSection actors={movie.persons} />}
+        {movie.persons && movie.persons.length > 0 && (
+          <ActorsSection actors={movie.persons} />
+        )}
       </article>
     </>
   );

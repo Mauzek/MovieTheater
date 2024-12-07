@@ -80,5 +80,6 @@
     font-size: 16px;
     color: #888;
     text-align: center;
-    margin-top: 20px;
+    align-self: center;
+    margin: 20px 0 50px;
 }
