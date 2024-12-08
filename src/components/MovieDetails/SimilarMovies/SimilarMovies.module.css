@@ -1,0 +1,138 @@
+.section {
+    padding: 40px;
+    width: 100%;
+}
+
+.container {
+    display: flex;
+    align-items: flex-start;
+    gap: 30px;
+}
+
+.swiper {
+    width: 100%;
+    max-width: 350px;
+}
+
+.link{
+    cursor: grab;
+}
+
+.movieInfo {
+    flex: 1;
+    /* background: linear-gradient(145deg, #222222, #1a1a1a); */
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    max-width: 350px;
+    animation: fadeIn 0.6s ease;
+    overflow: hidden;
+}
+
+.movieTitle {
+    margin-bottom: 15px;
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #ccc;
+    margin: 0;
+    animation: fadeInText 0.8s ease;
+}
+
+.movieAlternativeTitle {
+    margin-bottom: 15px;
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #999;
+    animation: fadeInText 0.8s ease;
+}
+
+.movieYear,
+.movieRating {
+    margin-bottom: 10px;
+    font-size: 1em;
+    color: #777;
+    animation: fadeInText 0.8s ease;
+}
+
+.watchButton {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #ff4081;
+    outline-offset: -1px;
+    outline: 2px solid #ff4081;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, outline-offset 0.1s ease;
+    margin-top: 20px;
+}
+
+.watchButton:hover {
+    background-color: transparent;
+    color: #ff4081;
+    outline-offset: 5px;
+}
+
+.card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #C20637;
+    border-radius: 20px;
+    padding: 10px;
+    width: 350px;
+    height: 500px;
+    overflow: hidden;
+    transition: transform 0.3s ease, filter 0.3s ease, outline-offset 0.3s ease, border 0.3s ease;
+}
+
+/* .card:not(.inactiveCard):hover .poster {
+    transform: scale(1.07);
+} */
+
+.card:not(.inactiveCard):hover {
+    filter: brightness(100%);
+}
+
+.inactiveCard {
+    filter: brightness(60%);
+    background-color: #222222;
+    background: linear-gradient(0deg, #222222, #1a1a1a);
+    transition: filter 0.3s ease;
+    outline: none;
+}
+
+.poster {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInText {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

@@ -8,6 +8,7 @@ import { DetailsList } from "./InfoItem/DetailsList";
 import { MoviePlayer } from "../MoviePlayer/MoviePlayer";
 import { ActorsSection } from "./Actors/ActorsSection";
 import { SequelsAndPrequelsSection } from "./SequelsAndPrequels/SequelsAndPrequelsSection";
+import { SimilarMoviesSection } from "./SimilarMovies/SimilarMoviesSection";
 
 interface MovieDetailsProps {
   movie: MovieData;
@@ -41,7 +42,9 @@ export const MovieDetails: FC<MovieDetailsProps> = ({ movie }) => {
 
   const { seasonsCount, episodesCount } = getSeasonsInfo;
 
-  const backdropUrl = movie.backdrop?.url || movie.poster.url;
+  const backdropUrl = movie.backdrop?.url
+    ? movie.backdrop?.url.replace(/\/orig$/, "/1920x1080")
+    : movie.poster.url;
 
   const moviesWithCurrent = useMemo(() => {
     if (!movie.sequelsAndPrequels) return [];
@@ -128,12 +131,19 @@ export const MovieDetails: FC<MovieDetailsProps> = ({ movie }) => {
           </>
         )}
 
-        <MoviePlayer kinopoiskId={movie.id}/>
+        <MoviePlayer kinopoiskId={movie.id} />
         <hr className={styles.divider} />
 
         {movie.persons && movie.persons.length > 0 && (
           <ActorsSection actors={movie.persons} />
         )}
+
+       {movie.similarMovies && movie.similarMovies.length > 0 && (
+        <>
+          <hr className={styles.divider} />
+          <SimilarMoviesSection movies={movie.similarMovies} />
+        </>
+      )}
       </article>
     </>
   );

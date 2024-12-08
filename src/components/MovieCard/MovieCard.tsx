@@ -12,12 +12,15 @@ export const MovieCard: FC<MovieCardProps> = ({ movieCard }) => {
   const limitedCountries = movieCard.countries.slice(0, 1).join(", ");
   const formattedGenres = movieCard.genres.slice(0, 2).join(", ");
   const formattedRating = Math.round(movieCard.rating * 10) / 10;
-  const type = movieCard.type === "Film" || movieCard.type === "movie" ? "movies" : "series";
+  const type =
+    movieCard.type === "Film" || movieCard.type === "movie"
+      ? "movies"
+      : "series";
 
   return (
     <Link to={`/${type}/${movieCard.id}`} className={styles.movieCard}>
       <article
-        className={styles.movieCard}
+  
         aria-label={`Карточка фильма ${movieCard.title}`}
       >
         <div className={styles.imageContainer}>
