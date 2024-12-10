@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { SimilarAndSequelsMovie } from "../../../API/api-utils";
+import { SimilarAndSequelsMovie } from "../../../API/types";
 import styles from "./SequelsAndPrequels.module.css";
 import { Link, useParams } from "react-router-dom";
 import NotFound from "../../../assets/images/notFound.gif";

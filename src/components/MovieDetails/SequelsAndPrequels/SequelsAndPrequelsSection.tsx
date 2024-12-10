@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { SequelsAndPrequelsItem } from './SequelsAndPrequelsItem';
-import { SimilarAndSequelsMovie } from '../../../API/api-utils';
+import { SimilarAndSequelsMovie } from '../../../API/types';
 import styles from './SequelsAndPrequels.module.css';
 import { Collapse, ConfigProvider } from "antd";
 

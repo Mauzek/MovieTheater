@@ -63,7 +63,7 @@ export const SimilarMoviesSection: FC<SimilarMoviesSectionProps> = ({
     navigate(`/${type}/${activeMovie.id}`);
   };
 
-  const formattedKpRating = Math.round(activeMovie.rating.kp * 10) / 10;
+  const formattedKpRating = Math.round(activeMovie.rating?.kp * 10) / 10;
 
   return (
     <section className={styles.section}>
@@ -95,10 +95,10 @@ export const SimilarMoviesSection: FC<SimilarMoviesSectionProps> = ({
                 {activeMovie.alternativeName}
               </h4>
             )}
-            {activeMovie.year && (
+            {activeMovie.year > 0 && (
               <p className={styles.movieYear}>Год: {activeMovie.year}</p>
             )}
-            {activeMovie.rating?.kp && (
+            {activeMovie.rating?.kp > 0 && (
               <p className={styles.movieRating}>
                 Рейтинг: {formattedKpRating}
               </p>

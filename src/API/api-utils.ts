@@ -1,5 +1,13 @@
 import axios, { AxiosResponse } from "axios";
 import { endpoints, API_KEYS } from "./config";
+import {
+  ApiErrorResponse,
+  ApiMovieCardData,
+  ApiMovieCardDataByTitle,
+  ApiMovieData,
+  MovieCardData,
+  MovieData,
+} from "./types";
 
 let currentKeyIndex = 0;
 const API_KEYS_LIST = [
@@ -8,100 +16,15 @@ const API_KEYS_LIST = [
   API_KEYS.kinopoisk_3,
 ];
 
-type ExternalId = { imdb: string | null };
-type Backdrop = { url: string };
-type Genre = { name: string };
-type Country = { name: string };
-type Votes = { kp: number; imdb: number };
-type Rating = { kp: number; imdb: number };
-type ReleaseYears = { start: number; end: number };
-type SeasonInfo = { number: number; episodesCount: number };
-export type Person = {
-  id: number;
-  name: string;
-  photo: string;
-  profession: string;
-  description: string;
-};
-export type SimilarAndSequelsMovie = {
-  id: number;
-  name: string;
-  alternativeName?: string;
-  rating: Rating;
-  type: string;
-  year: number
-  poster: {
-    url: string;
-  };
-};
-
-
-export type MovieData = {
-  id: number;
-  name: string;
-  alternativeName?: string;
-  year: number;
-  releaseYears?: ReleaseYears[];
-  description: string;
-  shortDescription?: string;
-  ageRating: number;
-  type: string;
-  rating: Rating;
-  votes: Votes;
-  externalId: ExternalId;
-  genres: Genre[];
-  countries: Country[];
-  seasonsInfo?: SeasonInfo[];
-  movieLength?: number;
-  seriesLength?: number;
-  poster: {
-    url: string;
-    previewUrl: string;
-  };
-  backdrop?: Backdrop;
-  logo?: {
-    url: string;
-    previewUrl: string;
-  };
-  premiere?: {
-    russia?: string;
-    world?: string;
-  };
-  videos?: {
-    trailers: {
-      url: string;
-      name: string;
-    }[];
-  };
-  persons?: Person[];
-  sequelsAndPrequels?: SimilarAndSequelsMovie[],
-  similarMovies?: SimilarAndSequelsMovie[],
-};
-
-
-
-export type MovieCardData = {
-  id: string;
-  title: string;
-  alternativeTitle?: string;
-  type: string;
-  year: number;
-  rating: number;
-  posterUrl: string;
-  countries: string[];
-  genres: string[];
-};
-
-function transformMovieData(data: any): MovieData {
+function transformMovieData(data: ApiMovieData): MovieData {
   return {
     id: data.id,
     name: data.name,
-    alternativeName: data.alternativeName,
+    alternativeName: data.alternativeName ?? null,
     year: data.year,
-    releaseYears: data.releaseYears,
-    description: data.description,
-    shortDescription: data.shortDescription,
-    ageRating: data.ageRating,
+    releaseYears: data.releaseYears || [],
+    description: data.description ?? null,
+    ageRating: data.ageRating ?? null,
     type: data.type,
     rating: {
       kp: data.rating.kp,
@@ -111,45 +34,87 @@ function transformMovieData(data: any): MovieData {
       kp: data.votes.kp,
       imdb: data.votes.imdb,
     },
-    externalId: data.externalId,
-    genres: data.genres,
-    countries: data.countries,
-    seasonsInfo: data.seasonsInfo,
-    movieLength: data.movieLength,
-    seriesLength: data.seriesLength,
+    externalId: {
+      imdb: data.externalId.imdb,
+    },
+    genres: data.genres.map((genre) => ({ name: genre.name })),
+    countries: data.countries.map((country) => ({ name: country.name })),
+    seasonsInfo: data.seasonsInfo || [],
+    movieLength: data.movieLength || undefined,
+    seriesLength: data.seriesLength || undefined,
     poster: {
       url: data.poster.url,
       previewUrl: data.poster.previewUrl,
     },
-    backdrop: data.backdrop ? { url: data.backdrop.url } : undefined,
-    logo: data.logo
+    backdrop: data.backdrop?.url ? { url: data.backdrop.url } : undefined,
+    logo: data.logo?.url
       ? { url: data.logo.url, previewUrl: data.logo.previewUrl }
       : undefined,
     premiere: data.premiere
       ? {
-          russia: data.premiere.russia,
-          world: data.premiere.world,
+          russia: data.premiere.russia ?? undefined,
+          world: data.premiere.world ?? undefined,
         }
       : undefined,
-    videos: data.videos ? { trailers: data.videos.trailers } : undefined,
-    persons: data.persons
-      .filter(
-        (person: Person) =>
-          person.profession === "актеры" &&
-          person.description !== "дополнительные голоса" &&
-          person.description !== null
-      )
-      .slice(0, 12),
-      sequelsAndPrequels: data.sequelsAndPrequels,
-      similarMovies: data.similarMovies,
+    videos: data.videos
+      ? {
+          trailers: data.videos.trailers.map((trailer) => ({
+            url: trailer.url,
+            name: trailer.name,
+          })),
+        }
+      : undefined,
+    persons:
+      data.persons
+        ?.filter(
+          (person) =>
+            person.profession === "актеры" &&
+            person.description !== "дополнительные голоса"
+        )
+        .slice(0, 12)
+        .map((person) => ({
+          id: person.id,
+          name: person.name || person.enName || "Unknown",
+          photo: person.photo || "",
+          role: person.enProfession,
+          description: person.description || "",
+        })) || [],
+    sequelsAndPrequels: data.sequelsAndPrequels.map((movie) => ({
+      id: movie.id,
+      name: movie.name,
+      alternativeName: movie.alternativeName,
+      rating: {
+        kp: movie.rating?.kp || 0,
+        imdb: movie.rating?.imdb || 0,
+      },
+      type: movie.type,
+      year: movie.year || 0,
+      poster: {
+        url: movie.poster.url,
+      },
+    })),
+    similarMovies: data.similarMovies.map((movie) => ({
+      id: movie.id,
+      name: movie.name,
+      alternativeName: movie.alternativeName ?? undefined,
+      rating: {
+        kp: movie.rating?.kp || 0,
+        imdb: movie.rating?.imdb || 0,
+      },
+      type: movie.type,
+      year: movie.year || 0,
+      poster: {
+        url: movie.poster.url,
+      },
+    })),
   };
 }
 
-function transformMovieById(data: any): MovieCardData {
+function transformMovieByTitle(data: ApiMovieCardDataByTitle): MovieCardData {
   return {
     id: data.id,
-    title: data.name || "Unknown Title",
-    alternativeTitle: data.alternativeName,
+    title: data.name || "Unknown title",
+    alternativeTitle: data.alternativeName ?? undefined,
     year: data.year,
     rating: data.rating?.kp || 0,
     genres: data.genres.map((genre: { name: string }) => genre.name),
@@ -159,7 +124,7 @@ function transformMovieById(data: any): MovieCardData {
   };
 }
 
-function transformToMovieCard(movie: any): MovieCardData {
+function transformToMovieCard(movie: ApiMovieCardData): MovieCardData {
   return {
     id: movie.id,
     title: movie.title,
@@ -175,21 +140,27 @@ function transformToMovieCard(movie: any): MovieCardData {
 async function fetchWithRetries<T>(url: string): Promise<T> {
   while (currentKeyIndex < API_KEYS_LIST.length) {
     try {
-      const response: AxiosResponse = await axios.get(url, {
+      const response: AxiosResponse<T> = await axios.get(url, {
         headers: { "X-API-KEY": API_KEYS_LIST[currentKeyIndex] },
       });
       return response.data;
-    } catch (error: any) {
-      if (
-        error.response?.status === 403 &&
-        error.response?.data?.message.includes(
-          "Вы израсходовали ваш суточный лимит"
-        )
-      ) {
-        console.warn(`API key exhausted: ${currentKeyIndex}`);
-        currentKeyIndex++;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const axiosError = error as ApiErrorResponse;
+        if (
+          axiosError.response?.status === 403 &&
+          axiosError.response?.data?.message.includes(
+            "Вы израсходовали ваш суточный лимит"
+          )
+        ) {
+          console.warn(`API key exhausted: ${currentKeyIndex}`);
+          currentKeyIndex++;
+        } else {
+          console.error("Error during API call:", axiosError);
+          throw axiosError;
+        }
       } else {
-        console.error("Error during API call:", error);
+        console.error("Unexpected error:", error);
         throw error;
       }
     }
@@ -200,11 +171,13 @@ async function fetchWithRetries<T>(url: string): Promise<T> {
 const getMovieByTitle = async (movieName: string): Promise<MovieCardData[]> => {
   try {
     const url = endpoints.searchMovies(1, 10, movieName);
-    const data = await fetchWithRetries<{ docs: MovieCardData[] }>(url);
+    const data = await fetchWithRetries<{ docs: ApiMovieCardDataByTitle[] }>(
+      url
+    );
     if (!data.docs || data.docs.length === 0) {
       throw new Error("Movies not found");
     }
-    return data.docs.map(transformMovieById);
+    return data.docs.map(transformMovieByTitle);
   } catch (error) {
     console.error("Error fetching movies by title:", error);
     throw error;
@@ -214,7 +187,7 @@ const getMovieByTitle = async (movieName: string): Promise<MovieCardData[]> => {
 const getMovieByID = async (movieID: string): Promise<MovieData> => {
   try {
     const url = endpoints.getMovieById(movieID);
-    const data = await fetchWithRetries(url);
+    const data = await fetchWithRetries<ApiMovieData>(url);
     return transformMovieData(data);
   } catch (error) {
     console.error("Error fetching movie by ID:", error);

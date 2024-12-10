@@ -1,10 +1,11 @@
-import React, { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { MovieDetails } from "../../../components/MovieDetails/MovieDetails";
-import { getMovieByID, MovieData } from "../../../API/api-utils";
+import { getMovieByID } from "../../../API/api-utils";
+import { MovieData } from "../../../API/types";
 import { Preloader } from "../../../components/Preloader/Preloader";
 
-const Movie: React.FC = () => {
+const Movie = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const location = useLocation();

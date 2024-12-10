@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Collapse, ConfigProvider } from "antd";
 import { Actor } from "./Actor";
-import { Person } from "../../../API/api-utils";
+import { Person } from "../../../API/types";
 import styles from "./Actor.module.css";
 
 interface ActorsSectionProps {
@@ -18,10 +18,7 @@ export const ActorsSection: FC<ActorsSectionProps> = ({ actors }) => {
           {actors.map((actor) => (
             <Actor
               key={actor.id}
-              id={actor.id}
-              name={actor.name}
-              photo={actor.photo}
-              role={actor.description}
+              actor={actor}
             />
           ))}
         </div>

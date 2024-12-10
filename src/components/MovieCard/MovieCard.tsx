@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
 import styles from "./MovieCard.module.css";
-import { MovieCardData } from "../../API/api-utils";
+import { MovieCardData } from "../../API/types";
 import notFound from "../../assets/images/notFound.png";
 
 interface MovieCardProps {

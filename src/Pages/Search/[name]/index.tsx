@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { useParams } from "react-router-dom";
-import { getMovieByTitle, MovieCardData } from "../../../API/api-utils";
+import { getMovieByTitle } from "../../../API/api-utils";
+import { MovieCardData } from "../../../API/types";
 import { Preloader } from "../../../components/Preloader/Preloader";
 import { MovieCardList } from "../../../components/MovieCardList/MovieCardList";
 import styles from "./Search.module.css";

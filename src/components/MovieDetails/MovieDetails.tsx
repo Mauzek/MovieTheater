@@ -1,5 +1,5 @@
-import { FC, useMemo } from "react";
-import { MovieData } from "../../API/api-utils";
+import { FC, useEffect, useMemo } from "react";
+import { MovieData } from "../../API/types";
 import styles from "./MovieDetails.module.css";
 import NotFound from "../../assets/images/notFound.gif";
 import { RatingSection } from "./Rating/RatingSection";
@@ -52,7 +52,7 @@ export const MovieDetails: FC<MovieDetailsProps> = ({ movie }) => {
       {
         id: movie.id,
         name: movie.name,
-        alternativeName: movie.alternativeName,
+        alternativeName: movie.alternativeName ?? undefined,
         rating: movie.rating,
         type: movie.type,
         year: movie.year,
@@ -62,7 +62,7 @@ export const MovieDetails: FC<MovieDetailsProps> = ({ movie }) => {
     ];
   }, [movie]);
 
-  console.log(movie.similarMovies);
+  useEffect(() => console.log("Render"));
 
   return (
     <>
@@ -124,7 +124,7 @@ export const MovieDetails: FC<MovieDetailsProps> = ({ movie }) => {
         <Trailers uniqueTrailers={uniqueTrailers} />
         <hr className={styles.divider} style={{ margin: "0px 0 32px " }} />
 
-        {moviesWithCurrent.length > 1 && (
+        {movie.sequelsAndPrequels && movie.sequelsAndPrequels.length > 1 && (
           <>
             <SequelsAndPrequelsSection movies={moviesWithCurrent} />
             <hr className={styles.divider} />
@@ -138,12 +138,12 @@ export const MovieDetails: FC<MovieDetailsProps> = ({ movie }) => {
           <ActorsSection actors={movie.persons} />
         )}
 
-       {movie.similarMovies && movie.similarMovies.length > 0 && (
-        <>
-          <hr className={styles.divider} />
-          <SimilarMoviesSection movies={movie.similarMovies} />
-        </>
-      )}
+        {movie.similarMovies && movie.similarMovies.length > 0 && (
+          <>
+            <hr className={styles.divider} />
+            <SimilarMoviesSection movies={movie.similarMovies} />
+          </>
+        )}
       </article>
     </>
   );

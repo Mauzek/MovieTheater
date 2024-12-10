@@ -1,21 +1,19 @@
 .section {
-    padding: 40px;
-    width: 100%;
-
-    color: #ffffff;
-    border-radius: 20px;
+  width: 100%;
+  padding-bottom: 40px;
   }
   
   .sectionTitle {
     font-size: 2em;
-    margin-bottom: 20px;
-    color: #ff4081;
+    margin-bottom: 1em;
+    color: #ccc;
     text-align: center;
   }
   
   .container {
     display: flex;
     align-items: flex-start;
+    justify-content: center;
     gap: 30px;
   }
   

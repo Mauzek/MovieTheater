@@ -2,8 +2,8 @@ import { FC, useEffect, useState } from "react";
 import {
   getPopularMovies,
   getPopularSeries,
-  MovieCardData,
 } from "../../API/api-utils";
+import {MovieCardData} from "../../API/types";
 import { Preloader } from "../../components/Preloader/Preloader";
 import { MovieCardList } from "../../components/MovieCardList/MovieCardList";
 import styles from "./Popular.module.css";

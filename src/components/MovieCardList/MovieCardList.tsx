@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { MovieCard } from "../MovieCard/MovieCard";
-import { MovieCardData } from "../../API/api-utils";
+import { MovieCardData } from "../../API/types";
 import styles from "./MovieCardList.module.css";
 
 interface MovieCardListProps {

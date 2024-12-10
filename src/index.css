@@ -83,7 +83,8 @@ h1 {
 
 .swiper-cards{
   height: 31.25em;
-
+  margin: 0;
+  margin-right: 7em;
 }
 
 .swiper-3d .swiper-slide-shadow {
