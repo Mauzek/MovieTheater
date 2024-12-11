@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef, FC } from "react";
 import { Swiper, SwiperClass, SwiperSlide } from "swiper/react";
-import { EffectCards } from "swiper/modules";
+import { EffectCards, Navigation } from "swiper/modules";
 import { SimilarMoviesItem } from "./SimilarMoviesItem";
 import { useNavigate } from "react-router-dom";
 import { FastAverageColor } from "fast-average-color";
+import ArrowNav from "../../../assets/icons/arrow_back.svg";
 import "swiper/css";
 import "swiper/css/effect-cards";
 import styles from "./SimilarMovies.module.css";
@@ -30,6 +31,7 @@ export const SimilarMoviesSection: FC<SimilarMoviesSectionProps> = ({
   const activeMovie = movies[activeIndex];
   const navigate = useNavigate();
   const facRef = useRef(new FastAverageColor());
+  const swiperRef = useRef<SwiperClass | null>(null);
 
   useEffect(() => {
     const fetchColors = async () => {
@@ -65,28 +67,53 @@ export const SimilarMoviesSection: FC<SimilarMoviesSectionProps> = ({
 
   const formattedKpRating = Math.round(activeMovie.rating?.kp * 10) / 10;
 
+  useEffect(() => console.log("Render"));
+
   return (
     <section className={styles.section}>
       <h2 className={styles.sectionTitle}>Могут понравиться</h2>
-      <div className={styles.container}>
-        <Swiper
-          effect="cards"
-          grabCursor={true}
-          modules={[EffectCards]}
-          onSlideChange={handleSlideChange}
-          className={styles.swiper}
-        >
-          {movies.map((movie, index) => (
-            <SwiperSlide key={movie.id}>
-              <SimilarMoviesItem
-                movie={movie}
-                isActive={index === activeIndex}
-                cardColor={cardColors[movie.id] || "#C20637"}
-              />
-            </SwiperSlide>
-          ))}
-        </Swiper>
+      <div className={styles.similarMoviesContainer}>
+        <div className={styles.swiperWrapper}>
+          <button
+            className={`${styles.navBtn} ${styles.navBtnPrev} ${
+              swiperRef.current?.isBeginning ? styles.navBntInactive : ""
+            }`}
+            onClick={() => swiperRef.current?.slidePrev()}
+            aria-label="Назад"
+          >
+            <img src={ArrowNav} alt="Назад" />
+          </button>
 
+          <Swiper
+            effect="cards"
+            navigation={false}
+            grabCursor={true}
+            modules={[EffectCards, Navigation]}
+            onSlideChange={handleSlideChange}
+            className={styles.swiper}
+            onSwiper={(swiper) => (swiperRef.current = swiper)}
+          >
+            {movies.map((movie, index) => (
+              <SwiperSlide key={movie.id}>
+                <SimilarMoviesItem
+                  movie={movie}
+                  isActive={index === activeIndex}
+                  cardColor={cardColors[movie.id] || "#C20637"}
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+
+          <button
+            className={`${styles.navBtn} ${styles.navBtnNext} ${
+              swiperRef.current?.isEnd ? styles.navBntInactive : ""
+            }`}
+            onClick={() => swiperRef.current?.slideNext()}
+            aria-label="Вперед"
+          >
+            <img src={ArrowNav} alt="Вперед" />
+          </button>
+        </div>
         {activeMovie && (
           <div className={`${styles.movieInfo} ${styles.fadeIn}`}>
             <h3 className={styles.movieTitle}>{activeMovie.name}</h3>
@@ -99,9 +126,7 @@ export const SimilarMoviesSection: FC<SimilarMoviesSectionProps> = ({
               <p className={styles.movieYear}>Год: {activeMovie.year}</p>
             )}
             {activeMovie.rating?.kp > 0 && (
-              <p className={styles.movieRating}>
-                Рейтинг: {formattedKpRating}
-              </p>
+              <p className={styles.movieRating}>Рейтинг: {formattedKpRating}</p>
             )}
             <button className={styles.watchButton} onClick={handleWatchClick}>
               Смотреть

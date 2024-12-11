@@ -1,141 +1,212 @@
 .section {
   width: 100%;
   padding-bottom: 40px;
+}
+
+.similarMoviesContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.swiperWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  justify-content: center;
+}
+
+.sectionTitle {
+  font-size: 2em;
+  margin-bottom: 1em;
+  color: #ccc;
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 30px;
+}
+
+.swiper {
+  width: 100%;
+  max-width: 350px;
+}
+
+.link {
+  cursor: grab;
+}
+
+.movieInfo {
+  flex: 1;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  padding: 25px;
+  border-radius: 12px;
+  max-width: 350px;
+  height: 100%;
+  animation: fadeIn 0.6s ease;
+  overflow: hidden;
+}
+
+.movieTitle {
+  margin-bottom: 15px;
+  font-size: 1.8em;
+  font-weight: bold;
+  color: #ccc;
+  margin: 0;
+  animation: fadeInText 0.8s ease;
+}
+
+.movieAlternativeTitle {
+  margin-bottom: 15px;
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #999;
+  animation: fadeInText 0.8s ease;
+}
+
+.movieYear,
+.movieRating {
+  margin-bottom: 10px;
+  font-size: 1em;
+  color: #777;
+  animation: fadeInText 0.8s ease;
+}
+
+.navContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 30px
+}
+
+/* Контейнер навигации */
+.navContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 24px;
+}
+
+.watchButton {
+  padding: 12px 24px;
+  background-color: #ff4081;
+  outline-offset: -1px;
+  outline: 2px solid #ff4081;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, outline-offset 0.1s ease;
+}
+
+.watchButton:hover {
+  background-color: transparent;
+  color: #ff4081;
+  outline-offset: 5px;
+}
+
+.navigation {
+  display: flex;
+  gap: 12px;
+}
+
+.navBtn {
+  position: absolute;
+  background-color: transparent;
+  filter: brightness(80%);
+  border: 2px solid #f30745;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 2;
+  width: 45px;
+  height: 45px;
+  transition: filter 0.3s ease, transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.navBtnPrev {
+  left: 1.5em;
+}
+
+.navBtnNext {
+  right: 10em;
+}
+
+.navBtn:not(.navBntInactive):hover {
+  background-color: #f30745;
+  transform: scale(1.1);
+}
+
+.navBtn img {
+  width: 16px;
+  height: 24px;
+}
+
+.navBtnNext img {
+  transform: rotate(180deg);
+}
+
+.navBntInactive {
+  cursor: not-allowed;
+  background-color: #222222;
+  border-color: #777;
+}
+
+.card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  padding: 10px;
+  width: 350px;
+  height: 500px;
+  overflow: hidden;
+  transition: transform 0.3s ease, filter 0.3s ease, outline-offset 0.3s ease, border 0.3s ease;
+}
+
+.card:not(.inactiveCard):hover {
+  filter: brightness(100%);
+}
+
+.inactiveCard {
+  filter: brightness(60%);
+  background: linear-gradient(0deg, #222222, #1a1a1a);
+  transition: filter 0.3s ease, background 0.3s ease;
+  outline: none;
+}
+
+.poster {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 15px;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
   }
-  
-  .sectionTitle {
-    font-size: 2em;
-    margin-bottom: 1em;
-    color: #ccc;
-    text-align: center;
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
-  
-  .container {
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    gap: 30px;
+}
+
+@keyframes fadeInText {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
   }
-  
-  .swiper {
-    width: 100%;
-    max-width: 350px;
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  .link {
-    cursor: grab;
-  }
-  
-  .movieInfo {
-    flex: 1;
-    background-color: rgba(255, 255, 255, 0.1);
-    color: #ffffff;
-    padding: 25px;
-    border-radius: 12px;
-    max-width: 350px;
-    animation: fadeIn 0.6s ease;
-    overflow: hidden;
-  }
-  
-  .movieTitle {
-    margin-bottom: 15px;
-    font-size: 1.8em;
-    font-weight: bold;
-    color: #ccc;
-    margin: 0;
-    animation: fadeInText 0.8s ease;
-  }
-  
-  .movieAlternativeTitle {
-    margin-bottom: 15px;
-    font-size: 1.1em;
-    font-weight: bold;
-    color: #999;
-    animation: fadeInText 0.8s ease;
-  }
-  
-  .movieYear,
-  .movieRating {
-    margin-bottom: 10px;
-    font-size: 1em;
-    color: #777;
-    animation: fadeInText 0.8s ease;
-  }
-  
-  .watchButton {
-    display: inline-block;
-    padding: 12px 24px;
-    background-color: #ff4081;
-    outline-offset: -1px;
-    outline: 2px solid #ff4081;
-    color: #ffffff;
-    border: none;
-    border-radius: 8px;
-    font-size: 1.1em;
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease, outline-offset 0.1s ease;
-    margin-top: 20px;
-  }
-  
-  .watchButton:hover {
-    background-color: transparent;
-    color: #ff4081;
-    outline-offset: 5px;
-  }
-  
-  .card {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 20px;
-    padding: 10px;
-    width: 350px;
-    height: 500px;
-    overflow: hidden;
-    transition: transform 0.3s ease, filter 0.3s ease, outline-offset 0.3s ease, border 0.3s ease;
-  }
-  
-  .card:not(.inactiveCard):hover {
-    filter: brightness(100%);
-  }
-  
-  .inactiveCard {
-    filter: brightness(60%);
-    background-color: #222222;
-    background: linear-gradient(0deg, #222222, #1a1a1a);
-    transition: filter 0.3s ease;
-    outline: none;
-  }
-  
-  .poster {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 15px;
-    transition: transform 0.3s ease, filter 0.3s ease;
-  }
-  
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateX(-30px);
-    }
-  
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-  
-  @keyframes fadeInText {
-    from {
-      opacity: 0;
-      transform: translateY(15px);
-    }
-  
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
+}

@@ -64,6 +64,8 @@ export const MovieDetails: FC<MovieDetailsProps> = ({ movie }) => {
 
   useEffect(() => console.log("Render"));
 
+  console.log(movie.persons)
+
   return (
     <>
       <div

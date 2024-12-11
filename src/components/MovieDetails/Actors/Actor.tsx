@@ -20,7 +20,7 @@ export const Actor: FC<ActorProps> = ({ actor }) => {
       >
         <img className={styles.actorPhoto} src={actor.photo} alt={actor.name} />
         <p className={styles.actorName}>{actor.name}</p>
-        <p className={styles.actorRole}>{actor.role}</p>
+        <p className={styles.actorRole}>{actor.description }</p>
       </a>
     </article>
   );

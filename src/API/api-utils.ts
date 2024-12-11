@@ -69,7 +69,8 @@ function transformMovieData(data: ApiMovieData): MovieData {
         ?.filter(
           (person) =>
             person.profession === "актеры" &&
-            person.description !== "дополнительные голоса"
+            person.description !== "дополнительные голоса" &&
+            person.description !== null
         )
         .slice(0, 12)
         .map((person) => ({

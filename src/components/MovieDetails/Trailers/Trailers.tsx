@@ -46,13 +46,13 @@ export const Trailers: FC<TrailersProps> = ({ uniqueTrailers }) => {
       {uniqueTrailers && uniqueTrailers.length > 0 ? (
         <>
           <Swiper
-            autoplay={{ delay: 0, disableOnInteraction: false }}
-            loop={true}
-            speed={1500}
+            // autoplay={{ delay: 0, disableOnInteraction: false }}
+            // loop={true}
+            // speed={1500}
             freeMode={true}
             slidesPerView={3}
             spaceBetween={20}
-            navigation={false}
+            navigation={true}
             mousewheel={uniqueTrailers.length > 3}
             pagination={{ clickable: true }}
             modules={[Pagination, Navigation, Mousewheel, Autoplay]}
