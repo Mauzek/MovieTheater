@@ -21,6 +21,7 @@ export const MoviePlayer: React.FC<MoviePlayerProps> = ({ kinopoiskId}) => {
           menu: { enable: true, default: "menu_button" },  
           params: {
             all: {
+              poster: '',
               episode: 1,
               season: 1,
             }

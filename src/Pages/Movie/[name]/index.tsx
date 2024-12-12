@@ -1,8 +1,8 @@
 import { useEffect, useState, useRef } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { MovieDetails } from "../../../components/MovieDetails/MovieDetails";
-import { getMovieByID } from "../../../API/api-utils";
-import { MovieData } from "../../../API/types";
+import { getMovieByID, getMovieImagesById } from "../../../API/api-utils";
+import { MovieData, MovieImages } from "../../../API/types";
 import { Preloader } from "../../../components/Preloader/Preloader";
 
 const Movie = () => {
@@ -10,6 +10,7 @@ const Movie = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [movieData, setMovieData] = useState<MovieData | null>(null);
+  const [movieImages, setMovieImages] = useState<MovieImages | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const fetchedRef = useRef(false);
@@ -26,6 +27,8 @@ const Movie = () => {
       try {
         const movie: MovieData = await getMovieByID(id);
         setMovieData(movie);
+        const images: MovieImages = await getMovieImagesById(movie.id);
+        setMovieImages(images);
         const isSeries = movie.seriesLength && movie.seriesLength > 0 || (movie.seasonsInfo && movie.seasonsInfo.length > 0);
         const routeType = isSeries ? "series" : "movies";
         if (location.pathname !== `/${routeType}/${movie.id}`) {
@@ -51,7 +54,7 @@ const Movie = () => {
     <main>
       {loading && <Preloader />}
       {error && <div className="error">{error}</div>}
-      {movieData && <MovieDetails movie={movieData} />}
+      {movieData && movieImages && <MovieDetails movie={movieData} images={movieImages} />}
     </main>
   );
 };

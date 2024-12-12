@@ -2,7 +2,7 @@ const BASE_URLS = {
   kinopoisk: "https://api.kinopoisk.dev/v1.4/movie",
   moviePlayer: "https://kinobox.tv/api/players",
   popularMovies: "https://kinobox.tv/api/films/popular",
-  kinopoinsk_v2: "https://kinopoiskapiunofficial.tech/api/v2.2",
+  kinopoisk_v2: "https://kinopoiskapiunofficial.tech/api/v2.2",
 };
 
 const API_KEYS = {
@@ -22,7 +22,7 @@ const endpoints = {
   getMoviePlayer: (kinopoiskId: number) =>
     `${BASE_URLS.moviePlayer}?kinopoisk=${kinopoiskId}`,
   getMovieImagesById: (kinopoiskId: number, page: number) =>
-    `${BASE_URLS.kinopoisk}/films/${kinopoiskId}/images?page=${page}`,
+    `${BASE_URLS.kinopoisk_v2}/films/${kinopoiskId}/images?page=${page}`,
 };
 
 export { BASE_URLS, API_KEYS, endpoints };

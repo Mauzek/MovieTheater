@@ -1,5 +1,5 @@
 import { FC, useEffect, useMemo } from "react";
-import { MovieData } from "../../API/types";
+import { MovieData, MovieImages } from "../../API/types";
 import styles from "./MovieDetails.module.css";
 import NotFound from "../../assets/images/notFound.gif";
 import { RatingSection } from "./Rating/RatingSection";
@@ -10,11 +10,14 @@ import { ActorsSection } from "./Actors/ActorsSection";
 import { SequelsAndPrequelsSection } from "./SequelsAndPrequels/SequelsAndPrequelsSection";
 import { SimilarMoviesSection } from "./SimilarMovies/SimilarMoviesSection";
 
+
+
 interface MovieDetailsProps {
   movie: MovieData;
+  images: MovieImages;
 }
 
-export const MovieDetails: FC<MovieDetailsProps> = ({ movie }) => {
+export const MovieDetails: FC<MovieDetailsProps> = ({ movie, images }) => {
   const uniqueTrailers = useMemo(() => {
     return movie.videos?.trailers?.filter(
       (trailer, index, self) =>
@@ -64,7 +67,8 @@ export const MovieDetails: FC<MovieDetailsProps> = ({ movie }) => {
 
   useEffect(() => console.log("Render"));
 
-  console.log(movie.persons)
+  console.log(images.items)
+
 
   return (
     <>
@@ -133,7 +137,7 @@ export const MovieDetails: FC<MovieDetailsProps> = ({ movie }) => {
           </>
         )}
 
-        <MoviePlayer kinopoiskId={movie.id} />
+        <MoviePlayer kinopoiskId={movie.id}/>
         <hr className={styles.divider} />
 
         {movie.persons && movie.persons.length > 0 && (
@@ -146,6 +150,8 @@ export const MovieDetails: FC<MovieDetailsProps> = ({ movie }) => {
             <SimilarMoviesSection movies={movie.similarMovies} />
           </>
         )}
+
+       
       </article>
     </>
   );

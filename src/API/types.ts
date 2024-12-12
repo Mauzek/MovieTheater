@@ -162,15 +162,26 @@ export interface ApiErrorResponse {
   };
 }
 
+export interface ApiMovieImages {
+  total: number;
+  totalPages: number;
+  items: MovieImage[];
+}
+
 //Типы для нормализации данных
-type ExternalId = { imdb: string | null };
-type Backdrop = { url: string };
-type Genre = { name: string };
-type Country = { name: string };
-type Votes = { kp: number; imdb: number };
-type Rating = { kp: number; imdb: number };
-type ReleaseYears = { start: number; end: number };
-type SeasonInfo = { number: number; episodesCount: number };
+interface ExternalId { imdb: string | null };
+interface Backdrop { url: string };
+interface Genre { name: string };
+interface Country { name: string };
+interface Votes { kp: number; imdb: number };
+interface Rating { kp: number; imdb: number };
+interface ReleaseYears { start: number; end: number };
+interface SeasonInfo { number: number; episodesCount: number };
+interface MovieImage { imageUrl: string; previewUrl: string };  
+
+export interface MovieImages{
+  items: MovieImage[];
+}
 
 export interface Person {
   id: number;
@@ -243,4 +254,12 @@ export interface MovieCardData {
   posterUrl: string;
   countries: string[];
   genres: string[];
+}
+
+
+
+//Типы для работы API
+export interface ApiKeyManager {
+  currentIndex: number;
+  keys: string[];
 }

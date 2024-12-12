@@ -4,10 +4,6 @@ import styles from "./Actor.module.css";
 
 interface ActorProps {
   actor: Person;
-  // id: number;
-  // name: string;
-  // photo: string;
-  // role: string;
 }
 
 export const Actor: FC<ActorProps> = ({ actor }) => {

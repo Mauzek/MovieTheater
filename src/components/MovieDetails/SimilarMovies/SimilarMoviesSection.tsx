@@ -28,10 +28,26 @@ export const SimilarMoviesSection: FC<SimilarMoviesSectionProps> = ({
 }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [cardColors, setCardColors] = useState<Record<number, string>>({});
+  const [loadedImages, setLoadedImages] = useState<Record<number, string>>({});
   const activeMovie = movies[activeIndex];
   const navigate = useNavigate();
   const facRef = useRef(new FastAverageColor());
   const swiperRef = useRef<SwiperClass | null>(null);
+
+  useEffect(() => {
+    const preloadImages = async () => {
+      const loaded: Record<number, string> = {};
+      for (const movie of movies) {
+        const img = new Image();
+        img.src = movie.poster.url;
+        await img.decode();
+        loaded[movie.id] = movie.poster.url;
+      }
+      setLoadedImages(loaded);
+    };
+
+    preloadImages();
+  }, [movies]);
 
   useEffect(() => {
     const fetchColors = async () => {
@@ -73,6 +89,13 @@ export const SimilarMoviesSection: FC<SimilarMoviesSectionProps> = ({
     <section className={styles.section}>
       <h2 className={styles.sectionTitle}>Могут понравиться</h2>
       <div className={styles.similarMoviesContainer}>
+        <div
+          className={styles.backgroundImage}
+          style={{
+            backgroundImage: `url(${loadedImages[activeMovie.id] || ""})`,
+          }}
+        ></div>
+        <div className={styles.gradient}></div>
         <div className={styles.swiperWrapper}>
           <button
             className={`${styles.navBtn} ${styles.navBtnPrev} ${

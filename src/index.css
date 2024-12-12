@@ -73,7 +73,6 @@ h1 {
 .ant-collapse-header:hover .ant-collapse-expand-icon span svg{
   fill: #f30745;
   filter: brightness(80%);
-
 }
 
 .ant-collapse-header:hover .ant-collapse-arrow{

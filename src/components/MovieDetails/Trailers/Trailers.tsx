@@ -100,8 +100,7 @@ export const Trailers: FC<TrailersProps> = ({ uniqueTrailers }) => {
             />
           )}
         </>
-      ) : (
-        
+      ) : (      
         <p className={styles.noVideoText}>Трейлеры отсутствуют</p>
       )}
     </section>

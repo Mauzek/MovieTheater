@@ -7,14 +7,15 @@ import {
   ApiMovieData,
   MovieCardData,
   MovieData,
+  ApiKeyManager,
+  ApiMovieImages,
+  MovieImages
 } from "./types";
 
-let currentKeyIndex = 0;
-const API_KEYS_LIST = [
-  API_KEYS.kinopoisk,
-  API_KEYS.kinopoisk_2,
-  API_KEYS.kinopoisk_3,
-];
+const apiKeyManagers: Record<string, ApiKeyManager> = {
+  v1: { currentIndex: 0, keys: [API_KEYS.kinopoisk, API_KEYS.kinopoisk_2, API_KEYS.kinopoisk_3] },
+  v2: { currentIndex: 0, keys: [API_KEYS.kinopoisk_v2, API_KEYS.kinopoisk_v2_2] },
+};
 
 function transformMovieData(data: ApiMovieData): MovieData {
   return {
@@ -94,7 +95,7 @@ function transformMovieData(data: ApiMovieData): MovieData {
         url: movie.poster.url,
       },
     })),
-    similarMovies: data.similarMovies.map((movie) => ({
+    similarMovies: data.similarMovies?.map((movie) => ({
       id: movie.id,
       name: movie.name,
       alternativeName: movie.alternativeName ?? undefined,
@@ -138,11 +139,22 @@ function transformToMovieCard(movie: ApiMovieCardData): MovieCardData {
   };
 }
 
-async function fetchWithRetries<T>(url: string): Promise<T> {
-  while (currentKeyIndex < API_KEYS_LIST.length) {
+function transformMovieImages(data: ApiMovieImages): MovieImages {
+  return {
+    items: data.items
+  };
+}
+
+async function fetchWithRetries<T>(
+  url: string,
+  apiKeyGroup: "v1" | "v2" = "v1",
+): Promise<T> {
+  const manager = apiKeyManagers[apiKeyGroup];
+
+  while (manager.currentIndex < manager.keys.length) {
     try {
       const response: AxiosResponse<T> = await axios.get(url, {
-        headers: { "X-API-KEY": API_KEYS_LIST[currentKeyIndex] },
+        headers: { "X-API-KEY": manager.keys[manager.currentIndex] },
       });
       return response.data;
     } catch (error) {
@@ -154,8 +166,10 @@ async function fetchWithRetries<T>(url: string): Promise<T> {
             "Вы израсходовали ваш суточный лимит"
           )
         ) {
-          console.warn(`API key exhausted: ${currentKeyIndex}`);
-          currentKeyIndex++;
+          console.warn(
+            `API key exhausted: ${manager.keys[manager.currentIndex]}`
+          );
+          manager.currentIndex++;
         } else {
           console.error("Error during API call:", axiosError);
           throw axiosError;
@@ -166,7 +180,8 @@ async function fetchWithRetries<T>(url: string): Promise<T> {
       }
     }
   }
-  throw new Error("All API keys have been exhausted");
+
+  throw new Error(`All API keys for group '${apiKeyGroup}' have been exhausted`);
 }
 
 const getMovieByTitle = async (movieName: string): Promise<MovieCardData[]> => {
@@ -224,4 +239,15 @@ const getPopularSeries = async (): Promise<MovieCardData[]> => {
   }
 };
 
-export { getMovieByTitle, getMovieByID, getPopularMovies, getPopularSeries };
+const getMovieImagesById = async (movieID: number): Promise<MovieImages> => {
+  try {
+    const url = endpoints.getMovieImagesById(movieID, 1);
+    const data = await fetchWithRetries<ApiMovieImages>(url, "v2");
+    return transformMovieImages(data);
+  } catch (error) {
+    console.error("Error fetching movie images:", error);
+    throw error;
+  }
+};
+
+export { getMovieByTitle, getMovieByID, getPopularMovies, getPopularSeries, getMovieImagesById };
