@@ -9,12 +9,18 @@ import {
   MovieData,
   ApiKeyManager,
   ApiMovieImages,
-  MovieImages
+  MovieImages,
 } from "./types";
 
 const apiKeyManagers: Record<string, ApiKeyManager> = {
-  v1: { currentIndex: 0, keys: [API_KEYS.kinopoisk, API_KEYS.kinopoisk_2, API_KEYS.kinopoisk_3] },
-  v2: { currentIndex: 0, keys: [API_KEYS.kinopoisk_v2, API_KEYS.kinopoisk_v2_2] },
+  v1: {
+    currentIndex: 0,
+    keys: [API_KEYS.kinopoisk, API_KEYS.kinopoisk_2, API_KEYS.kinopoisk_3],
+  },
+  v2: {
+    currentIndex: 0,
+    keys: [API_KEYS.kinopoisk_v2, API_KEYS.kinopoisk_v2_2],
+  },
 };
 
 function transformMovieData(data: ApiMovieData): MovieData {
@@ -81,7 +87,7 @@ function transformMovieData(data: ApiMovieData): MovieData {
           role: person.enProfession,
           description: person.description || "",
         })) || [],
-    sequelsAndPrequels: data.sequelsAndPrequels.map((movie) => ({
+    sequelsAndPrequels: data.sequelsAndPrequels?.map((movie) => ({
       id: movie.id,
       name: movie.name,
       alternativeName: movie.alternativeName,
@@ -141,13 +147,13 @@ function transformToMovieCard(movie: ApiMovieCardData): MovieCardData {
 
 function transformMovieImages(data: ApiMovieImages): MovieImages {
   return {
-    items: data.items
+    items: data.items,
   };
 }
 
 async function fetchWithRetries<T>(
   url: string,
-  apiKeyGroup: "v1" | "v2" = "v1",
+  apiKeyGroup: "v1" | "v2" = "v1"
 ): Promise<T> {
   const manager = apiKeyManagers[apiKeyGroup];
 
@@ -181,7 +187,9 @@ async function fetchWithRetries<T>(
     }
   }
 
-  throw new Error(`All API keys for group '${apiKeyGroup}' have been exhausted`);
+  throw new Error(
+    `All API keys for group '${apiKeyGroup}' have been exhausted`
+  );
 }
 
 const getMovieByTitle = async (movieName: string): Promise<MovieCardData[]> => {
@@ -250,4 +258,10 @@ const getMovieImagesById = async (movieID: number): Promise<MovieImages> => {
   }
 };
 
-export { getMovieByTitle, getMovieByID, getPopularMovies, getPopularSeries, getMovieImagesById };
+export {
+  getMovieByTitle,
+  getMovieByID,
+  getPopularMovies,
+  getPopularSeries,
+  getMovieImagesById,
+};
