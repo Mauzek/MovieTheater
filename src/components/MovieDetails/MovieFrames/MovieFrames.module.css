@@ -1,0 +1,61 @@
+.frameSection {
+    overflow-x: auto;
+    gap: 20px;
+    width: 100%;
+    cursor: grab;
+    position: relative;
+    -webkit-overflow-scrolling: touch; 
+}
+
+.frameContainer {
+    display: inline-block;
+    border-radius: 8px;
+    padding-bottom: 20px;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.frameSlide {
+    width: 100%;
+    padding-bottom: 20px;
+}
+
+.frameSlide:hover .frameImage {
+    filter: brightness(60%);
+}
+
+.frameImage {
+    width: 300px;
+    height: 170px;
+    border-radius: 8px;
+    transition: border-radius 0.3s ease, transform 0.3s ease, filter 0.3s ease;
+}
+
+.link_container {
+    position: relative;
+    display: inline-block;
+}
+
+.noFrameText {
+    font-size: 16px;
+    color: #888;
+    text-align: center;
+    align-self: center;
+    margin: 20px 0 50px;
+}
+
+.viewIcon {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    pointer-events: none;
+    opacity: 0.9;
+}
+
+.frameSlide:hover .viewIcon {
+    display: block;
+}

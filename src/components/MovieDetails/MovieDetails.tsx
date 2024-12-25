@@ -9,8 +9,7 @@ import { MoviePlayer } from "../MoviePlayer/MoviePlayer";
 import { ActorsSection } from "./Actors/ActorsSection";
 import { SequelsAndPrequelsSection } from "./SequelsAndPrequels/SequelsAndPrequelsSection";
 import { SimilarMoviesSection } from "./SimilarMovies/SimilarMoviesSection";
-
-
+import { MovieFrames } from "./MovieFrames/MovieFrames";
 
 interface MovieDetailsProps {
   movie: MovieData;
@@ -67,8 +66,7 @@ export const MovieDetails: FC<MovieDetailsProps> = ({ movie, images }) => {
 
   useEffect(() => console.log("Render"));
 
-  console.log(images.items)
-
+  console.log(images.items);
 
   return (
     <>
@@ -137,8 +135,15 @@ export const MovieDetails: FC<MovieDetailsProps> = ({ movie, images }) => {
           </>
         )}
 
-        <MoviePlayer kinopoiskId={movie.id}/>
+        <MoviePlayer kinopoiskId={movie.id} />
         <hr className={styles.divider} />
+
+        {images && (
+          <>
+            <MovieFrames frames={images}/> 
+            <hr className={styles.divider} style={{ margin: "0px 0 32px " }}/>
+          </>
+        )}
 
         {movie.persons && movie.persons.length > 0 && (
           <ActorsSection actors={movie.persons} />
@@ -150,8 +155,6 @@ export const MovieDetails: FC<MovieDetailsProps> = ({ movie, images }) => {
             <SimilarMoviesSection movies={movie.similarMovies} />
           </>
         )}
-
-       
       </article>
     </>
   );
