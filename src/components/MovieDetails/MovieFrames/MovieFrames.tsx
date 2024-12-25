@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Mousewheel, Navigation, Pagination } from "swiper/modules";
 import { MovieImages } from "../../../API/types";
 import FsLightbox from "fslightbox-react";
-import ViewIcon from '../../../assets/icons/view_icon.png';
+import ViewIcon from "../../../assets/icons/view_icon.png";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
@@ -49,16 +49,16 @@ export const MovieFrames: FC<MovieFramesProps> = ({ frames }) => {
               >
                 <div className={styles.link_container}>
                   <img
-                    src={frame.previewUrl}
+                    src={frame.imageUrl}
                     className={styles.frameImage}
-                    alt={`Frame ${index + 1}`}
                     loading="lazy"
+                    alt={`Картинка ${index}`}
                   />
-                   <img
-                        className={styles.viewIcon}
-                        src={ViewIcon}
-                        alt="Иконка просмотра"
-                      />
+                  <img
+                    className={styles.viewIcon}
+                    src={ViewIcon}
+                    alt="Иконка просмотра"
+                  />
                 </div>
               </SwiperSlide>
             ))}
