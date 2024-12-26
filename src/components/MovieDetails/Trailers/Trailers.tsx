@@ -1,5 +1,4 @@
 import { FC, useState } from "react";
-import styles from "./Trailers.module.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Mousewheel, Navigation, Pagination, Autoplay } from "swiper/modules";
 import FsLightbox from "fslightbox-react";
@@ -8,6 +7,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "../custom-swiper-bullet.css";
+import styles from "./Trailers.module.css";
 
 type Trailer = {
   url: string;

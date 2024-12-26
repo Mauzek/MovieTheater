@@ -1,9 +1,9 @@
 import { FC, useEffect } from "react";
-import styles from "./SearchField.module.css";
+import { useNavigate, useLocation } from "react-router-dom";
 import SearchIcon from "../../assets/icons/search-icon.svg";
 import HomeIcon from "../../assets/icons/home-icon.svg";
 import BackArrowIcon from "../../assets/icons/arrow_back.svg";
-import { useNavigate, useLocation } from "react-router-dom";
+import styles from "./SearchField.module.css";
 
 export const SearchField: FC = () => {
   const navigate = useNavigate();

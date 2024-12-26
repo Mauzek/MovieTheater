@@ -1,15 +1,15 @@
 import { FC } from "react";
 import { SimilarAndSequelsMovie } from "../../../API/types";
-import styles from "./SequelsAndPrequels.module.css";
 import { Link, useParams } from "react-router-dom";
 import NotFound from "../../../assets/images/notFound.gif";
 import ArrowIcon from "../../../assets/icons/arrow_back.svg";
+import styles from "./SequelsAndPrequels.module.css";
 
 interface SequelsAndPrequelsItemProps {
   movie: SimilarAndSequelsMovie;
 }
 
-export const SequelsAndPrequelsItem: FC<SequelsAndPrequelsItemProps> = ({
+export const SeqAndPreqItem: FC<SequelsAndPrequelsItemProps> = ({
   movie,
 }) => {
   const { id } = useParams<{ id: string }>();

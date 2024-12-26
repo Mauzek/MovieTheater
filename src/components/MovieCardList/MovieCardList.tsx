@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { MovieCard } from "../MovieCard/MovieCard";
+import { MovieCard } from "../";
 import { MovieCardData } from "../../API/types";
 import styles from "./MovieCardList.module.css";
 

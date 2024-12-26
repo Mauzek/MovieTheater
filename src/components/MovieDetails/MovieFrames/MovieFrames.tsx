@@ -1,5 +1,4 @@
 import { FC, useState } from "react";
-import styles from "./MovieFrames.module.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Mousewheel, Navigation, Pagination } from "swiper/modules";
 import { MovieImages } from "../../../API/types";
@@ -9,6 +8,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "../custom-swiper-bullet.css";
+import styles from "./MovieFrames.module.css";
 
 interface MovieFramesProps {
   frames: MovieImages;

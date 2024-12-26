@@ -3,7 +3,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import Movie from "./Pages/Movie/[name]";
 import Popular from "./Pages/Popular";
 import Search from "./Pages/Search/[name]";
-import { Layout } from "./components/Layout/Layout";
+import { Layout } from "./components";
 
 const App: React.FC = () => {
   return (

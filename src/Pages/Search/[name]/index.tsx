@@ -1,12 +1,11 @@
-import React, { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, FC } from "react";
 import { useParams } from "react-router-dom";
 import { getMovieByTitle } from "../../../API/api-utils";
 import { MovieCardData } from "../../../API/types";
-import { Preloader } from "../../../components/Preloader/Preloader";
-import { MovieCardList } from "../../../components/MovieCardList/MovieCardList";
+import { MovieCardList, Preloader  } from "../../../components";
 import styles from "./Search.module.css";
 
-const Search: React.FC = () => {
+const Search: FC = () => {
   const { name } = useParams<{ name: string }>();
   const [searchResults, setSearchResults] = useState<MovieCardData[]>([]);
   const [loading, setLoading] = useState<boolean>(false);

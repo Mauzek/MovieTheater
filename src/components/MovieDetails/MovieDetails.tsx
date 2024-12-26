@@ -1,15 +1,15 @@
 import { FC, useEffect, useMemo } from "react";
 import { MovieData, MovieImages } from "../../API/types";
-import styles from "./MovieDetails.module.css";
+import { MoviePlayer } from "../";
+import { RatingList } from "./Rating";
+import { Trailers } from "./Trailers";
+import { DetailsList } from "./InfoItem";
+import { ActorsList } from "./Actors";
+import { SeqAndPreqList } from "./SequelsAndPrequels";
+import { SimilarMoviesList } from "./SimilarMovies";
+import { MovieFrames } from "./MovieFrames";
 import NotFound from "../../assets/images/notFound.gif";
-import { RatingSection } from "./Rating/RatingSection";
-import { Trailers } from "./Trailers/Trailers";
-import { DetailsList } from "./InfoItem/DetailsList";
-import { MoviePlayer } from "../MoviePlayer/MoviePlayer";
-import { ActorsSection } from "./Actors/ActorsSection";
-import { SequelsAndPrequelsSection } from "./SequelsAndPrequels/SequelsAndPrequelsSection";
-import { SimilarMoviesSection } from "./SimilarMovies/SimilarMoviesSection";
-import { MovieFrames } from "./MovieFrames/MovieFrames";
+import styles from "./MovieDetails.module.css";
 
 interface MovieDetailsProps {
   movie: MovieData;
@@ -18,10 +18,14 @@ interface MovieDetailsProps {
 
 export const MovieDetails: FC<MovieDetailsProps> = ({ movie, images }) => {
   const uniqueTrailers = useMemo(() => {
-    return movie.videos?.trailers?.filter(
-      (trailer, index, self) =>
-        self.findIndex((t) => t.url === trailer.url) === index
-    );
+    const uniqueUrls = new Set();
+    return movie.videos?.trailers?.filter((trailer) => {
+      if (uniqueUrls.has(trailer.url)) {
+        return false;
+      }
+      uniqueUrls.add(trailer.url);
+      return true;
+    });
   }, [movie.videos]);
 
   const getSeasonsInfo = useMemo(() => {
@@ -29,15 +33,16 @@ export const MovieDetails: FC<MovieDetailsProps> = ({ movie, images }) => {
       return { seasonsCount: 0, episodesCount: 0 };
     }
 
-    let seasonsCount = 0;
-    let episodesCount = 0;
-
-    movie.seasonsInfo.forEach((season) => {
-      if (season.number !== 0) {
-        seasonsCount++;
-        episodesCount += season.episodesCount;
-      }
-    });
+    const { seasonsCount, episodesCount } = movie.seasonsInfo
+      .filter((season) => season.number !== 0)
+      .reduce(
+        (acc, season) => {
+          acc.seasonsCount++;
+          acc.episodesCount += season.episodesCount;
+          return acc;
+        },
+        { seasonsCount: 0, episodesCount: 0 }
+      );
 
     return { seasonsCount, episodesCount };
   }, [movie.seasonsInfo]);
@@ -65,8 +70,6 @@ export const MovieDetails: FC<MovieDetailsProps> = ({ movie, images }) => {
   }, [movie]);
 
   useEffect(() => console.log("Render"));
-
-  console.log(images.items);
 
   return (
     <>
@@ -102,7 +105,7 @@ export const MovieDetails: FC<MovieDetailsProps> = ({ movie, images }) => {
             <DetailsList data={movie} />
           </section>
 
-          <RatingSection
+          <RatingList
             kpRating={movie.rating.kp}
             kpVotes={movie.votes.kp}
             imdbRating={movie.rating.imdb}
@@ -130,7 +133,7 @@ export const MovieDetails: FC<MovieDetailsProps> = ({ movie, images }) => {
 
         {movie.sequelsAndPrequels && movie.sequelsAndPrequels.length > 1 && (
           <>
-            <SequelsAndPrequelsSection movies={moviesWithCurrent} />
+            <SeqAndPreqList movies={moviesWithCurrent} />
             <hr className={styles.divider} />
           </>
         )}
@@ -140,19 +143,19 @@ export const MovieDetails: FC<MovieDetailsProps> = ({ movie, images }) => {
 
         {images && (
           <>
-            <MovieFrames frames={images}/> 
-            <hr className={styles.divider} style={{ margin: "0px 0 32px " }}/>
+            <MovieFrames frames={images} />
+            <hr className={styles.divider} style={{ margin: "0px 0 32px " }} />
           </>
         )}
 
         {movie.persons && movie.persons.length > 0 && (
-          <ActorsSection actors={movie.persons} />
+          <ActorsList actors={movie.persons} />
         )}
 
         {movie.similarMovies && movie.similarMovies.length > 0 && (
           <>
             <hr className={styles.divider} />
-            <SimilarMoviesSection movies={movie.similarMovies} />
+            <SimilarMoviesList movies={movie.similarMovies} />
           </>
         )}
       </article>

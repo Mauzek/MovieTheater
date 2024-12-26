@@ -1,10 +1,8 @@
 import { FC } from 'react';
-import { SearchField } from '../SearchField/SearchField';
 import { Outlet} from 'react-router-dom';
+import { SearchField } from '../';
 
 export const Layout: FC = () => {
-
-
   return (
     <>
       <SearchField />

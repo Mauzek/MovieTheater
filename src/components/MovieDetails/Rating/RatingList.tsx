@@ -1,10 +1,10 @@
 import { FC } from "react";
-import styles from "./Rating.module.css";
+import { Rating } from "./Rating";
 import KinopoiskIcon from "../../../assets/icons/kinopoisk-logo-icon.svg";
 import ImdbIcon from "../../../assets/icons/imdb_logo.svg";
-import { Rating } from "./Rating";
+import styles from "./Rating.module.css";
 
-interface RatingSectionProps {
+interface RatingListProps {
   kpRating: number;
   kpVotes: number;
   imdbRating: number;
@@ -16,7 +16,7 @@ interface RatingSectionProps {
   episodes?: number | null;
 }
 
-export const RatingSection: FC<RatingSectionProps> = ({
+export const RatingList: FC<RatingListProps> = ({
   kpRating,
   kpVotes,
   imdbRating,

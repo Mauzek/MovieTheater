@@ -4,11 +4,11 @@ import { Actor } from "./Actor";
 import { Person } from "../../../API/types";
 import styles from "./Actor.module.css";
 
-interface ActorsSectionProps {
+interface ActorsListProps {
   actors: Person[];
 }
 
-export const ActorsSection: FC<ActorsSectionProps> = ({ actors }) => {
+export const ActorsList: FC<ActorsListProps> = ({ actors }) => {
   const items = [
     {
       key: '1',

@@ -1,11 +1,11 @@
-import React, { useEffect, useRef } from "react";
-import styles from './MoviePlayer.module.css';
+import { FC, useEffect, useRef } from "react";
+import styles from "./MoviePlayer.module.css";
 
 interface MoviePlayerProps {
   kinopoiskId: number;
 }
 
-export const MoviePlayer: React.FC<MoviePlayerProps> = ({ kinopoiskId}) => {
+export const MoviePlayer: FC<MoviePlayerProps> = ({ kinopoiskId }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -18,14 +18,14 @@ export const MoviePlayer: React.FC<MoviePlayerProps> = ({ kinopoiskId}) => {
       if (containerRef.current && (window as any).kbox) {
         (window as any).kbox(containerRef.current, {
           search: { kinopoisk: kinopoiskId },
-          menu: { enable: true, default: "menu_button" },  
+          menu: { enable: true, default: "menu_button" },
           params: {
             all: {
-              poster: '',
+              poster: "",
               episode: 1,
               season: 1,
-            }
-          }     
+            },
+          },
         });
       }
     };
@@ -44,7 +44,7 @@ export const MoviePlayer: React.FC<MoviePlayerProps> = ({ kinopoiskId}) => {
       <h3 className={styles.MoviePlayerTitle}>Смотреть онлайн</h3>
       <div
         ref={containerRef}
-        className={`kinobox_player ${styles.kinobox_player}` }
+        className={`kinobox_player ${styles.kinobox_player}`}
       ></div>
     </div>
   );

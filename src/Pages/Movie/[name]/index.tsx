@@ -1,9 +1,8 @@
 import { useEffect, useState, useRef } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { MovieDetails } from "../../../components/MovieDetails/MovieDetails";
+import { MovieDetails, Preloader } from "../../../components";
 import { getMovieByID, getMovieImagesById } from "../../../API/api-utils";
 import { MovieData, MovieImages } from "../../../API/types";
-import { Preloader } from "../../../components/Preloader/Preloader";
 
 const Movie = () => {
   const { id } = useParams<{ id: string }>();

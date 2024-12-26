@@ -1,23 +1,25 @@
-import { FC } from 'react';
-import { SequelsAndPrequelsItem } from './SequelsAndPrequelsItem';
-import { SimilarAndSequelsMovie } from '../../../API/types';
-import styles from './SequelsAndPrequels.module.css';
+import { FC } from "react";
+import { SeqAndPreqItem } from "./SeqAndPreqItem";
+import { SimilarAndSequelsMovie } from "../../../API/types";
 import { Collapse, ConfigProvider } from "antd";
+import styles from "./SequelsAndPrequels.module.css";
 
 interface SequelsAndPrequelsSectionProps {
   movies: SimilarAndSequelsMovie[];
 }
 
-export const SequelsAndPrequelsSection: FC<SequelsAndPrequelsSectionProps> = ({ movies }) => {
+export const SeqAndPreqList: FC<SequelsAndPrequelsSectionProps> = ({
+  movies,
+}) => {
   const sortedMovies = movies.sort((a, b) => a.year - b.year);
   const items = [
     {
-      key: '1',
-      label: 'Сиквелы и приквелы',
+      key: "1",
+      label: "Сиквелы и приквелы",
       children: (
         <div className={styles.movieList}>
           {sortedMovies.map((movie) => (
-            <SequelsAndPrequelsItem key={movie.id} movie={movie} />
+            <SeqAndPreqItem key={movie.id} movie={movie} />
           ))}
         </div>
       ),
@@ -28,7 +30,7 @@ export const SequelsAndPrequelsSection: FC<SequelsAndPrequelsSectionProps> = ({ 
     <section className={styles.section}>
       <ConfigProvider
         theme={{
-          token: {          
+          token: {
             fontFamily: "Arial, sans-serif",
             motionDurationMid: "0.4s",
           },

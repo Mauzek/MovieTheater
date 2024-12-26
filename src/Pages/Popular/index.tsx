@@ -1,13 +1,12 @@
 import { FC, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   getPopularMovies,
   getPopularSeries,
 } from "../../API/api-utils";
 import {MovieCardData} from "../../API/types";
-import { Preloader } from "../../components/Preloader/Preloader";
-import { MovieCardList } from "../../components/MovieCardList/MovieCardList";
+import { MovieCardList, Preloader } from "../../components";
 import styles from "./Popular.module.css";
-import { useNavigate } from "react-router-dom";
 
 interface PopularProps {
   film: boolean;

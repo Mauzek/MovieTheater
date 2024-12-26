@@ -5,25 +5,16 @@ import { SimilarMoviesItem } from "./SimilarMoviesItem";
 import { useNavigate } from "react-router-dom";
 import { FastAverageColor } from "fast-average-color";
 import ArrowNav from "../../../assets/icons/arrow_back.svg";
+import { SimilarAndSequelsMovie } from "../../../API/types";
 import "swiper/css";
 import "swiper/css/effect-cards";
 import styles from "./SimilarMovies.module.css";
 
-type Movie = {
-  id: number;
-  name: string;
-  alternativeName?: string;
-  rating: { kp: number };
-  type: string;
-  year: number;
-  poster: { url: string };
-};
-
 interface SimilarMoviesSectionProps {
-  movies: Movie[];
+  movies: SimilarAndSequelsMovie[];
 }
 
-export const SimilarMoviesSection: FC<SimilarMoviesSectionProps> = ({
+export const SimilarMoviesList: FC<SimilarMoviesSectionProps> = ({
   movies,
 }) => {
   const [activeIndex, setActiveIndex] = useState(0);
