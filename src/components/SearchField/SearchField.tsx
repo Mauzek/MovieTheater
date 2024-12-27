@@ -1,8 +1,6 @@
 import { FC, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import SearchIcon from "../../assets/icons/search-icon.svg";
-import HomeIcon from "../../assets/icons/home-icon.svg";
-import BackArrowIcon from "../../assets/icons/arrow_back.svg";
+import { NavSearchIcon, NavHomeIcon, NavArrowIcon } from "../../assets";
 import styles from "./SearchField.module.css";
 
 export const SearchField: FC = () => {
@@ -43,7 +41,7 @@ export const SearchField: FC = () => {
   }, []);
 
   const isOnPopularPage = location.pathname.startsWith("/popular/");
-  
+
   return (
     <header className={styles.searchContainer}>
       {!isOnPopularPage && (
@@ -51,14 +49,14 @@ export const SearchField: FC = () => {
           className={`${styles.clickButton} ${styles.backButton}`}
           onClick={handleGoBack}
         >
-          <img src={BackArrowIcon} alt="Назад" />
+          <img src={NavArrowIcon} alt="Назад" />
         </button>
       )}
       <button
         className={`${styles.clickButton} ${styles.homeButton}`}
         onClick={handleGoHome}
       >
-        <img src={HomeIcon} alt="Домой" />
+        <img src={NavHomeIcon} alt="Домой" />
       </button>
       <input
         type="text"
@@ -77,7 +75,7 @@ export const SearchField: FC = () => {
           handleSearch(input.value);
         }}
       >
-        <img src={SearchIcon} alt="Поиск" />
+        <img src={NavSearchIcon} alt="Поиск" />
       </button>
     </header>
   );

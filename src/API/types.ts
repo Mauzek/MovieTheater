@@ -1,4 +1,4 @@
-//Типы для API
+//Интерфейсы для API
 interface ApiExternalId {
   kpHD: string | null;
   imdb: string | null;
@@ -168,7 +168,7 @@ export interface ApiMovieImages {
   items: MovieImage[];
 }
 
-//Типы для нормализации данных
+//Интерфейсы для нормализации данных
 interface ExternalId { imdb: string | null };
 interface Backdrop { url: string };
 interface Genre { name: string };
@@ -258,7 +258,7 @@ export interface MovieCardData {
 
 
 
-//Типы для работы API
+//Интерфейсы для работы API
 export interface ApiKeyManager {
   currentIndex: number;
   keys: string[];

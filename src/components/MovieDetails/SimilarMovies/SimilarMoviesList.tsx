@@ -4,7 +4,7 @@ import { EffectCards, Navigation } from "swiper/modules";
 import { SimilarMoviesItem } from "./SimilarMoviesItem";
 import { useNavigate } from "react-router-dom";
 import { FastAverageColor } from "fast-average-color";
-import ArrowNav from "../../../assets/icons/arrow_back.svg";
+import { NavArrowIcon } from "../../../assets";
 import { SimilarAndSequelsMovie } from "../../../API/types";
 import "swiper/css";
 import "swiper/css/effect-cards";
@@ -95,7 +95,7 @@ export const SimilarMoviesList: FC<SimilarMoviesSectionProps> = ({
             onClick={() => swiperRef.current?.slidePrev()}
             aria-label="Назад"
           >
-            <img src={ArrowNav} alt="Назад" />
+            <img src={NavArrowIcon} alt="Назад" />
           </button>
 
           <Swiper
@@ -125,7 +125,7 @@ export const SimilarMoviesList: FC<SimilarMoviesSectionProps> = ({
             onClick={() => swiperRef.current?.slideNext()}
             aria-label="Вперед"
           >
-            <img src={ArrowNav} alt="Вперед" />
+            <img src={NavArrowIcon} alt="Вперед" />
           </button>
         </div>
         {activeMovie && (

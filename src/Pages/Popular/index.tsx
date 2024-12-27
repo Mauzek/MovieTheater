@@ -1,10 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  getPopularMovies,
-  getPopularSeries,
-} from "../../API/api-utils";
-import {MovieCardData} from "../../API/types";
+import { getPopularMovies, getPopularSeries } from "../../API/api-utils";
+import { MovieCardData } from "../../API/types";
 import { MovieCardList, Preloader } from "../../components";
 import styles from "./Popular.module.css";
 
@@ -63,7 +60,9 @@ const Popular: FC<PopularProps> = ({ film }) => {
             ФИЛЬМЫ
           </button>
           <button
-            className={`${styles.button} ${!film ? styles.activeButton : ""} ${styles.seriesActive}`}
+            className={`${styles.button} ${!film ? styles.activeButton : ""} ${
+              styles.seriesActive
+            }`}
             onClick={handleSeriesClick}
           >
             СЕРИАЛЫ

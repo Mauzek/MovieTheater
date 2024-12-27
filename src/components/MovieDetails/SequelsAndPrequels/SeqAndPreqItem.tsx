@@ -1,8 +1,7 @@
 import { FC } from "react";
 import { SimilarAndSequelsMovie } from "../../../API/types";
 import { Link, useParams } from "react-router-dom";
-import NotFound from "../../../assets/images/notFound.gif";
-import ArrowIcon from "../../../assets/icons/arrow_back.svg";
+import { NotFoundGif, NavArrowIcon } from "../../../assets";
 import styles from "./SequelsAndPrequels.module.css";
 
 interface SequelsAndPrequelsItemProps {
@@ -23,7 +22,7 @@ export const SeqAndPreqItem: FC<SequelsAndPrequelsItemProps> = ({
   const movieContent = (
     <>
       <img
-        src={movie.poster.url || NotFound}
+        src={movie.poster.url || NotFoundGif}
         alt={movie.name}
         className={styles.moviePoster}
       />
@@ -55,7 +54,7 @@ export const SeqAndPreqItem: FC<SequelsAndPrequelsItemProps> = ({
       ) : (
         <div className={styles.movieLink}>{movieContent}</div>
       )}
-      <img src={ArrowIcon} alt="Стрелка" className={styles.arrowIcon} />
+      <img src={NavArrowIcon} alt="Стрелка" className={styles.arrowIcon} />
     </article>
   );
 };

@@ -1,9 +1,9 @@
 import { FC, useState } from "react";
+import { MovieImages } from "../../../API/types";
+import { ViewIcon } from "../../../assets";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Mousewheel, Navigation, Pagination } from "swiper/modules";
-import { MovieImages } from "../../../API/types";
 import FsLightbox from "fslightbox-react";
-import ViewIcon from "../../../assets/icons/view_icon.png";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";

@@ -1,7 +1,6 @@
 import { FC } from "react";
 import { Rating } from "./Rating";
-import KinopoiskIcon from "../../../assets/icons/kinopoisk-logo-icon.svg";
-import ImdbIcon from "../../../assets/icons/imdb_logo.svg";
+import { KinopoiskLogo, ImdbLogo } from "../../../assets";
 import styles from "./Rating.module.css";
 
 interface RatingListProps {
@@ -37,7 +36,7 @@ export const RatingList: FC<RatingListProps> = ({
         label="KP"
         rating={formattedKpRating}
         votes={kpVotes}
-        icon={KinopoiskIcon}
+        icon={KinopoiskLogo}
         link={`https://www.kinopoisk.ru/${
           movieType === "movie" || movieType === "cartoon" ? "film" : "series"
         }/${movieId}`}
@@ -46,7 +45,7 @@ export const RatingList: FC<RatingListProps> = ({
         label="IMDb"
         rating={formattedImdbRating}
         votes={imdbVotes}
-        icon={ImdbIcon}
+        icon={ImdbLogo}
         link={`https://www.imdb.com/title/${imdbId}`}
       />
       {shouldShowSeasons && (

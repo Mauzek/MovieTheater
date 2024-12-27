@@ -10,7 +10,7 @@ import {
   SimilarMoviesList,
   MovieFrames,
 } from "./";
-import NotFound from "../../assets/images/notFound.gif";
+import { NotFoundGif } from "../../assets";
 import styles from "./MovieDetails.module.css";
 
 interface MovieDetailsProps {
@@ -87,7 +87,7 @@ export const MovieDetails: FC<MovieDetailsProps> = ({ movie, images }) => {
           <header className={styles.posterContainer}>
             <div className={styles.posterWrapper}>
               <img
-                src={movie.poster?.url || NotFound}
+                src={movie.poster?.url || NotFoundGif}
                 alt={`${movie.name} poster`}
                 className={styles.poster}
               />

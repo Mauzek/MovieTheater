@@ -2,7 +2,7 @@ import { FC, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Mousewheel, Navigation, Pagination, Autoplay } from "swiper/modules";
 import FsLightbox from "fslightbox-react";
-import YouTubeIcon from "../../../assets/icons/youtube.svg";
+import { YouTubeIcon } from "../../../assets";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";

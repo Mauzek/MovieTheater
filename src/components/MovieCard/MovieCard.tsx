@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
 import { MovieCardData } from "../../API/types";
-import notFound from "../../assets/images/notFound.png";
+import { NotFoundImage } from "../../assets";
 import styles from "./MovieCard.module.css";
 
 interface MovieCardProps {
@@ -30,7 +30,7 @@ export const MovieCard: FC<MovieCardProps> = ({ movieCard }) => {
             className={styles.movieImage}
             onError={(e) => {
               e.currentTarget.onerror = null;
-              e.currentTarget.src = notFound;
+              e.currentTarget.src = NotFoundImage;
             }}
           />
           <div className={styles.content}>
