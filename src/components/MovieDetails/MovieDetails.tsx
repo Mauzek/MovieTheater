@@ -1,13 +1,15 @@
 import { FC, useEffect, useMemo } from "react";
 import { MovieData, MovieImages } from "../../API/types";
 import { MoviePlayer } from "../";
-import { RatingList } from "./Rating";
-import { Trailers } from "./Trailers";
-import { DetailsList } from "./InfoItem";
-import { ActorsList } from "./Actors";
-import { SeqAndPreqList } from "./SequelsAndPrequels";
-import { SimilarMoviesList } from "./SimilarMovies";
-import { MovieFrames } from "./MovieFrames";
+import {
+  RatingList,
+  Trailers,
+  DetailsList,
+  ActorsList,
+  SeqAndPreqList,
+  SimilarMoviesList,
+  MovieFrames,
+} from "./";
 import NotFound from "../../assets/images/notFound.gif";
 import styles from "./MovieDetails.module.css";
 

@@ -1,8 +1,6 @@
 import React from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import Movie from "./Pages/Movie/[name]";
-import Popular from "./Pages/Popular";
-import Search from "./Pages/Search/[name]";
+import { Movie, Popular, Search } from "./Pages";
 import { Layout } from "./components";
 
 const App: React.FC = () => {
@@ -13,8 +11,8 @@ const App: React.FC = () => {
         <Route path="movies/:id" element={<Movie />} />
         <Route path="series/:id" element={<Movie />} />
         <Route path="popular">
-          <Route path="movies"  element={<Popular film={true} />} />
-          <Route path="series" element={<Popular film={false}/>} />
+          <Route path="movies" element={<Popular film={true} />} />
+          <Route path="series" element={<Popular film={false} />} />
         </Route>
         <Route path="search/:name" element={<Search />} />
       </Route>
