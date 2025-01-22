@@ -90,4 +90,8 @@ h1 {
   background: none;
 }
 
+::selection {
+  background: #ccc; 
+  color:#000
+  }
 

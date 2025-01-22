@@ -158,11 +158,7 @@
     left: 0;
     right: 0;
     bottom: -50px; 
-    background: linear-gradient(
-      to bottom,
-      rgba(12, 16, 27, 0.6) 0%,
-      rgba(12, 16, 27, 1)95% 
-    );
+    background: linear-gradient(to bottom,#0c101b99 ,#0c101b);
   }
 
 @media screen and (max-width: 768px) {
