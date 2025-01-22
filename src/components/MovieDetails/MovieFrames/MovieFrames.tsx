@@ -49,7 +49,7 @@ export const MovieFrames: FC<MovieFramesProps> = ({ frames }) => {
               >
                 <div className={styles.link_container}>
                   <img
-                    src={frame.imageUrl}
+                    src={frame.previewUrl}
                     className={styles.frameImage}
                     loading="lazy"
                     alt={`Картинка ${index}`}

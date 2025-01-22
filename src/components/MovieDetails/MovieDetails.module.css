@@ -147,7 +147,6 @@
     background-image: url(/**путь к изображению */);
     background-size:cover;
     background-position:center; 
-    filter: blur(4px); 
     z-index: -2; 
   }
   
@@ -159,6 +158,7 @@
     right: 0;
     bottom: -50px; 
     background: linear-gradient(to bottom,#0c101b99 ,#0c101b);
+    backdrop-filter: blur(4px);
   }
 
 @media screen and (max-width: 768px) {
