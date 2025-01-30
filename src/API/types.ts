@@ -96,14 +96,14 @@ export interface ApiSimilarAndSequelsMovie {
 
 export interface ApiMovieCardData {
   id: number;
-  title: string;
+  title: CardTitle;
   alternativeTitle: string | null;
   type: string;
   year: number;
-  rating: number;
+  rating: CardRating;
   posterUrl: string;
-  countries: string[];
-  genres: string[];
+  countries: CardCountry[];
+  genres: CardGenre[];
 }
 
 export interface ApiMovieCardDataByTitle {
@@ -168,6 +168,8 @@ export interface ApiMovieImages {
   items: MovieImage[];
 }
 
+
+
 //Интерфейсы для нормализации данных
 interface ExternalId { imdb: string | null };
 interface Backdrop { url: string };
@@ -177,7 +179,12 @@ interface Votes { kp: number; imdb: number };
 interface Rating { kp: number; imdb: number };
 interface ReleaseYears { start: number; end: number };
 interface SeasonInfo { number: number; episodesCount: number };
-interface MovieImage { imageUrl: string; previewUrl: string };  
+interface MovieImage { imageUrl: string; previewUrl: string }; 
+interface CardGenre {id: number, name: string, slug?: null, position: number}; 
+interface CardCountry {id: number, name: string, position: number};
+interface CardTitle{russian: string, original: string}; 
+interface CardRating {value: number, count: number};
+interface CardRating {kinopoisk: CardRating, imdb: CardRating};
 
 export interface MovieImages{
   items: MovieImage[];
@@ -243,6 +250,18 @@ export interface MovieData {
   sequelsAndPrequels?: SimilarAndSequelsMovie[];
   similarMovies?: SimilarAndSequelsMovie[];
 }
+
+// export interface MovieCardData {
+//   id: number;
+//   title: CardTitle | string;
+//   alternativeTitle?: string;
+//   type: string;
+//   year: number;
+//   rating: CardRating | number;
+//   posterUrl: string;
+//   countries: CardCountry[] | string[];
+//   genres: CardGenre[] | string[];
+// }
 
 export interface MovieCardData {
   id: number;

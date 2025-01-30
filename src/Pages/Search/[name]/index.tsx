@@ -1,6 +1,7 @@
 import { useEffect, useState, useMemo, FC } from "react";
 import { useParams } from "react-router-dom";
-import { getMovieByTitle } from "../../../API/api-utils";
+import { getMovieByTitle2 } from "../../../API/api-utils";
+// import { getMovieByTitle } from "../../../API/api-utils";
 import { MovieCardData } from "../../../API/types";
 import { MovieCardList, Preloader  } from "../../../components";
 import styles from "./Search.module.css";
@@ -17,7 +18,7 @@ const Search: FC = () => {
       setLoading(true);
       setError(null);
       try {
-        const movies: MovieCardData[] = await getMovieByTitle(name);
+        const movies: MovieCardData[] = await getMovieByTitle2(name);
         if (movies.length === 0) {
           setError("Результаты не найдены.");
         }

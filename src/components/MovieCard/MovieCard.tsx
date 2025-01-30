@@ -12,6 +12,7 @@ export const MovieCard: FC<MovieCardProps> = ({ movieCard }) => {
   const limitedCountries = movieCard.countries.slice(0, 1).join(", ");
   const formattedGenres = movieCard.genres.slice(0, 2).join(", ");
   const formattedRating = Math.round(movieCard.rating * 10) / 10;
+  const formattedPoster = movieCard.posterUrl.replace("/orig", "/300x");
   const type =
     movieCard.type === "Film" || movieCard.type === "movie"
       ? "movies"
@@ -25,7 +26,7 @@ export const MovieCard: FC<MovieCardProps> = ({ movieCard }) => {
       >
         <div className={styles.imageContainer}>
           <img
-            src={movieCard.posterUrl}
+            src={formattedPoster}
             alt={`${movieCard.title} постер`}
             className={styles.movieImage}
             onError={(e) => {

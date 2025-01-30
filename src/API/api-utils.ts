@@ -135,13 +135,13 @@ function transformMovieByTitle(data: ApiMovieCardDataByTitle): MovieCardData {
 function transformToMovieCard(movie: ApiMovieCardData): MovieCardData {
   return {
     id: movie.id,
-    title: movie.title,
+    title: movie.title.russian,
     type: movie.type,
     year: movie.year,
-    rating: movie.rating,
+    rating: movie.rating.kinopoisk.value,
     posterUrl: movie.posterUrl,
-    countries: movie.countries,
-    genres: movie.genres,
+    countries: movie.countries.map((country: {name: string}) => country.name),
+    genres: movie.genres.map((genre: {name: string}) => genre.name),
   };
 }
 
@@ -208,6 +208,19 @@ const getMovieByTitle = async (movieName: string): Promise<MovieCardData[]> => {
   }
 };
 
+const getMovieByTitle2 = async (movieName: string): Promise<MovieCardData[]> => {
+  try {
+    const response: AxiosResponse = await axios.get(endpoints.searchMovies2(movieName));
+    const data = response.data;
+    console.log(data.data.films);
+
+    return data.data.films.map(transformToMovieCard);
+  } catch (error) {
+    console.error("Error fetching movies by title:", error);
+    throw error;
+  }
+};
+
 const getMovieByID = async (movieID: string): Promise<MovieData> => {
   try {
     const url = endpoints.getMovieById(movieID);
@@ -224,7 +237,7 @@ const getPopularMovies = async (): Promise<MovieCardData[]> => {
     const response: AxiosResponse = await axios.get(
       endpoints.getPopularMovies("film")
     );
-    const data = response.data;
+    const data = response.data.data;
     if (!Array.isArray(data)) {
       throw new Error("Invalid response format");
     }
@@ -240,7 +253,11 @@ const getPopularSeries = async (): Promise<MovieCardData[]> => {
     const response: AxiosResponse = await axios.get(
       endpoints.getPopularMovies("series")
     );
-    return response.data.map(transformToMovieCard);
+    const data = response.data.data;
+    if (!Array.isArray(data)) {
+      throw new Error("Invalid response format");
+    }
+    return data.map(transformToMovieCard);
   } catch (error) {
     console.error("Error fetching popular series:", error);
     throw error;
@@ -264,4 +281,5 @@ export {
   getPopularMovies,
   getPopularSeries,
   getMovieImagesById,
+  getMovieByTitle2
 };

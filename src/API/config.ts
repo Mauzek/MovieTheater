@@ -1,7 +1,8 @@
 const BASE_URLS = {
   kinopoisk: "https://api.kinopoisk.dev/v1.4/movie",
   moviePlayer: "https://kinobox.tv/api/players",
-  popularMovies: "https://kinobox.tv/api/films/popular",
+  popularMovies: "https://kp.kinobox.tv/api/v2/films/popular",
+  searchMovies: "https://kp.kinobox.tv/films/search",
   kinopoisk_v2: "https://kinopoiskapiunofficial.tech/api/v2.2",
 };
 
@@ -14,6 +15,7 @@ const API_KEYS = {
 };
 
 const endpoints = {
+  searchMovies2: (query: string)=> `${BASE_URLS.searchMovies}?query=${query}`,
   searchMovies: (page: number, limit: number, query: string) =>
     `${BASE_URLS.kinopoisk}/search?page=${page}&limit=${limit}&query=${query}`,
   getMovieById: (id: string) => `${BASE_URLS.kinopoisk}/${id}`,
