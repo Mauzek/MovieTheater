@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 200px;
+  max-width: 500px;
   margin: 10px;
   cursor: pointer;
   outline: none;
@@ -171,22 +171,22 @@
 /* Стандартные десктопы (1025px - 1920px) */
 @media (min-width: 1025px) and (max-width: 1920px) {
   .movieCard {
-    max-width: 200px;
+    max-width: 250px;
     margin: 10px;
   }
 
   .title {
-    font-size: 1em;
+    font-size: 1.2em;
   }
 
   .rating {
-    font-size: 1.8em;
+    font-size: 2.2em;
   }
 
   .year,
   .genres,
   .countries {
-    font-size: 0.9em;
+    font-size: 1em;
   }
 }
 
@@ -202,7 +202,7 @@
   }
 
   .rating {
-    font-size: 2.5em;
+    font-size: 2.7em;
   }
 
   .year,

@@ -19,7 +19,7 @@ const endpoints = {
   searchMovies: (page: number, limit: number, query: string) =>
     `${BASE_URLS.kinopoisk}/search?page=${page}&limit=${limit}&query=${query}`,
   getMovieById: (id: string) => `${BASE_URLS.kinopoisk}/${id}`,
-  getPopularMovies: (type: "film" | "series") =>
+  getPopularMovies: (type: "films" | "series") =>
     `${BASE_URLS.popularMovies}?type=${type}`,
   getMoviePlayer: (kinopoiskId: number) =>
     `${BASE_URLS.moviePlayer}?kinopoisk=${kinopoiskId}`,

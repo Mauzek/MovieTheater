@@ -235,7 +235,7 @@ const getMovieByID = async (movieID: string): Promise<MovieData> => {
 const getPopularMovies = async (): Promise<MovieCardData[]> => {
   try {
     const response: AxiosResponse = await axios.get(
-      endpoints.getPopularMovies("film")
+      endpoints.getPopularMovies("films")
     );
     const data = response.data.data;
     if (!Array.isArray(data)) {

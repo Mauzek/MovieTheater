@@ -275,8 +275,6 @@ export interface MovieCardData {
   genres: string[];
 }
 
-
-
 //Интерфейсы для работы API
 export interface ApiKeyManager {
   currentIndex: number;

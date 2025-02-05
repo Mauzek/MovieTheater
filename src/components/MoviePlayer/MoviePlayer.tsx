@@ -19,6 +19,20 @@ export const MoviePlayer: FC<MoviePlayerProps> = ({ kinopoiskId }) => {
         (window as any).kbox(containerRef.current, {
           search: { kinopoisk: kinopoiskId },
           menu: { enable: true, default: "menu_button" },
+          players: {
+            alloha: {
+              position: 1
+            },
+            videocdn:{
+              position: 2
+            },
+            kodik:{
+              position: 3
+            },
+            collaps:{
+              position: 4
+            }
+          },
           params: {
             all: {
               poster: "",

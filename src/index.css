@@ -95,3 +95,20 @@ h1 {
   color:#000
   }
 
+  ::-webkit-scrollbar {
+    width: 6px; 
+
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #0c101b; 
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: #f30745;  
+    border-radius: 6px;    
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #555; 
+  }
