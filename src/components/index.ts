@@ -5,3 +5,4 @@ export { MovieDetails } from "./MovieDetails";
 export { MoviePlayer } from "./MoviePlayer";
 export { Preloader } from "./Preloader";
 export { SearchField } from "./SearchField";
+export { NavPanel } from "./NavPanel";

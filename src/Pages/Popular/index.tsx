@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getPopularMovies, getPopularSeries } from "../../API/api-utils";
+import { getMoviesByGenre, getMoviesGenres, getPopularMovies} from "../../API/api-utils";
 import { MovieCardData } from "../../API/types";
 import { MovieCardList, Preloader } from "../../components";
 import styles from "./Popular.module.css";
@@ -19,11 +19,14 @@ const Popular: FC<PopularProps> = ({ film }) => {
     const fetchPopular = async () => {
       setLoading(true);
       setError(null);
-
+      const genres = await getMoviesGenres();
+      console.log(genres);
+      const films = await getMoviesByGenre(genres[1].slug, 1);
+      console.log(films);
       try {
         const popular = film
-          ? await getPopularMovies()
-          : await getPopularSeries();
+          ? await getPopularMovies("films")
+          : await getPopularMovies("series");
         setMovies(popular);
       } catch (error) {
         setError("Не удалось загрузить популярные данные.");

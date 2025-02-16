@@ -73,6 +73,12 @@ interface ApiNetwork {
   name: string;
 }
 
+export interface ApiMovieGenres {
+  id: number
+  name: string;
+  slug: string;
+}
+
 export interface ApiPerson {
   id: number;
   name: string | null;
@@ -104,6 +110,12 @@ export interface ApiMovieCardData {
   posterUrl: string;
   countries: CardCountry[];
   genres: CardGenre[];
+}
+
+export interface ApiMovieByFilters{
+  id: string;
+  films: ApiMovieCardData[];
+  total: number;
 }
 
 export interface ApiMovieCardDataByTitle {
@@ -183,8 +195,8 @@ interface MovieImage { imageUrl: string; previewUrl: string };
 interface CardGenre {id: number, name: string, slug?: null, position: number}; 
 interface CardCountry {id: number, name: string, position: number};
 interface CardTitle{russian: string, original: string}; 
-interface CardRating {value: number, count: number};
-interface CardRating {kinopoisk: CardRating, imdb: CardRating};
+interface CardRatingData {value: number, count: number};
+interface CardRating {kinopoisk: CardRatingData, imdb: CardRatingData};
 
 export interface MovieImages{
   items: MovieImage[];

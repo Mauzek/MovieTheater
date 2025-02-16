@@ -10,6 +10,7 @@ import {
   ApiKeyManager,
   ApiMovieImages,
   MovieImages,
+  ApiMovieGenres,
 } from "./types";
 
 const apiKeyManagers: Record<string, ApiKeyManager> = {
@@ -22,6 +23,8 @@ const apiKeyManagers: Record<string, ApiKeyManager> = {
     keys: [API_KEYS.kinopoisk_v2, API_KEYS.kinopoisk_v2_2],
   },
 };
+
+
 
 function transformMovieData(data: ApiMovieData): MovieData {
   return {
@@ -151,6 +154,7 @@ function transformMovieImages(data: ApiMovieImages): MovieImages {
   };
 }
 
+
 async function fetchWithRetries<T>(
   url: string,
   apiKeyGroup: "v1" | "v2" = "v1"
@@ -192,6 +196,7 @@ async function fetchWithRetries<T>(
   );
 }
 
+
 const getMovieByTitle = async (movieName: string): Promise<MovieCardData[]> => {
   try {
     const url = endpoints.searchMovies(1, 10, movieName);
@@ -232,10 +237,10 @@ const getMovieByID = async (movieID: string): Promise<MovieData> => {
   }
 };
 
-const getPopularMovies = async (): Promise<MovieCardData[]> => {
+const getPopularMovies = async (type: "films" | "series"): Promise<MovieCardData[]> => {
   try {
     const response: AxiosResponse = await axios.get(
-      endpoints.getPopularMovies("films")
+      endpoints.getPopularMovies(type)
     );
     const data = response.data.data;
     if (!Array.isArray(data)) {
@@ -248,18 +253,29 @@ const getPopularMovies = async (): Promise<MovieCardData[]> => {
   }
 };
 
-const getPopularSeries = async (): Promise<MovieCardData[]> => {
+const getMoviesGenres = async (): Promise<ApiMovieGenres[]> => {
+  try {
+    const response: AxiosResponse = await axios.get(endpoints.getGenres());
+    const data = response.data;
+    return data;
+  } catch (error) {
+    console.error("Error fetching movie genres:", error);
+    throw error;
+  }
+};
+
+const getMoviesByGenre = async (genre: string, pageNumber: number): Promise<MovieCardData[]> => {
   try {
     const response: AxiosResponse = await axios.get(
-      endpoints.getPopularMovies("series")
+      endpoints.getMoviesByGenre(genre,pageNumber)
     );
-    const data = response.data.data;
+    const data = response.data.data.films;
     if (!Array.isArray(data)) {
       throw new Error("Invalid response format");
     }
     return data.map(transformToMovieCard);
   } catch (error) {
-    console.error("Error fetching popular series:", error);
+    console.error("Error fetching movies by genre:", error);
     throw error;
   }
 };
@@ -279,7 +295,8 @@ export {
   getMovieByTitle,
   getMovieByID,
   getPopularMovies,
-  getPopularSeries,
   getMovieImagesById,
-  getMovieByTitle2
+  getMovieByTitle2,
+  getMoviesGenres,
+  getMoviesByGenre,
 };
