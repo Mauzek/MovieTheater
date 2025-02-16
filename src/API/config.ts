@@ -21,6 +21,8 @@ const endpoints = {
   getMovieById: (id: string) => `${BASE_URLS.kinopoisk}/${id}`,
   getPopularMovies: (type: "films" | "series") =>
     `${BASE_URLS.kinoBox}/api/v2/films/popular?type=${type}`,
+  getPopularMoviesV2: (type?: "films" | "series", pageNumber = 1, cartoon?: 'animation'| 'null') =>
+    `${BASE_URLS.kinoBox}/films/popular?genre=${cartoon}&${type}=true&released=true&page=${pageNumber}`,
   getMoviePlayer: (kinopoiskId: number) =>
     `${BASE_URLS.moviePlayer}?kinopoisk=${kinopoiskId}`,
   getMovieImagesById: (kinopoiskId: number, page: number) =>

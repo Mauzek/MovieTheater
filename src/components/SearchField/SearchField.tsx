@@ -40,7 +40,7 @@ export const SearchField: FC = () => {
     };
   }, []);
 
-  const isOnPopularPage = location.pathname.startsWith("/popular/");
+  const isOnPopularPage = location.pathname.startsWith("/home");
 
   return (
     <header className={styles.searchContainer}>

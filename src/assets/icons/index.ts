@@ -5,3 +5,5 @@ export { default as KinopoiskLogo } from "./kinopoisk_logo.svg";
 export { default as ImdbLogo } from "./imdb_logo.svg";
 export { default as ViewIcon } from "./view.svg";
 export { default as YouTubeIcon } from "./youtube.svg";
+export { default as CatalogIcon } from "./catalog.svg";
+export { default as PopularIcon } from "./popular.svg";

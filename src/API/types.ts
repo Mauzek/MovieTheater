@@ -100,6 +100,12 @@ export interface ApiSimilarAndSequelsMovie {
   year?: number;
 }
 
+export interface ApiCatalog {
+  Animation: ApiMovieCardData[];
+  Film: ApiMovieCardData[];
+  Series: ApiMovieCardData[];
+}
+
 export interface ApiMovieCardData {
   id: number;
   title: CardTitle;
@@ -220,6 +226,12 @@ export interface SimilarAndSequelsMovie {
   poster: {
     url: string;
   };
+}
+
+export interface NormalizedCatalog {
+  Animation: MovieCardData[];
+  Film: MovieCardData[];
+  Series: MovieCardData[];
 }
 
 export interface MovieData {

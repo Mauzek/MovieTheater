@@ -11,6 +11,8 @@ import {
   ApiMovieImages,
   MovieImages,
   ApiMovieGenres,
+  ApiCatalog,
+  NormalizedCatalog,
 } from "./types";
 
 const apiKeyManagers: Record<string, ApiKeyManager> = {
@@ -24,7 +26,22 @@ const apiKeyManagers: Record<string, ApiKeyManager> = {
   },
 };
 
+function transformCatalog(apiCatalog: ApiCatalog): NormalizedCatalog {
+  const normalized: NormalizedCatalog = {
+    Animation: [],
+    Film: [],
+    Series: [],
+  };
 
+  // Нормализуем каждую категорию
+  for (const category of Object.keys(apiCatalog) as Array<keyof ApiCatalog>) {
+    if (Array.isArray(apiCatalog[category])) {
+      normalized[category] = apiCatalog[category].map(transformToMovieCard);
+    }
+  }
+
+  return normalized;
+}
 
 function transformMovieData(data: ApiMovieData): MovieData {
   return {
@@ -280,6 +297,24 @@ const getMoviesByGenre = async (genre: string, pageNumber: number): Promise<Movi
   }
 };
 
+const getCatalog = async (): Promise<NormalizedCatalog> => {
+  try {
+    const response: AxiosResponse = await axios.get(endpoints.getGeneralCatalog());
+    const data: ApiCatalog = response.data.data;
+
+    // Проверяем, что данные соответствуют ожидаемому формату
+    if (!data || typeof data !== "object") {
+      throw new Error("Invalid response format");
+    }
+
+    // Нормализуем данные
+    return transformCatalog(data);
+  } catch (error) {
+    console.error("Error fetching catalog:", error);
+    throw error;
+  }
+};
+
 const getMovieImagesById = async (movieID: number): Promise<MovieImages> => {
   try {
     const url = endpoints.getMovieImagesById(movieID, 1);
@@ -299,4 +334,5 @@ export {
   getMovieByTitle2,
   getMoviesGenres,
   getMoviesByGenre,
+  getCatalog,
 };
