@@ -27,7 +27,6 @@ export const CatalogPage: FC = () => {
     fetchCalagog();
   }, []);
 
-  // Category titles mapping
   const categoryTitles: Record<string, string> = {
     Film: "Популярные фильмы",
     Series: "Популярные сериалы",

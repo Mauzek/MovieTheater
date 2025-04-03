@@ -15,13 +15,13 @@
     border-bottom-right-radius: 12px;
     border: 1px solid transparent;
     border-top: none;
-  }
+}
   
-  .searchContainer.transparent {
+.searchContainer.transparent {
     background-color: #0c101b; 
     border-color: #7e85974f;
     opacity: 0.9;
-  }
+}
 
 .searchInput {
     padding: 18px;
@@ -35,16 +35,16 @@
     color: #fff;
     outline: none;
     transition: box-shadow 0.5s ease, border-color 0.5s ease, background-color 0.3s ease;
+}
 
-    &::placeholder {
-        color: #aaa;
-        font-style: italic;
-        font-size: 18px;
-    }
+.searchInput::placeholder {
+    color: #aaa;
+    font-style: italic;
+    font-size: 18px;
+}
 
-    &:focus {
-        box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
-    }
+.searchInput:focus {
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
 }
 
 .clickButton {
@@ -61,38 +61,281 @@
     max-width: 70px;
     max-height: 70px;
     transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    flex-shrink: 0; /* Prevent button from shrinking */
+}
 
-    &:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
-    }
+.clickButton:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+}
 
-    &:focus {
-        box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-    }
+.clickButton:focus {
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
 
-    img {
-        width: 35px;
-        height: 35px;
-        transition: transform 0.3s ease, filter 0.3s ease;
-    }
+.clickButton img {
+    width: 35px;
+    height: 35px;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
 
-    &:hover img {
-        transform: scale(1.2);
-    }
+.clickButton:hover img {
+    transform: scale(1.2);
 }
 
 .backButton {
-    /* border-color: #6d118f; */
-    border-color: #ff4067 ;
+    border-color: #ff4067;
 }
 
 .homeButton {
-    /* border-color: #ee4266; */
-    border-color: #bd2fd1  ;
+    border-color: #bd2fd1;
 }
 
 .searchButton {
-    /* border-color: #3bceac; */
-    border-color: #00cdaf  ;
+    border-color: #00cdaf;
+}
+
+/* Large Desktop Screens (1440px and above) */
+@media screen and (min-width: 1440px) {
+    .searchContainer {
+        padding: 25px;
+        gap: 20px;
+    }
+    
+    .searchInput {
+        max-width: 500px;
+        font-size: 24px;
+        padding: 20px;
+    }
+    
+    .searchInput::placeholder {
+        font-size: 20px;
+    }
+    
+    .clickButton {
+        padding: 18px;
+        max-width: 80px;
+        max-height: 80px;
+    }
+    
+    .clickButton img {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+/* Standard Desktop Screens (1024px to 1439px) */
+@media screen and (min-width: 1024px) and (max-width: 1439px) {
+    .searchContainer {
+        padding: 20px;
+    }
+    
+    /* Default styles already work well for this range */
+}
+
+/* Tablets and Small Laptops (768px to 1023px) */
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+    .searchContainer {
+        padding: 15px;
+        gap: 12px;
+    }
+    
+    .searchInput {
+        max-width: 350px;
+        font-size: 20px;
+        padding: 16px;
+        max-height: 60px;
+        border-width: 2px;
+    }
+    
+    .searchInput::placeholder {
+        font-size: 16px;
+    }
+    
+    .clickButton {
+        padding: 12px;
+        max-width: 60px;
+        max-height: 60px;
+        border-width: 2px;
+    }
+    
+    .clickButton img {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .clickButton:hover {
+        transform: translateY(-3px);
+    }
+}
+
+/* Large Mobile Devices (480px to 767px) */
+@media screen and (min-width: 480px) and (max-width: 767px) {
+    .searchContainer {
+        padding: 12px;
+        gap: 10px;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+    }
+    
+    .searchInput {
+        max-width: calc(100% - 65px); /* Ensure space for button */
+        font-size: 18px;
+        padding: 14px;
+        max-height: 55px;
+        border-width: 2px;
+        border-radius: 8px;
+    }
+    
+    .searchInput::placeholder {
+        font-size: 14px;
+    }
+    
+    .clickButton {
+        padding: 10px;
+        max-width: 55px;
+        max-height: 55px;
+        border-width: 2px;
+        border-radius: 8px;
+    }
+    
+    .clickButton img {
+        width: 25px;
+        height: 25px;
+    }
+    
+    /* Reduce hover effects for touch devices */
+    .clickButton:hover {
+        transform: translateY(-2px);
+    }
+    
+    .clickButton:hover img {
+        transform: scale(1.1);
+    }
+}
+
+/* Small Mobile Devices (320px to 479px) */
+@media screen and (max-width: 479px) {
+    .searchContainer {
+        padding: 10px;
+        gap: 8px;
+        border-bottom-left-radius: 6px;
+        border-bottom-right-radius: 6px;
+        flex-wrap: nowrap; /* Prevent wrapping */
+    }
+    
+    .searchInput {
+        max-width: calc(100% - 53px); /* Ensure space for button */
+        font-size: 16px;
+        padding: 12px;
+        max-height: 50px;
+        border-width: 2px;
+        border-radius: 6px;
+    }
+    
+    .searchInput::placeholder {
+        font-size: 13px;
+    }
+    
+    .clickButton {
+        padding: 8px;
+        max-width: 45px;
+        max-height: 45px;
+        border-width: 2px;
+        border-radius: 6px;
+    }
+    
+    .clickButton img {
+        width: 22px;
+        height: 22px;
+    }
+    
+    /* Disable hover effects for small touch devices */
+    .clickButton:hover {
+        transform: none;
+        box-shadow: none;
+    }
+    
+    .clickButton:hover img {
+        transform: none;
+    }
+    
+    /* Active state for touch */
+    .clickButton:active {
+        transform: scale(0.95);
+        background-color: rgba(255, 255, 255, 0.05);
+    }
+}
+
+/* Extra Small Mobile Devices (below 360px) */
+@media screen and (max-width: 359px) {
+    .searchContainer {
+        padding: 8px;
+        gap: 6px;
+    }
+    
+    .searchInput {
+        font-size: 14px;
+        padding: 10px;
+        max-height: 45px;
+        border-width: 1px;
+        max-width: calc(100% - 46px); /* Ensure space for button */
+    }
+    
+    .searchInput::placeholder {
+        font-size: 12px;
+    }
+    
+    .clickButton {
+        padding: 6px;
+        max-width: 40px;
+        max-height: 40px;
+        border-width: 1px;
+    }
+    
+    .clickButton img {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+/* Landscape orientation on mobile */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+    .searchContainer {
+        padding: 8px 15px;
+    }
+    
+    .searchInput {
+        max-height: 45px;
+        padding: 10px 15px;
+    }
+    
+    .clickButton {
+        max-height: 45px;
+        max-width: 45px;
+        padding: 8px;
+    }
+    
+    .clickButton img {
+        width: 22px;
+        height: 22px;
+    }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    .searchContainer,
+    .searchInput,
+    .clickButton,
+    .clickButton img {
+        transition: none;
+    }
+    
+    .clickButton:hover {
+        transform: none;
+    }
+    
+    .clickButton:hover img {
+        transform: none;
+    }
 }

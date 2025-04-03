@@ -161,47 +161,269 @@
   backdrop-filter: blur(4px);
 }
 
+@media screen and (min-width: 2560px) {
+  .movieDetail {
+    max-width: 1600px;
+    padding: 40px;
+  }
+  
+  .posterWrapper {
+    width: 480px;
+    border-radius: 24px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+  }
+  
+  .details {
+    max-width: 800px;
+  }
+  
+  .movieTitle {
+    font-size: 3.5em;
+  }
+  
+  .alternativeTitle {
+    font-size: 1.8em;
+    margin: 10px 0;
+  }
+  
+  .divider {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+  }
+  
+  .descriptionContainer {
+    padding: 30px;
+    border-radius: 15px;
+  }
+  
+  .descriptionTitle {
+    font-size: 2.2em;
+    margin-bottom: 15px;
+  }
+  
+  .descriptionText {
+    font-size: 1.3em;
+    line-height: 1.6;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .movieDetail {
+    max-width: 960px;
+    width: 100%;
+  }
+  
+  .posterWrapper {
+    width: 280px;
+  }
+  
+  .details {
+    max-width: 480px;
+  }
+  
+  .descriptionContainer {
+    padding: 18px;
+  }
+  
+  .descriptionTitle {
+    font-size: 1.4em;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .movieDetail {
+    max-width: 720px;
+    padding: 15px;
+  }
+  
+  .mainInfo {
+    gap: 20px;
+  }
+  
+  .posterWrapper {
+    width: 240px;
+    border-radius: 14px;
+  }
+  
+  .details {
+    max-width: 420px;
+  }
+  
+  .movieTitle {
+    font-size: 1.8em;
+  }
+  
+  .alternativeTitle {
+    font-size: 1em;
+  }
+  
+  .divider {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .descriptionContainer {
+    padding: 15px;
+    border-radius: 8px;
+  }
+  
+  .descriptionTitle {
+    font-size: 1.3em;
+    margin-bottom: 8px;
+  }
+  
+  .descriptionText {
+    font-size: 0.95em;
+  }
+}
+
 @media screen and (max-width: 768px) {
+  .movieDetail {
+    padding: 12px;
+  }
+  
   .mainInfo {
     flex-direction: column;
     align-items: center;
+    gap: 25px;
   }
-
-  .poster {
-    width: 200px;
+  
+  .posterContainer {
+    margin-bottom: 10px;
   }
-
+  
+  .posterWrapper {
+    width: 220px;
+    border-radius: 12px;
+  }
+  
+  .posterWrapper:hover {
+    transform: scale(1.03) translateY(-10px) rotateX(3deg) rotateY(3deg);
+  }
+  
   .details {
-    display: flex;
-    justify-content: center;
     align-items: center;
+    text-align: center;
+    max-width: 100%;
   }
-
-  .infoContainer {
-    display: flex;
-    justify-content: left;
-  }
-
-  .infoItem {
-    width: 100%;
-    text-align: left;
-  }
-
+  
   .movieTitle {
-    font-size: 2em;
+    font-size: 1.6em;
     text-align: center;
+    justify-content: center;
   }
-
+  
   .alternativeTitle {
+    font-size: 0.9em;
     text-align: center;
   }
-
-  .infoContainer {
-    align-items: center;
-  }
-
+  
   .descriptionContainer {
-    width: 100%;
+    padding: 12px;
   }
+  
+  .descriptionTitle {
+    font-size: 1.2em;
+    text-align: center;
+  }
+  
+  .descriptionText {
+    font-size: 0.9em;
+    text-align: center;
+  }
+}
 
+@media screen and (max-width: 576px) {
+  .movieDetail {
+    padding: 10px;
+  }
+  
+  .posterWrapper {
+    width: 180px;
+    border-radius: 10px;
+  }
+  
+  .posterWrapper:hover {
+    transform: scale(1.02) translateY(-5px);
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.4);
+  }
+  
+  .movieTitle {
+    font-size: 1.4em;
+  }
+  
+  .alternativeTitle {
+    font-size: 0.85em;
+    margin: 3px 0;
+  }
+  
+  .divider {
+    margin-top: 1.2rem;
+    margin-bottom: 1.2rem;
+  }
+  
+  .descriptionContainer {
+    width: 50%;
+    padding: 10px;
+    border-radius: 6px;
+  }
+  
+  .descriptionTitle {
+    font-size: 1.1em;
+    margin-bottom: 6px;
+  }
+  
+  .descriptionText {
+    font-size: 0.85em;
+    line-height: 1.4;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .movieDetail {
+    padding: 8px;
+  }
+  
+  .posterWrapper {
+    width: 150px;
+    border-radius: 8px;
+  }
+  
+  .posterWrapper:hover {
+    transform: none;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  }
+  
+  .poster:hover {
+    transform: none;
+    filter: none;
+  }
+  
+  .movieTitle {
+    font-size: 1.2em;
+  }
+  
+  .alternativeTitle {
+    font-size: 0.8em;
+  }
+  
+  .divider {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .descriptionContainer {
+    padding: 8px;
+    border-radius: 5px;
+  }
+  
+  .descriptionTitle {
+    font-size: 1em;
+    margin-bottom: 5px;
+  }
+  
+  .descriptionText {
+    font-size: 0.8em;
+    line-height: 1.3;
+  }
 }

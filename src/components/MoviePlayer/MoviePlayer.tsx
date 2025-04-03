@@ -54,12 +54,12 @@ export const MoviePlayer: FC<MoviePlayerProps> = ({ kinopoiskId }) => {
   }, [kinopoiskId]);
 
   return (
-    <div className={styles.moviePlayerWrapper}>
+    <section className={styles.moviePlayerWrapper}>
       <h3 className={styles.MoviePlayerTitle}>Смотреть онлайн</h3>
       <div
         ref={containerRef}
         className={`kinobox_player ${styles.kinobox_player}`}
       ></div>
-    </div>
+    </section>
   );
 };

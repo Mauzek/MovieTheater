@@ -32,3 +32,127 @@
 .infoItem:nth-child(odd) {
     background: rgba(255, 255, 255, 0.2);
 }
+
+/* Responsive styles */
+/* Large screens (4K and above) */
+@media screen and (min-width: 2560px) {
+    .detailsList {
+        margin-top: 30px;
+    }
+    
+    .infoItem {
+        padding: 15px;
+        margin-bottom: 15px;
+        width: 40em;
+        max-width: 640px;
+        border-radius: 8px;
+        box-shadow: 0 8px 3px rgba(0, 0, 0, 0.1);
+    }
+    
+    .infoItem dt {
+        font-size: 1.2em;
+        margin-right: 15px;
+    }
+    
+    .infoItem dd {
+        font-size: 1.2em;
+    }
+}
+
+/* Desktop screens */
+@media screen and (max-width: 1440px) {
+    .infoItem {
+        width: 30em;
+        max-width: 480px;
+    }
+}
+
+/* Tablets and small laptops */
+@media screen and (max-width: 1024px) {
+    .infoItem {
+        width: 28em;
+        max-width: 450px;
+        padding: 9px;
+        margin-bottom: 9px;
+    }
+    
+    .infoItem dt {
+        font-size: 0.95em;
+    }
+    
+    .infoItem dd {
+        font-size: 0.95em;
+    }
+}
+
+/* Tablets portrait */
+@media screen and (max-width: 768px) {
+    .detailsList {
+        margin-top: 15px;
+        width: 100%;
+    }
+    
+    .infoItem {
+        width: 100%;
+        max-width: 100%;
+        padding: 8px;
+        margin-bottom: 8px;
+    }
+    
+    .infoItem dt {
+        font-size: 0.9em;
+    }
+    
+    .infoItem dd {
+        font-size: 0.9em;
+    }
+}
+
+/* Large mobile phones */
+@media screen and (max-width: 576px) {
+    .detailsList {
+        margin-top: 12px;
+    }
+    
+    .infoItem {
+        padding: 7px;
+        margin-bottom: 7px;
+        box-shadow: 0 3px 1px rgba(0, 0, 0, 0.1);
+    }
+    
+    .infoItem dt {
+        font-size: 0.85em;
+        margin-right: 8px;
+    }
+    
+    .infoItem dd {
+        font-size: 0.85em;
+    }
+}
+
+/* Small mobile phones */
+@media screen and (max-width: 375px) {
+    .detailsList {
+        margin-top: 10px;
+    }
+    
+    .infoItem {
+        padding: 6px;
+        margin-bottom: 6px;
+        border-radius: 4px;
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+    }
+    
+    .infoItem dt {
+        font-size: 0.8em;
+        margin-right: 0;
+        margin-bottom: 3px;
+    }
+    
+    .infoItem dd {
+        font-size: 0.8em;
+        width: 100%;
+    }
+}
