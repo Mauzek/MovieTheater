@@ -69,6 +69,30 @@
   transition: opacity 0.4s;
 }
 
+.newBadge {
+  position: absolute;
+  top: 25px;
+  right: -35px;
+  background: #f30745 ;
+  filter: brightness(80%);
+  color: white;
+  padding: 6px 40px;
+  transform: rotate(45deg);
+  font-size: 0.9em;
+  font-weight: bold;
+  box-shadow: 0 5px 15px rgba(255, 8, 68, 0.5);
+  z-index: 2;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  animation: pulseBadge 2s infinite;
+}
+
+.newBadge span {
+  display: inline-block;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  animation: wiggle 2.5s ease-in-out infinite;
+}
+
 .title {
   font-size: 1em;
   margin-top: 5px;
@@ -94,9 +118,27 @@
 }
 
 .rating {
-  font-size: 2em;
+  font-size: 2rem;
   font-weight: bold;
-  margin: 0;
+  width: 60px;
+  text-align: center;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.highRating {
+  background: linear-gradient(135deg, #00c853, #009624);
+  box-shadow: 0 0 15px rgba(0, 200, 83, 0.6);
+}
+
+.mediumRating {
+  background: linear-gradient(135deg, #ffbb00, #c79100);
+  box-shadow: 0 0 15px rgba(255, 187, 0, 0.6);
+}
+
+.lowRating {
+  background: linear-gradient(135deg, #ff5252, #c50e29);
+  box-shadow: 0 0 15px rgba(255, 82, 82, 0.6);
 }
 
 .year {
@@ -122,22 +164,33 @@
   text-overflow: ellipsis;
 }
 
-/* Мобильные устройства (до 600px) */
-@media (max-width: 600px) {
+@media (max-width: 480px) {
   .movieCard {
-    max-width: 100%;
+    max-width: 140px;
     margin: 5px;
   }
 
   .title {
-    font-size: 0.8em;
+    font-size: 0.75em;
+    -webkit-line-clamp: 1;
   }
 
-  .rating,
-  .year,
-  .genres,
+  .rating {
+    font-size: 1.5em;
+    padding: 3px 6px;
+  }
+
+  .year, 
+  .genres, 
   .countries {
-    font-size: 0.7em;
+    font-size: 0.65em;
+  }
+
+  .newBadge {
+    font-size: 0.6em;
+    padding: 3px 25px;
+    top: 10px;
+    right: -30px;
   }
 
   .imageContainer {
@@ -145,70 +198,130 @@
   }
 }
 
-/* Планшеты (601px - 1024px) */
-@media (max-width: 1024px) and (min-width: 601px) {
+@media (min-width: 481px) and (max-width: 600px) {
   .movieCard {
-    max-width: 150px;
+    max-width: 160px;
+    margin: 6px;
+  }
+
+  .title {
+    font-size: 0.8em;
+  }
+
+  .rating {
+    font-size: 1.7em;
+    padding: 4px 8px;
+  }
+
+  .year, 
+  .genres, 
+  .countries {
+    font-size: 0.7em;
+  }
+
+  .newBadge {
+    font-size: 0.7em;
+    padding: 4px 30px;
+    top: 12px;
+    right: -32px;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 768px) {
+  .movieCard {
+    max-width: 180px;
     margin: 8px;
+  }
+
+  .title {
+    font-size: 0.85em;
+  }
+
+  .rating {
+    font-size: 1.8em;
+  }
+
+  .year, 
+  .genres, 
+  .countries {
+    font-size: 0.75em;
+  }
+
+  .newBadge {
+    font-size: 0.75em;
+    padding: 5px 35px;
+  }
+
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .movieCard {
+    max-width: 200px;
+    margin: 10px;
   }
 
   .title {
     font-size: 0.9em;
   }
 
-  .rating,
-  .year,
-  .genres,
+  .rating {
+    font-size: 2em;
+  }
+
+  .year, 
+  .genres, 
   .countries {
     font-size: 0.8em;
   }
 
   .imageContainer {
-    padding-top: 140%;
+    padding-top: 145%;
   }
 }
 
-/* Стандартные десктопы (1025px - 1920px) */
-@media (min-width: 1025px) and (max-width: 1920px) {
+@media (min-width: 1025px) and (max-width: 1366px) {
   .movieCard {
-    max-width: 250px;
-    margin: 10px;
+    max-width: 220px;
+    margin: 12px;
   }
 
   .title {
-    font-size: 1.2em;
+    font-size: 1em;
   }
 
   .rating {
-    font-size: 2.2em;
+    font-size: 2.1em;
   }
 
-  .year,
-  .genres,
+  .year, 
+  .genres, 
   .countries {
-    font-size: 1em;
+    font-size: 0.85em;
+  }
+
+  .imageContainer {
+    padding-top: 142%;
   }
 }
 
-/* 2K экраны (1921px - 2560px) */
-@media (min-width: 1921px) and (max-width: 2560px) {
+@media (min-width: 1367px) and (max-width: 1920px) {
   .movieCard {
     max-width: 250px;
     margin: 15px;
   }
 
   .title {
-    font-size: 1.2em;
+    font-size: 1.1em;
   }
 
   .rating {
-    font-size: 2.7em;
+    font-size: 2.2em;
   }
 
-  .year,
-  .genres,
+  .year, 
+  .genres, 
   .countries {
-    font-size: 1em;
+    font-size: 0.9em;
   }
 
   .imageContainer {
@@ -216,10 +329,34 @@
   }
 }
 
-/* 4K экраны (2561px и выше) */
-@media (min-width: 2560px) {
+@media (min-width: 1921px) and (max-width: 2560px) {
   .movieCard {
-    max-width: 300px;
+    max-width: 280px;
+    margin: 18px;
+  }
+
+  .title {
+    font-size: 1.2em;
+  }
+
+  .rating {
+    font-size: 2.4em;
+  }
+
+  .year, 
+  .genres, 
+  .countries {
+    font-size: 1em;
+  }
+
+  .imageContainer {
+    padding-top: 138%;
+  }
+}
+
+@media (min-width: 2561px) {
+  .movieCard {
+    max-width: 320px;
     margin: 20px;
   }
 
@@ -228,17 +365,87 @@
   }
 
   .rating {
-    font-size: 3em;
+    font-size: 2.8em;
   }
 
-  .year,
-  .genres,
+  .year, 
+  .genres, 
   .countries {
-    font-size: 1.2em;
+    font-size: 1.1em;
   }
 
   .imageContainer {
     padding-top: 135%;
+  }
+}
+
+@media (max-width: 900px) and (orientation: landscape) {
+  .movieCard {
+    max-width: 160px;
+    margin: 6px;
+  }
+
+  .imageContainer {
+    padding-top: 130%;
+  }
+
+  .title {
+    font-size: 0.8em;
+    -webkit-line-clamp: 1;
+  }
+
+  .rating {
+    font-size: 1.6em;
+    padding: 3px 6px;
+  }
+
+  .year, 
+  .genres, 
+  .countries {
+    font-size: 0.7em;
+  }
+
+  .newBadge {
+    font-size: 0.65em;
+    padding: 3px 25px;
+    top: 10px;
+    right: -28px;
+  }
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .movieImage {
+    image-rendering: -webkit-optimize-contrast;
+  }
+}
+
+@media (hover: none) {
+  .content {
+    opacity: 0.9;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.5) 50%, transparent 100%);
+  }
+  
+  .movieImage {
+    filter: brightness(80%);
+  }
+  
+  .hoverInfo {
+    opacity: 1;
+  }
+}
+
+@media (max-height: 600px) {
+  .movieCard {
+    margin: 5px;
+  }
+  
+  .imageContainer {
+    padding-top: 130%;
+  }
+  
+  .title {
+    font-size: 0.8em;
+    -webkit-line-clamp: 1;
   }
 }
 

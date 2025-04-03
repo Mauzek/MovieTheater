@@ -1,59 +1,95 @@
-/* NavPanel.module.css */
 .navPanel {
-    display: flex;
-    justify-content: center;
-    background-color: #0c101b; /* Основной фон страницы */
-    padding: 1rem 0;
-  }
-  
+  display: flex;
+  justify-content: center;
+  background-color: transparent;
+  padding: 1.5rem 0;
+}
+
+.navList {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 1.5rem;
+}
+
+.navItem {
+  position: relative;
+}
+
+.navLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(12, 16, 27, 0.8), rgba(20, 30, 50, 0.6));
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 500;
+  text-decoration: none;
+  padding: 12px 24px;
+  min-width: 140px;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  letter-spacing: 0.5px;
+  overflow: hidden;
+  position: relative;
+}
+
+.navLink::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.7s ease;
+}
+
+.navLink:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 7px 20px rgba(0, 0, 0, 0.3), 0 0 15px rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.navLink:hover::before {
+  left: 100%;
+}
+
+.navLink:active {
+  transform: translateY(1px);
+}
+
+.navLinkActive {
+  background: linear-gradient(135deg, rgba(0, 20, 40, 0.8), rgba(0, 40, 80, 0.6));
+  border-color: #ff5e62; /* Красноватый оттенок для активной ссылки */
+  color: #ffffff;
+  box-shadow: 0 0 15px rgba(255, 94, 98, 0.4), inset 0 0 10px rgba(255, 94, 98, 0.1);
+  font-weight: 600;
+}
+
+.navLinkActive::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 10%;
+  width: 80%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #ff5e62, transparent);
+  border-radius: 3px;
+}
+
+@media (max-width: 768px) {
   .navList {
-    display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .navItem {
-    margin: 0 1rem;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
   }
   
   .navLink {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.2), rgba(255, 255, 255, 0));
-    border: 3px solid #ffffff; /* Цветная граница */
-    border-radius: 10px;
-    color: #fff;
-    font-size: 18px;
-    text-decoration: none;
-    padding: 15px 20px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-    cursor: pointer;
+    width: 100%;
+    min-width: 200px;
   }
-  
-  .navLink:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
-  }
-  
-  .navLink:focus {
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-  }
-  
-  .navLinkActive {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.2));
-    border-color: #00ffcc; /* Изменяем цвет границы для активной ссылки */
-    color: #00ffcc; /* Изменяем цвет текста для активной ссылки */
-    box-shadow: 0 0 15px rgba(0, 255, 204, 0.6); /* Добавляем свечение */
-  }
-  
-  .navLink img {
-    width: 35px;
-    height: 35px;
-    transition: transform 0.3s ease, filter 0.3s ease;
-  }
-  
-  .navLink:hover img {
-    transform: scale(1.2);
-  }
+}

@@ -9,7 +9,7 @@ export const SearchField: FC = () => {
 
   const handleGoHome = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
-    navigate("/popular/movies");
+    navigate("/home");
   };
 
   const handleGoBack = () => {

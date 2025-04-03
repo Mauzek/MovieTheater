@@ -1,8 +1,11 @@
 import { FC } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import styles from "./NavPanel.module.css";
 
 export const NavPanel: FC = () => {
+  const location = useLocation();
+  const isPopularActive = location.pathname.startsWith('/popular');
+
   return (
     <nav className={styles.navPanel}>
       <ul className={styles.navList}>
@@ -10,7 +13,7 @@ export const NavPanel: FC = () => {
           <NavLink
             to="/home"
             className={({ isActive }) =>
-              `${styles.navLink} ${isActive ? styles.navLinkActive : ""}`
+              `${styles.navLink} ${isActive && styles.navLinkActive }`
             }
           >
             Главная
@@ -19,9 +22,10 @@ export const NavPanel: FC = () => {
         <li className={styles.navItem}>
           <NavLink
             to="/popular/movies"
-            className={({ isActive }) =>
-              `${styles.navLink} ${isActive ? styles.navLinkActive : ""}`
+            className={
+              `${styles.navLink} ${isPopularActive ? styles.navLinkActive : ""}`
             }
+            end={false}
           >
             Популярные
           </NavLink>

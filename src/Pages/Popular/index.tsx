@@ -50,7 +50,7 @@ const Popular: FC<PopularProps> = ({ film }) => {
   return (
     <main>
       <div className={styles.pageHeaderContainer}>
-        <h1 className={styles.title}>Популярные</h1>
+
         <nav
           className={`${styles.btnContainer} ${
             !film ? styles.seriesActive : ""
