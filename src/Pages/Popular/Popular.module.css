@@ -17,7 +17,7 @@
   border-radius: 30px;
   margin: 20px 0;
   width: 100%;
-  max-width: 300px;
+  max-width: 450px;
   background-color: rgba(0, 0, 0, 0.1);
   position: relative;
 }
@@ -26,17 +26,29 @@
   content: '';
   top: -2px;
   position: absolute;
-  width: 48%;
+  width: 32%;
   height: calc(100%);
   background: rgba(239, 71, 111, 0.2);
-  border: 2px solid #ef476f ;
+  border: 2px solid #ef476f;
   border-radius: 30px;
   transition: transform 0.3s ease;
   transform: translateX(-1.2%);
 }
 
-.btnContainer.seriesActive::before {
-  transform: translateX(104%);
+/* Position for movies (first button) */
+.btnContainer:has(.button:nth-child(1).activeButton)::before {
+  transform: translateX(-1.2%);
+}
+
+/* Position for series (second button) */
+.btnContainer:has(.button:nth-child(2).activeButton)::before {
+  transform: translateX(100%);
+}
+
+/* Position for cartoons (third button) */
+.btnContainer:has(.button:nth-child(3).activeButton)::before {
+  width: 36%;
+  transform: translateX(172%);
 }
 
 .button {
@@ -45,12 +57,13 @@
   background-color: transparent;
   color: #aaa;
   border-radius: 10px;
-  padding: 12px 25px;
+  padding: 12px 15px;
   border: none;
   cursor: pointer;
   transition: color 0.3s ease;
   position: relative;
   z-index: 1;
+  font-size: 0.9em;
 }
 
 .button:hover {
@@ -62,6 +75,23 @@
   pointer-events: none;
 }
 
+.popularContainer {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px 15px;
+}
+
+.errorMessage {
+  text-align: center;
+  color: #ff6b6b;
+  font-size: 1.2em;
+  margin: 40px 0;
+  padding: 20px;
+  background: rgba(255, 107, 107, 0.1);
+  border-radius: 8px;
+  border-left: 4px solid #ff6b6b;
+}
 
 /* Адаптив */
 @media (max-width: 600px) {
@@ -70,18 +100,13 @@
     margin: 15px 0;
   }
 
+  .btnContainer {
+    max-width: 320px;
+  }
+
   .button {
-    padding: 10px 20px;
-    font-size: 0.8em;
-  }
-
-  .button::after {
-    height: 1.5px;
-  }
-
-  .activeButton::after {
-    bottom: -5px; 
-    height: 1.5px; 
+    padding: 10px 8px;
+    font-size: 0.75em;
   }
 }
 
@@ -91,18 +116,13 @@
     margin: 18px 0;
   }
 
+  .btnContainer {
+    max-width: 400px;
+  }
+
   .button {
-    padding: 12px 22px;
-    font-size: 0.9em;
-  }
-
-  .button::after {
-    height: 2px;
-  }
-
-  .activeButton::after {
-    bottom: -6px; 
-    height: 2px; 
+    padding: 12px 15px;
+    font-size: 0.85em;
   }
 }
 
@@ -113,17 +133,8 @@
   }
 
   .button {
-    padding: 12px 25px;
-    font-size: 1em;
-  }
-
-  .button::after {
-    height: 2px;
-  }
-
-  .activeButton::after {
-    bottom: -8px;
-    height: 2px;
+    padding: 12px 20px;
+    font-size: 0.95em;
   }
 }
 
@@ -133,18 +144,13 @@
     margin: 25px 0;
   }
 
+  .btnContainer {
+    max-width: 500px;
+  }
+
   .button {
-    padding: 14px 30px;
-    font-size: 1.2em;
-  }
-
-  .button::after {
-    height: 3px;
-  }
-
-  .activeButton::after {
-    bottom: -10px; 
-    height: 3px; 
+    padding: 14px 25px;
+    font-size: 1.1em;
   }
 }
 
@@ -154,17 +160,12 @@
     margin: 30px 0;
   }
 
+  .btnContainer {
+    max-width: 600px;
+  }
+
   .button {
-    padding: 16px 35px;
-    font-size: 1.5em;
-  }
-
-  .button::after {
-    height: 4px;
-  }
-
-  .activeButton::after {
-    bottom: -12px; 
-    height: 4px; 
+    padding: 16px 30px;
+    font-size: 1.3em;
   }
 }

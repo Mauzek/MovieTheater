@@ -19,8 +19,13 @@ const endpoints = {
   searchMovies: (page: number, limit: number, query: string) =>
     `${BASE_URLS.kinopoisk}/search?page=${page}&limit=${limit}&query=${query}`,
   getMovieById: (id: string) => `${BASE_URLS.kinopoisk}/${id}`,
-  getPopularMovies: (type: "films" | "series") =>
-    `${BASE_URLS.kinoBox}/api/v2/films/popular?type=${type}`,
+  getPopularMovies: (type: "films" | "series" | "animation") => {
+    if(type === "animation"){
+      return `${BASE_URLS.kinoBox}/films/popular?genre=${type}`;
+    }
+    return `${BASE_URLS.kinoBox}/api/v2/films/popular?type=${type}`;
+  }
+    ,
   getPopularMoviesV2: (type?: "films" | "series", pageNumber = 1, cartoon?: 'animation'| 'null') =>
     `${BASE_URLS.kinoBox}/films/popular?genre=${cartoon}&${type}=true&released=true&page=${pageNumber}`,
   getMoviePlayer: (kinopoiskId: number) =>

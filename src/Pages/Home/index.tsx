@@ -3,7 +3,7 @@ import { NormalizedCatalog } from "../../API/types";
 import { getCatalog } from "../../API/api-utils";
 import { MovieCardList, Preloader } from "../../components";
 import { PopularIcon } from "../../assets";
-import styles from "./Catalog.module.css";
+import styles from "./Home.module.css";
 
 export const CatalogPage: FC = () => {
   const [catalog, setCatalog] = useState<NormalizedCatalog>();
@@ -27,33 +27,43 @@ export const CatalogPage: FC = () => {
     fetchCalagog();
   }, []);
 
+  // Category titles mapping
+  const categoryTitles: Record<string, string> = {
+    Film: "Популярные фильмы",
+    Series: "Популярные сериалы",
+    Animation: "Популярные мультфильмы",
+  };
+
   return (
-    <main>
+    <main className={styles.mainContainer}>
       {loading && <Preloader />}
-      {error && <div className="error">{error}</div>}
+      
+      {error && <div className={styles.errorMessage}>{error}</div>}
+      
       {!loading && !error && catalog && (
-        <>
+        <div className={styles.catalogSections}>
           {["Film", "Series", "Animation"].map((key) => {
-            if (!catalog[key as keyof NormalizedCatalog]) return null; // Пропускаем отсутствующие категории
-            const titles: Record<string, string> = {
-              Film: "Популярные фильмы",
-              Series: "Популярные сериалы",
-              Animation: "Популярные мультфильмы",
-            };
+            if (!catalog[key as keyof NormalizedCatalog]) return null;
+            
             return (
-              <div key={key}>
-                <div className={styles.titleContainer}>
-                    <img className={styles.categoryIcon} src={PopularIcon} alt="CatalogIcon" />
-                  <h2 className={styles.titleCategory}>{titles[key]}</h2>
-                
+              <section 
+                key={key} 
+                className={styles.categorySection}
+              >
+                <div className={styles.categoryHeader}>
+                  <div className={styles.iconWrapper}>
+                    <img className={styles.categoryIcon} src={PopularIcon} alt={`${key} icon`} />
+                  </div>
+                  <h2 className={styles.categoryTitle}>{categoryTitles[key]}</h2>
                 </div>
+                
                 <MovieCardList
                   movies={catalog[key as keyof NormalizedCatalog]}
                 />
-              </div>
+              </section>
             );
           })}
-        </>
+        </div>
       )}
     </main>
   );

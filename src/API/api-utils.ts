@@ -62,7 +62,7 @@ function transformMovieData(data: ApiMovieData): MovieData {
       imdb: data.votes.imdb,
     },
     externalId: {
-      imdb: data.externalId.imdb,
+      imdb: data.externalId?.imdb,
     },
     genres: data.genres.map((genre) => ({ name: genre.name })),
     countries: data.countries.map((country) => ({ name: country.name })),
@@ -254,12 +254,15 @@ const getMovieByID = async (movieID: string): Promise<MovieData> => {
   }
 };
 
-const getPopularMovies = async (type: "films" | "series"): Promise<MovieCardData[]> => {
+const getPopularMovies = async (type: "films" | "series" | "animation"): Promise<MovieCardData[]> => {
   try {
     const response: AxiosResponse = await axios.get(
       endpoints.getPopularMovies(type)
     );
     const data = response.data.data;
+    if(type === 'animation'){
+      return data.films.map(transformToMovieCard);
+    }
     if (!Array.isArray(data)) {
       throw new Error("Invalid response format");
     }

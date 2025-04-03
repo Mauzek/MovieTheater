@@ -6,10 +6,10 @@ import { MovieCardList, Preloader } from "../../components";
 import styles from "./Popular.module.css";
 
 interface PopularProps {
-  film: boolean;
+  type: "films" | "series" | "animation";
 }
 
-const Popular: FC<PopularProps> = ({ film }) => {
+const Popular: FC<PopularProps> = ({ type }) => {
   const [movies, setMovies] = useState<MovieCardData[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -24,10 +24,24 @@ const Popular: FC<PopularProps> = ({ film }) => {
       // const films = await getMoviesByGenre(genres[1].slug, 1);
       // console.log(films);
       try {
-        const popular = film
-          ? await getPopularMovies("films")
-          : await getPopularMovies("series");
-        setMovies(popular);
+        let response: MovieCardData[];
+        switch (type) {
+          case "films":
+            response = await getPopularMovies(type);
+            setMovies(response);
+            break;
+          case "series":
+            response = await getPopularMovies(type);
+            setMovies(response);
+            break;
+          case "animation":
+            response = await getPopularMovies(type);
+            setMovies(response);
+            break;
+          default:
+            break;
+        }
+    
       } catch (error) {
         setError("Не удалось загрузить популярные данные.");
         console.error(error);
@@ -37,7 +51,7 @@ const Popular: FC<PopularProps> = ({ film }) => {
     };
 
     fetchPopular();
-  }, [film]);
+  }, [type]);
 
   const handleFilmClick = () => {
     navigate("/popular/movies");
@@ -47,28 +61,40 @@ const Popular: FC<PopularProps> = ({ film }) => {
     navigate("/popular/series");
   };
 
+  const handleCartoonClick = () => {
+    navigate("/popular/cartoons");
+  };
+
   return (
     <main>
       <div className={styles.pageHeaderContainer}>
 
         <nav
           className={`${styles.btnContainer} ${
-            !film ? styles.seriesActive : ""
+            type === 'series' ? styles.seriesActive : ""
           }`}
         >
           <button
-            className={`${styles.button} ${film ? styles.activeButton : ""}`}
+            className={`${styles.button} ${type === 'films' ? styles.activeButton : ""}`}
             onClick={handleFilmClick}
           >
             ФИЛЬМЫ
           </button>
           <button
-            className={`${styles.button} ${!film ? styles.activeButton : ""} ${
+            className={`${styles.button} ${type === 'series' ? styles.activeButton : ""} ${
               styles.seriesActive
             }`}
             onClick={handleSeriesClick}
           >
             СЕРИАЛЫ
+          </button>
+          <button
+            className={`${styles.button} ${type === 'animation' ? styles.activeButton : ""} ${
+              styles.seriesActive
+            }`}
+            onClick={handleCartoonClick}
+          >
+            МУЛЬТФИЛЬМЫ
           </button>
         </nav>
       </div>

@@ -127,17 +127,20 @@
 }
 
 .highRating {
-  background: linear-gradient(135deg, #00c853, #009624);
+  background: linear-gradient(135deg, #00c853a1, #009624a1);
+  border: 1px solid #009624;
   box-shadow: 0 0 15px rgba(0, 200, 83, 0.6);
 }
 
 .mediumRating {
-  background: linear-gradient(135deg, #ffbb00, #c79100);
+  background: linear-gradient(135deg, #ffbb00a1, #c79100a1);
+  border: 1px solid #c79100;
   box-shadow: 0 0 15px rgba(255, 187, 0, 0.6);
 }
 
 .lowRating {
-  background: linear-gradient(135deg, #ff5252, #c50e29);
+  background: linear-gradient(135deg, #ff5252a1, #c50e29a1);
+  border: 1px solid #c50e29;
   box-shadow: 0 0 15px rgba(255, 82, 82, 0.6);
 }
 

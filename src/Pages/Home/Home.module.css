@@ -1,0 +1,243 @@
+.mainContainer {
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px 15px;
+}
+
+.catalogSections {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.categorySection {
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Film section styling */
+.categorySection:nth-child(1) {
+    background: linear-gradient(to bottom, rgba(10, 15, 30, 0.6), rgba(20, 30, 50, 0.4));
+}
+
+.categorySection:nth-child(1) .iconWrapper {
+    background: linear-gradient(135deg, #06d6a0, #1a759f);
+    box-shadow: 0 4px 10px rgba(6, 214, 160, 0.3);
+}
+
+.categorySection:nth-child(1) .categoryTitle::after {
+    background: linear-gradient(90deg, #06d6a0, #1a759f);
+}
+
+/* Series section styling */
+.categorySection:nth-child(2) {
+    background: linear-gradient(to bottom, rgba(30, 15, 30, 0.6), rgba(50, 20, 50, 0.4));
+}
+
+.categorySection:nth-child(2) .iconWrapper {
+    background: linear-gradient(135deg, #ef476f, #c9184a);
+    box-shadow: 0 4px 10px rgba(239, 71, 111, 0.3);
+}
+
+.categorySection:nth-child(2) .categoryTitle::after {
+    background: linear-gradient(90deg, #ef476f, #c9184a);
+}
+
+/* Animation section styling */
+.categorySection:nth-child(3) {
+    background: linear-gradient(to bottom, rgba(30, 29, 15, 0.6), rgba(50, 50, 30, 0.6));
+}
+
+.categorySection:nth-child(3) .iconWrapper {
+    background: linear-gradient(135deg, #ffd166, #e29e21);
+    box-shadow: 0 4px 10px rgba(255, 209, 102, 0.3);
+}
+
+.categorySection:nth-child(3) .categoryTitle::after {
+    background: linear-gradient(90deg, #ffd166, #e29e21);
+}
+
+.categoryHeader {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.iconWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.categoryIcon {
+    width: 28px;
+    height: 28px;
+    filter: brightness(0) invert(1);
+}
+
+.categoryTitle {
+    font-size: 2.2em;
+    font-weight: 600;
+    color: #fff;
+    margin: 0;
+    position: relative;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.categoryTitle::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 100px;
+    height: 3px;
+    border-radius: 3px;
+}
+
+.errorMessage {
+    text-align: center;
+    color: #ff6b6b;
+    font-size: 1.2em;
+    margin: 40px 0;
+    padding: 20px;
+    background: rgba(255, 107, 107, 0.1);
+    border-radius: 8px;
+    border-left: 4px solid #ff6b6b;
+}
+
+/* Responsive styles */
+@media screen and (min-width: 2560px) {
+    .mainContainer {
+        max-width: 2000px;
+        padding: 30px 20px;
+    }
+
+    .catalogSections {
+        gap: 60px;
+    }
+
+    .categoryTitle {
+        font-size: 3em;
+    }
+
+    .iconWrapper {
+        width: 70px;
+        height: 70px;
+    }
+
+    .categoryIcon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .categoryTitle::after {
+        width: 150px;
+        height: 4px;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .mainContainer {
+        max-width: 900px;
+    }
+
+    .categoryTitle {
+        font-size: 2em;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .mainContainer {
+        max-width: 700px;
+    }
+
+    .categorySection {
+        padding: 15px;
+    }
+
+    .iconWrapper {
+        width: 45px;
+        height: 45px;
+    }
+
+    .categoryIcon {
+        width: 25px;
+        height: 25px;
+    }
+
+    .categoryTitle {
+        font-size: 1.8em;
+    }
+
+    .categoryTitle::after {
+        width: 80px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .mainContainer {
+        padding: 15px 10px;
+    }
+
+    .catalogSections {
+        gap: 30px;
+    }
+
+    .categorySection {
+        padding: 12px;
+    }
+
+    .iconWrapper {
+        width: 40px;
+        height: 40px;
+        margin-right: 10px;
+    }
+
+    .categoryIcon {
+        width: 22px;
+        height: 22px;
+    }
+
+    .categoryTitle {
+        font-size: 1.6em;
+    }
+
+    .categoryTitle::after {
+        width: 60px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .catalogSections {
+        gap: 20px;
+    }
+
+    .categorySection {
+        padding: 10px;
+    }
+
+    .iconWrapper {
+        width: 36px;
+        height: 36px;
+    }
+
+    .categoryIcon {
+        width: 20px;
+        height: 20px;
+    }
+
+    .categoryTitle {
+        font-size: 1.4em;
+    }
+
+    .categoryTitle::after {
+        width: 50px;
+        height: 2px;
+    }
+}

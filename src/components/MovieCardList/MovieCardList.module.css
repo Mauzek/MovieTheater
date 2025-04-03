@@ -68,6 +68,11 @@
 }
 
 @media screen and (max-width: 768px) {
+  .moviesContainer{
+    justify-content: center;
+    gap: 20px;
+  }
+
   .cardList {
     max-width: 100%;
     padding: 0 10px;
